@@ -196,3 +196,19 @@
 <rect width="1280" height="720" filter="url(#grain)" opacity="0.10"
       style="mix-blend-mode:overlay"/>                                          <!-- 颗粒最上层 -->
 ```
+
+## 15. 印刷/摄影隐喻组件（design-system §1.3b，AJ 分析实证）
+
+```html
+<!-- Vignette 暗角：盖最上层，突出中心（章节选择页实证） -->
+<div style="position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 130px rgba(31,33,36,.16)"></div>
+
+<!-- 相片白边卡：图片元素加粗白边+微倾，"夹在细绳上的打印照片" -->
+<figure style="background:#fff;padding:10px 10px 14px;box-shadow:0 4px 14px rgba(0,0,0,.18);transform:rotate(-1.2deg)">
+  <img src="kv.png" style="display:block">
+</figure>
+
+<!-- 尘埃粒子：呼吸感来源，响应鼠标拂开（animation.md §3c，canvas 实现） -->
+<!-- 参考实现：example/demo_animated.html 的 motes 循环：26 颗、r 0.8~2.6、
+     上飘 v 0.0001~0.0004、鼠标 95px 半径内拂开、透明度 0.1~0.26 呼吸闪烁 -->
+```

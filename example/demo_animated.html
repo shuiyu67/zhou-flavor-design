@@ -2,112 +2,106 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>舟味设计 · 动效演示 v2（同一画布）</title>
+<title>舟味设计 · 动效演示 v3（同一画布 · 浅色印刷感）</title>
 <style>
   :root {
-    color-scheme: dark;
+    color-scheme: light;
     --ez: cubic-bezier(0.25, 0.1, 0.25, 1);   /* animation.md §4 全局唯一缓动 */
-    --d-micro: 200ms; --d-panel: 350ms; --d-layout: 500ms; --d-cam: 800ms;
-    --cyan:#2FA6DE; --red:#E14A4A; --yellow:#F2C14E;
-    --ink:#F4F6F8; --gray:#8A93A6; --line:#3A4458;
+    --d-panel: 350ms; --d-layout: 500ms; --d-cam: 800ms;
+    --cyan:#2FA6DE; --red:#E14A4A;
+    --ink:#1F2124; --gray:#7A7F86; --line:#C9CBC4; --hair:#D8DAD3;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#0B0C0F; font-family:'Noto Sans SC','Microsoft YaHei',sans-serif; color:var(--ink);
+  body { background:#E7E8E3; font-family:'Noto Sans SC','Microsoft YaHei',sans-serif; color:var(--ink);
          display:flex; flex-direction:column; align-items:center; padding:24px 3vw 60px; min-height:100vh; }
   h1 { font-size:20px; letter-spacing:6px; font-weight:900; }
   h1 span { color:var(--cyan); }
-  .hint { font-size:12px; color:#7A8088; letter-spacing:2px; margin:6px 0 14px; }
+  .hint { font-size:12px; color:#8A8F92; letter-spacing:2px; margin:6px 0 14px; }
   #stage { position:relative; width:min(1280px,94vw); aspect-ratio:16/9; overflow:hidden;
-           background:#171B26; border:1px solid #262A32; }
+           background:#F4F5F2; border:1px solid var(--hair); }
+  /* 印刷感：单一细线内框（非 HUD 括号） */
+  #frame { position:absolute; inset:16px; border:1px solid var(--hair); pointer-events:none; }
 
-  /* ===== 分层（视差层，animation.md §3） ===== */
   .layer { position:absolute; inset:0; will-change:transform; }
   #L0 { transition:transform var(--d-cam) var(--ez); }
-  #cam.push { transform:scale(1.035) translate(-8px,-4px); }   /* 镜头联动 */
+  #cam.push { transform:scale(1.03) translate(-6px,-3px); }   /* 镜头联动，极轻 */
 
-  .panel { transition:transform var(--d-panel) var(--ez), opacity var(--d-panel) var(--eg, var(--ez)); }
-  .off-r  { transform:translateX(46px); opacity:0; }
-  .off-l  { transform:translateX(-46px); opacity:0; }
+  .panel { transition:transform var(--d-panel) var(--ez), opacity var(--d-panel) var(--ez); }
+  .off-r  { transform:translateX(40px); opacity:0; }
 
   /* 横移淡入落位：一帧 2px overshoot（机械咬合） */
-  @keyframes seat { 0%{transform:translateX(46px);opacity:0} 80%{transform:translateX(-2px);opacity:1} 100%{transform:translateX(0);opacity:1} }
+  @keyframes seat { 0%{transform:translateX(40px);opacity:0} 80%{transform:translateX(-2px);opacity:1} 100%{transform:translateX(0);opacity:1} }
   .seat { animation:seat var(--d-panel) var(--ez) both; }
 
-  /* 数值向右展开（§2 行为 6）：width 0→auto + clip，不是淡入 */
+  /* 数值向右展开（§2 行为 6） */
   .expand { display:inline-block; overflow:hidden; white-space:nowrap; vertical-align:bottom;
             max-width:0; transition:max-width var(--d-panel) var(--ez); }
   .expand.open { max-width:260px; }
 
-  /* 毛玻璃覆盖（§2 行为 5）：模糊加深，关闭后原内容原地未动 */
+  /* 毛玻璃覆盖（§2 行为 5）：下层模糊但原地保留 */
   #rowsWrap { transition:filter var(--d-layout) var(--ez); }
-  #rowsWrap.blurred { filter:blur(7px); }
-  #veil { position:absolute; inset:0; background:rgba(13,16,24,0); transition:background var(--d-layout) var(--ez); pointer-events:none; }
-  #veil.on { background:rgba(13,16,24,0.42); }
-  #card { position:absolute; left:440px; top:150px; width:430px; background:#F4F5F6; color:#111318;
-          box-shadow:0 12px 30px rgba(0,0,0,.45); padding:26px 28px;
-          transform:translateY(26px) scale(.97); opacity:0;
+  #rowsWrap.blurred { filter:blur(6px); }
+  #veil { position:absolute; inset:0; background:rgba(240,240,236,0); transition:background var(--d-layout) var(--ez); pointer-events:none; }
+  #veil.on { background:rgba(240,240,236,0.45); }
+  /* Vignette 暗角（design-system §1.3b）：突出中心，印刷/摄影隐喻 */
+  #vig { position:absolute; inset:0; pointer-events:none; box-shadow: inset 0 0 130px rgba(31,33,36,.16); }
+  /* 尘埃粒子（animation.md §3c）：呼吸感来源，响应鼠标 */
+  #dust { position:absolute; inset:0; pointer-events:none; }
+  #card { position:absolute; left:460px; top:140px; width:420px; background:#FFFFFF; color:var(--ink);
+          box-shadow:0 14px 34px rgba(40,42,38,.16); padding:26px 28px;
+          transform:translateY(24px) scale(.97); opacity:0;
           transition:transform var(--d-panel) var(--ez), opacity var(--d-panel) var(--ez); }
   #card.on { transform:translateY(0) scale(1); opacity:1; }
 
-  /* 动效层专属符号：黄色细线扫描（仅换步时出现，animation.md §5） */
-  #scan { position:absolute; left:0; top:0; width:100%; height:2px; background:var(--yellow);
-          opacity:0; transform:translateY(0); pointer-events:none; }
-  #scan.go { animation:scan .5s var(--ez); }
-  @keyframes scan { 0%{opacity:.9; transform:translateY(0)} 100%{opacity:0; transform:translateY(716px)} }
-
-  /* ===== 静态内容 ===== */
-  .corner { position:absolute; width:26px; height:26px; border:1.5px solid #39445C; }
-  .corner.tl { left:20px; top:20px;  border-right:none; border-bottom:none; }
-  .corner.tr { right:20px; top:20px; border-left:none;  border-bottom:none; }
-  .corner.bl { left:20px; bottom:20px;  border-right:none; border-top:none; }
-  .corner.br { right:20px; bottom:20px; border-left:none;  border-top:none; }
-  .brand { position:absolute; left:56px; top:44px; font-size:13px; letter-spacing:4px; color:var(--gray); }
-  #title { position:absolute; left:150px; top:150px; }
+  .brand { position:absolute; left:56px; top:42px; font-size:13px; letter-spacing:4px; color:var(--gray); }
+  #title { position:absolute; left:150px; top:148px; }
   #title .zh { font-size:78px; font-weight:900; letter-spacing:-4px; }
-  #title .orn { color:var(--cyan); }
+  .orn { display:inline-block; vertical-align:22px; }
+  .orn i { display:inline-block; background:var(--ink); }
+  .orn .bar { width:42px; height:2px; margin:0 8px; }
+  .orn .dia { width:9px; height:9px; transform:rotate(45deg); }
   #title .latin { font-size:22px; color:var(--cyan); letter-spacing:10px; margin-top:10px; }
-  #rows { position:absolute; left:150px; top:318px; width:560px; }
-  .row { display:flex; align-items:center; margin-bottom:26px; font-size:17px; }
+  #rows { position:absolute; left:150px; top:316px; width:560px; }
+  .row { display:flex; align-items:center; margin-bottom:25px; font-size:17px; }
   .row .lab { min-width:62px; height:28px; line-height:26px; text-align:center;
-              border:1px solid #54607A; color:#AEB6C6; font-size:15px; margin-right:16px; }
+              border:1px solid var(--line); color:var(--gray); font-size:15px; margin-right:16px; }
   .row .val { color:var(--ink); border-bottom:1px solid var(--line); flex:1; padding-bottom:6px; }
-  #bottom { position:absolute; left:0; right:0; bottom:0; height:128px; background:#10131B;
-            border-top:1px solid #2A3346; display:flex; align-items:center; padding:0 94px; gap:56px; }
+  #bottom { position:absolute; left:0; right:0; bottom:0; height:126px; background:#ECEDE8;
+            border-top:1px solid var(--hair); display:flex; align-items:center; padding:0 94px; gap:56px; }
+  .abi { display:flex; align-items:flex-start; }
+  .abi .ic { width:28px; height:28px; margin-right:12px; flex:none; }
   .abi .t { font-size:17px; font-weight:700; }
   .abi .d { font-size:13px; color:var(--gray); margin-top:6px; }
   .abi .d em { font-style:normal; color:var(--cyan); }
-  .abi .ic { width:30px; height:30px; margin-right:12px; flex:none; }
-  .abi { display:flex; align-items:flex-start; }
-  .quote { position:absolute; left:150px; top:522px; font-family:'Noto Serif SC','SimSun',serif;
+  .quote { position:absolute; left:150px; top:520px; font-family:'Noto Serif SC','SimSun',serif;
            font-style:italic; font-size:18px; color:var(--gray); }
-  /* 详情卡内容 */
-  #card h3 { display:inline-block; background:#111318; color:#FFF; font-size:18px; padding:7px 18px; }
-  #card .tag { float:right; background:#E3E5E8; color:#3A3E46; font-size:14px; padding:6px 14px; }
-  #card p { font-size:14px; color:#3A3E46; line-height:1.9; margin-top:18px; }
-  #card .lnk { display:inline-block; font-size:13px; color:#3A3E46; margin-top:16px;
+  #card h3 { display:inline-block; background:#1F2124; color:#FFF; font-size:18px; padding:7px 18px; }
+  #card .tag { float:right; background:#EDEEE9; color:var(--ink); font-size:14px; padding:6px 14px; }
+  #card p { font-size:14px; color:#4A4E52; line-height:1.9; margin-top:18px; }
+  #card .lnk { display:inline-block; font-size:13px; color:var(--ink); margin-top:16px;
                border-bottom:3px solid var(--red); padding-bottom:3px; }
-  #card .meter { margin-top:22px; height:5px; background:#EDEFF1; position:relative; }
-  #card .meter i { position:absolute; left:0; top:0; bottom:0; width:100%; background:var(--red); transition:width var(--d-layout) var(--ez); }
+  #card .meter { margin-top:22px; height:5px; background:#EDEEE9; position:relative; }
+  #card .meter i { position:absolute; left:0; top:0; bottom:0; width:0; background:var(--red); transition:width var(--d-layout) var(--ez); }
 
-  #ui { margin-top:12px; font-size:12px; color:#7A8088; letter-spacing:2px; }
-  #ui b { color:#B8BEC6; font-weight:700; }
+  #ui { margin-top:12px; font-size:12px; color:#8A8F92; letter-spacing:2px; }
+  #ui b { color:#4A4E52; font-weight:700; }
 </style>
 </head>
 <body>
-<h1>舟味设计 <span>动效演示 v2</span> · 同一画布</h1>
-<div class="hint">无整幕切换 · 六种标准行为：横移淡入 / 人物位移 / 背景不变 / 毛玻璃覆盖 / 数值展开 / 镜头联动 · 移动鼠标看视差</div>
+<h1>舟味设计 <span>动效演示 v3</span> · 同一画布 · 浅色印刷感</h1>
+<div class="hint">v3.1 浅色印刷感 · 新增：暗角 Vignette + 尘埃粒子（拂开试试） · 转场=同一画布局部位移 · 移动鼠标看视差</div>
 
 <div id="stage">
+  <canvas id="dust"></canvas>
   <div class="layer" id="L0">
-    <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+    <div id="frame"></div>
     <div class="brand">ZHOU-FLAVOR-DESIGN · MOTION REFERENCE</div>
 
-    <!-- 信息层：标题 + 信息行 + 引言 + 底部能力带（背景不变，只有这些层进出） -->
     <div class="layer" data-px="1.0">
       <div id="title" class="panel off-r">
-        <span class="orn">—</span><span class="orn">◆</span>
+        <span class="orn"><i class="bar"></i></span><span class="orn"><i class="dia"></i></span>
         <span class="zh">舟味设计</span>
-        <span class="orn">◆</span><span class="orn">—</span>
+        <span class="orn"><i class="dia"></i></span><span class="orn"><i class="bar"></i></span>
         <div class="latin">ZHOU FLAVOR DESIGN</div>
       </div>
     </div>
@@ -135,86 +129,98 @@
   </div>
 
   <div id="veil"></div>
+  <div id="vig"></div>
 
-  <!-- 毛玻璃详情卡（行为 5）：关闭后下层原样还在 -->
   <div id="card">
     <h3>防 AI 味</h3><span class="tag">自检 EX</span>
-    <p>五条测试：克制 / 信息 / 界面 / 景深 / 字体。<br>任何一条不过就回改，不许带病交付。</p>
+    <p>六条测试：克制 / 信息 / 界面 / 景深 / 字体 / 去科技风。<br>任何一条不过就回改，不许带病交付。</p>
     <span class="lnk">self-check.md · 十点清单</span>
     <div class="meter"><i id="meter"></i></div>
   </div>
-
-  <div id="scan"></div>
 </div>
 
-<div id="ui">状态：<b id="stName">—</b> ｜ 点击画面：暂停/继续 ｜ 统一缓动 cubic-bezier(.25,.1,.25,1) · 200/350/500/800ms</div>
+<div id="ui">状态：<b id="stName">—</b> ｜ 点击画面：暂停/继续 ｜ 统一缓动 cubic-bezier(.25,.1,.25,1) · 350/500/800ms</div>
 
 <script>
 const $=s=>document.querySelector(s);
 const stage=$('#stage'), cam=$('#L0'), rowsWrap=$('#rowsWrap'), veil=$('#veil'),
-      card=$('#card'), scan=$('#scan'), meter=$('#meter'), exp=$('#expChip'),
+      card=$('#card'), meter=$('#meter'), exp=$('#expChip'),
       title=$('#title'), rows=[...document.querySelectorAll('#rows .row')],
       quote=$('.quote'), abis=[...document.querySelectorAll('#bottom .abi')],
-      stName=$('#stName');
+      abi3=$('#abi3'), stName=$('#stName');
 
 let paused=false, step=0, t=null;
-const HOLD=[2600,3000,3200,2600,3200,2400]; // 每态停留
+const HOLD=[2600,3000,3200,2600,3200,2400];
 const NAMES=['S0 标题入(横移淡入)','S1 信息行(逐条淡入+人物位移)','S2 毛玻璃覆盖(下层原地保留)',
              'S3 数值展开(向右,width 0→auto)','S4 镜头联动+前景替换(背景不变)','S5 回收(位移离场,不换幕)'];
 
-function scanOnce(){ scan.classList.remove('go'); void scan.offsetWidth; scan.classList.add('go'); }
-
 const steps=[
-  ()=>{ // S0 标题横移淡入
-    title.classList.remove('off-r'); title.classList.add('seat');
-    abis.forEach(a=>a.classList.add('off-r')); quote.classList.add('off-r');
-  },
-  ()=>{ // S1 信息行逐条 + 标题人物位移上挪
+  ()=>{ title.classList.remove('off-r'); title.classList.add('seat');
+        abis.forEach(a=>a.classList.add('off-r')); quote.classList.add('off-r');
+        title.style.transform=''; },
+  ()=>{ // 人物位移：标题上挪让位
     title.style.transition='transform var(--d-layout) var(--ez)';
     title.style.transform='translateY(-26px) scale(.92)'; title.style.transformOrigin='left top';
-    rows.forEach(r=>{ r.classList.remove('off-r'); });
+    rows.forEach(r=>r.classList.remove('off-r'));
     quote.classList.remove('off-r');
     abis.forEach((a,i)=>setTimeout(()=>a.classList.remove('off-r'), i*150));
   },
-  ()=>{ // S2 毛玻璃覆盖：下层模糊但原地保留；落位带顿挫
-    rowsWrap.classList.add('blurred'); veil.classList.add('on');
-    card.style.transition='transform var(--d-panel) cubic-bezier(.34,1.4,.64,1), opacity var(--d-panel) var(--ez)';
-    card.classList.add('on'); meter.style.width='100%';
-  },
-  ()=>{ // S3 关卡回收 → 数值向右展开
-    rowsWrap.classList.remove('blurred'); veil.classList.remove('on');
+  ()=>{ rowsWrap.classList.add('blurred'); veil.classList.add('on');
+    card.style.transition='transform var(--d-panel) cubic-bezier(.34,1.35,.64,1), opacity var(--d-panel) var(--ez)';
+    card.classList.add('on'); meter.style.width='100%'; },
+  ()=>{ rowsWrap.classList.remove('blurred'); veil.classList.remove('on');
     card.classList.remove('on'); meter.style.width='0%';
-    setTimeout(()=>exp.classList.add('open'), 250);
-  },
-  ()=>{ // S4 镜头联动 + 前景替换（背景不变）
-    cam.classList.add('push'); scanOnce();
+    setTimeout(()=>exp.classList.add('open'), 250); },
+  ()=>{ cam.classList.add('push');
     quote.classList.add('off-r');
     setTimeout(()=>{ abi3.querySelector('.t').textContent='空间化';
-      abi3.querySelector('.d').innerHTML='视差·画内界面，<em>打破边界</em>'; }, 260);
-  },
-  ()=>{ // S5 回收：全部位移离场，标题归位——回到 S0，从未换幕
-    cam.classList.remove('push'); exp.classList.remove('open');
+      abi3.querySelector('.d').innerHTML='视差·画内界面，<em>打破边界</em>'; }, 260); },
+  ()=>{ cam.classList.remove('push'); exp.classList.remove('open');
     rows.forEach(r=>r.classList.add('off-r')); abis.forEach(a=>a.classList.add('off-r'));
-    setTimeout(()=>{ title.style.transform=''; title.classList.add('off-r'); scanOnce(); }, 420);
-  },
+    setTimeout(()=>{ title.style.transform=''; title.classList.add('off-r'); }, 420); },
 ];
 
-function run(i){ step=i; stName.textContent=NAMES[i]; scanOnce(); steps[i]();
+function run(i){ step=i; stName.textContent=NAMES[i]; steps[i]();
   if(!paused) t=setTimeout(()=>run((i+1)%steps.length), HOLD[i]); }
 
-/* 鼠标视差（§3：分层 0.5% / 1% / 2%） */
+/* ===== 尘埃粒子（呼吸感，响应鼠标——官方文章自己提的改进方向） ===== */
+const cvs=$('#dust'), ctx=cvs.getContext('2d');
+let W=0,H=0,mx=-999,my=-999;
+const motes=Array.from({length:26},()=>({
+  x:Math.random(), y:Math.random(),
+  r:0.8+Math.random()*1.8, v:0.00012+Math.random()*0.00028,
+  dx:(Math.random()-.5)*0.00006, a:0.10+Math.random()*0.16, ph:Math.random()*6.28
+}));
+function sizeCvs(){ W=cvs.width=stage.clientWidth; H=cvs.height=stage.clientHeight; }
+sizeCvs(); addEventListener('resize',sizeCvs);
+(function loop(ts){
+  ctx.clearRect(0,0,W,H);
+  for(const m of motes){
+    m.x+=m.dx; m.y-=m.v;
+    if(m.y<-0.02){ m.y=1.02; m.x=Math.random(); }
+    let px=m.x*W, py=m.y*H;
+    const dx=px-mx, dy=py-my, d2=dx*dx+dy*dy;
+    if(d2<9000){ const f=(1-d2/9000)*16; px+=dx/Math.sqrt(d2+1)*f; py+=dy/Math.sqrt(d2+1)*f; } // 鼠标拂开尘埃
+    ctx.globalAlpha=m.a*(0.7+0.3*Math.sin(ts/900+m.ph));
+    ctx.fillStyle='#8A8F92';
+    ctx.beginPath(); ctx.arc(px,py,m.r,0,6.283); ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  requestAnimationFrame(loop);
+})(0);
+
 stage.addEventListener('mousemove',e=>{
   const r=stage.getBoundingClientRect();
-  const mx=(e.clientX-r.left)/r.width-.5, my=(e.clientY-r.top)/r.height-.5;
+  mx=e.clientX-r.left; my=e.clientY-r.top;
+  const nx=mx/r.width-.5, ny=my/r.height-.5;
   document.querySelectorAll('[data-px]').forEach(l=>{
-    const k=parseFloat(l.dataset.px); l.style.transform=`translate(${-mx*8*k}px,${-my*5*k}px)`;
+    const k=parseFloat(l.dataset.px); l.style.transform=`translate(${-mx*7*k}px,${-my*4*k}px)`;
   });
 });
-stage.addEventListener('mouseleave',()=>document.querySelectorAll('[data-px]').forEach(l=>l.style.transform=''));
+stage.addEventListener('mouseleave',()=>{mx=-999;my=-999;document.querySelectorAll('[data-px]').forEach(l=>l.style.transform='');});
 stage.addEventListener('click',()=>{ paused=!paused;
   if(paused){ clearTimeout(t); } else { t=setTimeout(()=>run((step+1)%steps.length), 800); } });
 
-/* 自检：动效时长只用全局四档 —— 由 CSS 变量保证，此处仅运行 */
 run(0);
 </script>
 </body>
