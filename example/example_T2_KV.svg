@@ -2,6 +2,7 @@
   <defs>
     <pattern id="dotsT2" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.8" fill="#F2C14E"/></pattern>
     <linearGradient id="texT2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#141B2B"/><stop offset="1" stop-color="#0E1420"/></linearGradient>
+    <clipPath id="xclipT2"><polygon points="140,-60 320,-60 660,430 580,510"/><polygon points="660,-60 480,-60 140,430 220,510"/></clipPath>
   </defs>
   <!-- 左 60% 主视觉 -->
   <rect x="0" y="0" width="800" height="720" fill="url(#texT2)"/>
@@ -13,8 +14,11 @@
   <rect x="0" y="500" width="800" height="52" fill="#2FA6DE" opacity="0.30"/>
   <rect x="0" y="546" width="800" height="20" fill="#2FA6DE" opacity="0.16"/>
   <rect x="60" y="170" width="130" height="90" fill="url(#dotsT2)" opacity="0.85"/>
-  <!-- 粗黑标语 -->
+  <!-- 粗黑标语（与白色几何交叠处反色为深，clipPath 实现） -->
   <text x="80" y="452" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="56" font-weight="900" fill="#F4F6F8" letter-spacing="-2">克制，才有亮色。</text>
+  <g clip-path="url(#xclipT2)">
+    <text x="80" y="452" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="56" font-weight="900" fill="#0E1420" letter-spacing="-2">克制，才有亮色。</text>
+  </g>
   <!-- 三连 line icon：五判据 -->
   <g stroke="#F4F6F8" stroke-width="3" fill="none">
     <path d="M96,650 L96,686 M78,668 L114,668 M84,656 L108,680 M108,656 L84,680"/>

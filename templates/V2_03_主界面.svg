@@ -31,8 +31,8 @@
   <g filter="url(#sh3)">
     <rect x="700" y="90" width="300" height="150" fill="#FFFFFF"/>
     <text x="720" y="200" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="110" font-weight="900" fill="#111318" letter-spacing="-6">2.5</text>
-    <text x="920" y="140" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="22" font-weight="700" fill="#111318">认知模型</text>
-    <text x="920" y="168" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#8A8F98">SPARK · 当前版本</text>
+    <text x="895" y="140" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="19" font-weight="700" fill="#111318">认知模型</text>
+    <text x="895" y="167" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="11" fill="#8A8F98">SPARK · 当前版本</text>
   </g>
   <!-- two white cards -->
   <g filter="url(#sh3)">
