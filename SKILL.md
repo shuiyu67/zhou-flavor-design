@@ -38,7 +38,8 @@ description: >
 - `templates/V2_01_简历卡.svg` ~ `V2_06_专题页.svg` — 六大布局模板实例（X2.5 皮肤示范）
 - `example/default_example.svg` + `.html` — 默认示例：用本 skill 介绍 skill 自身（T1 简历卡，HTML 页含逐区域组件标注）
 - `example/example_T2_KV.svg` ~ `example_T6_专题.svg` — 其余五模板的 skill 自介示例（与 T1 合成全套六风格）
-- `example/demo_animated.html` — 动效演示片：六幕自动循环，实现 animation.md 全部铁律（横移淡入/数字滚动/路线生长/白场 wipe/呼吸漂移），可作动效起稿骨架
+- `example/demo_deck.html` — **分页演示（类 PPT）**：封面→六模板逐页→六动效行为逐页（进页自动演示、可重播）→自检收尾；←/→ 翻页
+- `example/demo_animated.html` — 连续版同一画布参考实现（与分页版互补）
 
 ## 溯源
 规范从知乎《从ta的视角看UI#1——明日方舟美术设计分析》（作者 纳兹）正文 + 26 张官方截图实证提炼；v1 海报风方案被用户全毙后校准（教训沉淀在 design-system.md §4 与 self-check.md）。

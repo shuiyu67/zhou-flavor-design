@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>舟味设计 · 分页演示（类 PPT，逐页展示）</title>
+<style>
+  :root {
+    color-scheme: light;
+    --ez: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --cyan:#2FA6DE; --red:#E14A4A; --ink:#1F2124; --gray:#7A7F86; --hair:#D8DAD3;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#2B2D31; font-family:'Noto Sans SC','Microsoft YaHei',sans-serif; color:var(--ink);
+         display:flex; flex-direction:column; align-items:center; min-height:100vh; padding:20px 3vw 16px; }
+  .hint { color:#B9BCC0; font-size:12px; letter-spacing:2px; margin-bottom:10px; }
+  #stage { position:relative; width:min(1280px,94vw); aspect-ratio:16/9; background:#F4F5F2;
+           overflow:hidden; border:1px solid #1A1B1E; box-shadow:0 18px 50px rgba(0,0,0,.5); }
+  #vig { position:absolute; inset:0; pointer-events:none; box-shadow:inset 0 0 120px rgba(31,33,36,.14); z-index:5; }
+
+  .slide { position:absolute; inset:0; display:none; background:#F4F5F2; }
+  .slide.active { display:block; }
+  @keyframes slideIn { from { opacity:0; transform:scale(.985); } to { opacity:1; transform:scale(1); } }
+  .slide.active.anim { animation:slideIn .4s var(--ez) both; }
+
+  /* ===== 封面/结尾 ===== */
+  .cover { display:flex; flex-direction:column; justify-content:center; padding-left:120px; height:100%; }
+  .cover .zh { font-size:88px; font-weight:900; letter-spacing:-4px; }
+  .cover .latin { font-size:24px; color:var(--cyan); letter-spacing:10px; margin-top:12px; }
+  .cover .sub { margin-top:34px; font-size:15px; color:var(--gray); letter-spacing:2px; line-height:2; }
+  .orn { display:inline-block; vertical-align:30px; }
+  .orn i { display:inline-block; background:var(--ink); }
+  .orn .bar { width:44px; height:2px; margin:0 10px; }
+  .orn .dia { width:10px; height:10px; transform:rotate(45deg); }
+  .brand { position:absolute; left:56px; top:40px; font-size:13px; letter-spacing:4px; color:var(--gray); }
+  .files { margin-top:26px; font-family:monospace; font-size:13px; color:#4A4E52; line-height:2.1; }
+
+  /* ===== 图片页（模板示例） ===== */
+  .imgslide img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .cap { position:absolute; left:0; right:0; bottom:0; z-index:6; display:flex; gap:14px; align-items:baseline;
+         background:rgba(244,245,242,.94); border-top:1px solid var(--hair); padding:12px 28px; font-size:13px; }
+  .cap b { font-size:16px; letter-spacing:2px; }
+  .cap span { color:var(--gray); }
+  .cap .tag { margin-left:auto; font-family:monospace; color:var(--cyan); }
+
+  /* ===== 行为演示页 ===== */
+  .demo { position:absolute; inset:0; padding:90px 110px; }
+  .demo h2 { font-size:30px; font-weight:900; letter-spacing:2px; margin-bottom:6px; }
+  .demo .en { font-size:13px; color:var(--cyan); letter-spacing:4px; margin-bottom:34px; }
+  .demo .desc { font-size:14px; color:var(--gray); line-height:2; max-width:760px; }
+  .mini { position:relative; margin-top:34px; height:270px; background:#ECEDE8; border:1px solid var(--hair);
+          overflow:hidden; transition:transform .8s var(--ez); }
+  .spec { margin-top:18px; font-family:monospace; font-size:12px; color:#4A4E52; letter-spacing:1px; }
+
+  /* 横移淡入 */
+  @keyframes seat { 0%{transform:translateX(40px);opacity:0} 80%{transform:translateX(-2px);opacity:1} 100%{transform:translateX(0);opacity:1} }
+  .r1 { margin:34px 40px 0; display:flex; align-items:center; font-size:17px; }
+  .r1 .lab { min-width:62px; height:28px; line-height:26px; text-align:center; border:1px solid var(--line,#C9CBC4);
+             color:var(--gray); font-size:15px; margin-right:16px; }
+  .r1 .val { flex:1; border-bottom:1px solid #C9CBC4; padding-bottom:6px; }
+  .run .seatA { animation:seat .35s var(--ez) both; }
+  .run .seatB { animation:seat .35s var(--ez) .18s both; }
+  .run .seatC { animation:seat .35s var(--ez) .36s both; }
+
+  /* 人物位移 */
+  #d2title { position:absolute; left:44px; top:36px; font-size:44px; font-weight:900; letter-spacing:-2px;
+             transition:transform .5s var(--ez); transform-origin:left top; }
+  #d2card { position:absolute; left:44px; top:110px; width:300px; background:#fff; box-shadow:0 8px 22px rgba(40,42,38,.15);
+            padding:16px 18px; font-size:13px; color:#4A4E52; line-height:1.8;
+            transform:translateX(40px); opacity:0; transition:all .35s var(--ez); }
+  .run #d2title { transform:translateY(-18px) scale(.8); }
+  .run #d2card  { transform:translateX(0); opacity:1; transition-delay:.15s; }
+
+  /* 毛玻璃覆盖 */
+  #d3bg { position:absolute; inset:0; padding:30px 40px; transition:filter .5s var(--ez); }
+  #d3bg .row { display:flex; align-items:center; margin-bottom:22px; font-size:16px; }
+  #d3bg .lab { min-width:58px; text-align:center; border:1px solid #C9CBC4; color:var(--gray); font-size:14px;
+               margin-right:14px; padding:3px 0; }
+  #d3bg .val { flex:1; border-bottom:1px solid #C9CBC4; padding-bottom:5px; }
+  .run #d3bg { filter:blur(5px); }
+  #d3veil { position:absolute; inset:0; background:rgba(240,240,236,0); transition:background .5s var(--ez); }
+  .run #d3veil { background:rgba(240,240,236,.45); }
+  #d3card { position:absolute; left:50%; top:50%; width:330px; transform:translate(-50%,-46%) scale(.96); opacity:0;
+            background:#fff; box-shadow:0 12px 30px rgba(40,42,38,.2); padding:20px 22px;
+            transition:transform .35s cubic-bezier(.34,1.35,.64,1), opacity .35s var(--ez); }
+  .run #d3card { transform:translate(-50%,-50%) scale(1); opacity:1; }
+  #d3card b { display:inline-block; background:#1F2124; color:#fff; font-size:15px; padding:5px 14px; }
+  #d3card p { font-size:13px; color:#4A4E52; margin-top:12px; line-height:1.8; }
+
+  /* 数值展开 */
+  #d4row { margin:44px 40px 0; font-size:18px; border-bottom:1px solid #C9CBC4; padding-bottom:10px; }
+  #d4row .exp { display:inline-block; overflow:hidden; white-space:nowrap; vertical-align:bottom;
+                max-width:0; color:var(--cyan); font-size:15px; transition:max-width .35s var(--ez); }
+  .run #d4row .exp { max-width:280px; }
+  #d4num { margin:30px 40px 0; font-size:64px; font-weight:900; letter-spacing:-3px; }
+  #d4num small { font-size:14px; font-weight:400; color:var(--gray); letter-spacing:0; margin-left:14px; }
+
+  /* 镜头联动 */
+  #d5inner { position:absolute; inset:0; padding:34px 44px; transition:transform .8s var(--ez); }
+  .run #d5inner { transform:scale(1.045) translate(-10px,-5px); }
+  #d5panel { position:absolute; right:44px; top:34px; width:240px; background:#2FA6DE; color:#fff;
+             padding:16px 18px; font-size:15px; font-weight:700; letter-spacing:1px;
+             transform:translateX(46px); opacity:0; transition:all .35s var(--ez) .25s; }
+  .run #d5panel { transform:translateX(0); opacity:1; }
+  #d5grid { display:flex; gap:14px; margin-top:22px; }
+  #d5grid i { width:74px; height:54px; background:#E0E2DC; border:1px solid var(--hair); }
+
+  /* 尘埃粒子 */
+  #d6c { position:absolute; inset:0; width:100%; height:100%; }
+  #d6hint { position:absolute; right:26px; bottom:16px; font-size:12px; color:var(--gray); letter-spacing:2px; }
+
+  /* ===== 控制条 ===== */
+  #bar { display:flex; align-items:center; gap:16px; margin-top:12px; color:#B9BCC0; font-size:12px; letter-spacing:2px; }
+  #bar button { background:#1F2124; border:1px solid #3A3D42; color:#C9CCD1; padding:6px 20px; cursor:pointer;
+                font-family:inherit; letter-spacing:2px; font-size:12px; }
+  #bar button:hover { border-color:var(--cyan); color:#fff; }
+  #dots { display:flex; gap:6px; }
+  #dots i { width:18px; height:3px; background:#4A4D52; cursor:pointer; }
+  #dots i.on { background:var(--cyan); }
+</style>
+</head>
+<body>
+<div class="hint">← / → 或 空格 翻页 · 行为页进页自动演示，点【重播】再看</div>
+<div id="stage">
+
+  <!-- 0 封面 -->
+  <section class="slide">
+    <div class="cover">
+      <div><span class="orn"><i class="bar"></i></span><span class="orn"><i class="dia"></i></span>
+        <span class="zh">舟味设计</span>
+        <span class="orn"><i class="dia"></i></span><span class="orn"><i class="bar"></i></span></div>
+      <div class="latin">ZHOU FLAVOR DESIGN</div>
+      <div class="sub">明日方舟实证设计系统 · 分页演示<br>第一部分：六大布局模板 ｜ 第二部分：六种动效行为</div>
+      <div class="files">design-system.md · components.md · tutorial.md · self-check.md · animation.md</div>
+    </div>
+    <div class="brand">ZHOU-FLAVOR-DESIGN</div>
+  </section>
+
+  <!-- 1~6 模板页 -->
+  <section class="slide">
+    <img class="imgslide" src="default_example.svg" alt="T1">
+    <div class="cap"><b>T1 简历卡</b><span>参考：海沫干员介绍 · 信息行/星级chip/三栏能力区</span><span class="tag">用途：产品/人物/版本简介页</span></div>
+  </section>
+  <section class="slide">
+    <img class="imgslide" src="example_T2_KV.svg" alt="T2">
+    <div class="cap"><b>T2 品牌KV</b><span>参考：寒武纪 NO FEAR OF / EPOQUE · 巨型几何+右侧白panel</span><span class="tag">用途：标题定调、品牌宣言</span></div>
+  </section>
+  <section class="slide">
+    <img class="imgslide" src="example_T3_主界面.svg" alt="T3">
+    <div class="cap"><b>T3 主界面</b><span>参考：游戏主界面浮窗系统 · 大数字panel+青色操作条</span><span class="tag">用途：能力总览、dashboard</span></div>
+  </section>
+  <section class="slide">
+    <img class="imgslide" src="example_T4_地图.svg" alt="T4">
+    <div class="cap"><b>T4 关卡地图</b><span>参考：WD-3 纸面等高线图 · OPERATION节点+双描边路线</span><span class="tag">用途：章节路线、目录</span></div>
+  </section>
+  <section class="slide">
+    <img class="imgslide" src="example_T5_弹窗.svg" alt="T5">
+    <div class="cap"><b>T5 毛玻璃弹窗</b><span>参考：精炼溶剂详情 · 强模糊背景聚焦白卡</span><span class="tag">用途：单项能力聚焦</span></div>
+  </section>
+  <section class="slide">
+    <img class="imgslide" src="example_T6_专题.svg" alt="T6">
+    <div class="cap"><b>T6 专题页</b><span>参考：主题曲破碎日冕 · 全灰阶+白框画卡</span><span class="tag">用途：版本专题、收尾</span></div>
+  </section>
+
+  <!-- 7~12 行为页 -->
+  <section class="slide"><div class="demo">
+    <h2>行为一 · 横移淡入</h2><div class="en">SLIDE-IN FADE</div>
+    <div class="desc">新信息块自右 20~40px 滑入并淡入。对应游戏内"升级"动画。信息出现一律用这个，不用上浮。</div>
+    <div class="mini" data-run>
+      <div class="r1 seatA"><span class="lab">来源</span><span class="val">官方截图 ×26 逐张实证</span></div>
+      <div class="r1 seatB"><span class="lab">思维</span><span class="val">信息设计 · 界面思维</span></div>
+      <div class="r1 seatC"><span class="lab">模板</span><span class="val">6 大布局 · 简介到收尾</span></div>
+    </div>
+    <div class="spec">350ms · cubic-bezier(.25,.1,.25,1) · 一帧 2px overshoot（机械咬合）</div>
+  </div></section>
+
+  <section class="slide"><div class="demo">
+    <h2>行为二 · 人物位移</h2><div class="en">SUBJECT DISPLACEMENT</div>
+    <div class="desc">主体元素在画布内挪位腾出空间，新信息原地填充——对应"升阶/合卡/查看背景故事"。换布局不换幕。</div>
+    <div class="mini" data-run>
+      <div id="d2title">舟味设计</div>
+      <div id="d2card">「先列信息，再想画面。」<br>标题挪位让出的空间，由内容卡原地补上——观众始终在同一个 canvas 里。</div>
+    </div>
+    <div class="spec">500ms（布局重组档）· 位移走直线，模拟机械导轨</div>
+  </div></section>
+
+  <section class="slide"><div class="demo">
+    <h2>行为三 · 毛玻璃覆盖</h2><div class="en">FROSTED GLASS COVER</div>
+    <div class="desc">背景模糊加深，白卡聚焦；关闭后模糊消退、下层原地未动——玩家"窥"见下层，从未离开页面。</div>
+    <div class="mini" data-run>
+      <div id="d3bg">
+        <div class="row"><span class="lab">来源</span><span class="val">官方截图 ×26 逐张实证</span></div>
+        <div class="row"><span class="lab">思维</span><span class="val">信息设计 · 界面思维</span></div>
+        <div class="row"><span class="lab">模板</span><span class="val">6 大布局 · 简介到收尾</span></div>
+      </div>
+      <div id="d3veil"></div>
+      <div id="d3card"><b>防 AI 味</b><p>六条测试：克制 / 信息 / 界面 / 景深 / 字体 / 去科技风。任何一条不过就回改。</p></div>
+    </div>
+    <div class="spec">面板 350ms（落位 1.35 回弹曲线）· 模糊层 500ms</div>
+  </div></section>
+
+  <section class="slide"><div class="demo">
+    <h2>行为四 · 数值向右展开</h2><div class="en">EXPAND RIGHT</div>
+    <div class="desc">数字/文本从锚点向右展开（width 0→auto），不是淡入——对应"查看属性详情"。数据强调专用。</div>
+    <div class="mini" data-run>
+      <div id="d4num">6<small>大布局模板 · 简介到收尾</small></div>
+      <div id="d4row">信息设计 · 界面思维 <span class="exp">＋ 全局统一缓动，四档时长 200/350/500/800ms</span></div>
+    </div>
+    <div class="spec">350ms · max-width 0→auto + overflow hidden</div>
+  </div></section>
+
+  <section class="slide"><div class="demo">
+    <h2>行为五 · 镜头联动</h2><div class="en">CAMERA LINKAGE</div>
+    <div class="desc">换"景"时整体透视微移，UI 随镜头展开——运镜与动效绑定（终末地将其推到极致）。配合视差分层。</div>
+    <div class="mini" data-run>
+      <div id="d5inner">
+        <div style="font-size:22px;font-weight:900;letter-spacing:-1px">能力总览</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:6px;letter-spacing:3px">SYSTEM OVERVIEW</div>
+        <div id="d5grid"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div id="d5panel">多模态引擎 · 长文推理 · 极速响应</div>
+    </div>
+    <div class="spec">镜头 800ms · scale 1.0→1.045 + translate · 浮窗随镜头滑入</div>
+  </div></section>
+
+  <section class="slide"><div class="demo">
+    <h2>行为六 · 呼吸感粒子</h2><div class="en">AMBIENT PARTICLES</div>
+    <div class="desc">呼吸感来自尘埃与光效（面板光线变化、飘散尘埃），不是元素漂移；理想状态响应输入。移动鼠标拂开尘埃。</div>
+    <div class="mini" data-run><canvas id="d6c"></canvas><div id="d6hint">MOVE MOUSE TO STIR</div></div>
+    <div class="spec">26 颗 · r 0.8~2.6 · 上飘 · 鼠标 95px 内拂开 · 透明度呼吸闪烁</div>
+  </div></section>
+
+  <!-- 13 结尾 -->
+  <section class="slide">
+    <div class="cover">
+      <div><span class="orn"><i class="bar"></i></span><span class="orn"><i class="dia"></i></span>
+        <span class="zh" style="font-size:60px">交付前</span>
+        <span class="orn"><i class="dia"></i></span><span class="orn"><i class="bar"></i></span></div>
+      <div class="sub" style="font-size:16px;color:var(--ink)">过 self-check.md 六条测试：<br>
+        克制 · 信息 · 界面 · 景深 · 字体 · <b>去科技风</b><br><br>
+        <span style="color:var(--gray)">任何一条不过就回改，不许带病交付。</span></div>
+    </div>
+    <div class="brand">ZHOU-FLAVOR-DESIGN · SELF-CHECK</div>
+  </section>
+
+  <div id="vig"></div>
+</div>
+
+<div id="bar">
+  <button id="prev">← 上一页</button>
+  <div id="dots"></div>
+  <button id="next">下一页 →</button>
+  <span id="num">1 / 14</span>
+  <button id="replay" style="display:none">重播本页</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const dotsBox=document.getElementById('dots');
+const numEl=document.getElementById('num'), replayBtn=document.getElementById('replay');
+let cur=-1;
+slides.forEach((_,i)=>{ const d=document.createElement('i'); d.onclick=()=>go(i); dotsBox.appendChild(d); });
+const dots=[...dotsBox.children];
+
+function isDemo(i){ return i>=7 && i<=12; }
+function go(i){
+  if(i<0||i>=slides.length) return;
+  slides.forEach(s=>s.classList.remove('active','anim','run'));
+  const s=slides[i];
+  void s.offsetWidth;
+  s.classList.add('active','anim');
+  if(isDemo(i)){ setTimeout(()=>s.classList.add('run'),350); replayBtn.style.display='inline-block'; }
+  else replayBtn.style.display='none';
+  if(isDemo(i)) startDust(i);
+  dots.forEach((d,k)=>d.classList.toggle('on',k===i));
+  numEl.textContent=(i+1)+' / '+slides.length;
+  cur=i;
+}
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.getElementById('next').onclick=()=>go(cur+1);
+replayBtn.onclick=()=>{ const s=slides[cur]; s.classList.remove('run'); void s.offsetWidth; s.classList.add('run'); };
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ') go(cur+1);
+  if(e.key==='ArrowLeft') go(cur-1);
+});
+
+/* 尘埃粒子（仅行为六页激活时运行） */
+let dustOn=false;
+function startDust(i){
+  if(i!==12){ dustOn=false; return; }
+  const cvs=document.getElementById('d6c'), ctx=cvs.getContext('2d');
+  const mini=cvs.parentElement;
+  cvs.width=mini.clientWidth; cvs.height=mini.clientHeight;
+  let W=cvs.width,H=cvs.height,mx=-999,my=-999;
+  const motes=Array.from({length:26},()=>({x:Math.random(),y:Math.random(),
+    r:0.8+Math.random()*1.8,v:0.00012+Math.random()*0.00028,dx:(Math.random()-.5)*0.00006,
+    a:0.10+Math.random()*0.16,ph:Math.random()*6.28}));
+  mini.onmousemove=e=>{ const r=mini.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top; };
+  mini.onmouseleave=()=>{ mx=-999; my=-999; };
+  dustOn=true;
+  (function loop(ts){
+    if(!dustOn){ return; }
+    ctx.clearRect(0,0,W,H);
+    for(const m of motes){
+      m.x+=m.dx; m.y-=m.v;
+      if(m.y<-0.02){ m.y=1.02; m.x=Math.random(); }
+      let px=m.x*W, py=m.y*H;
+      const dx=px-mx, dy=py-my, d2=dx*dx+dy*dy;
+      if(d2<9000){ const f=(1-d2/9000)*16; px+=dx/Math.sqrt(d2+1)*f; py+=dy/Math.sqrt(d2+1)*f; }
+      ctx.globalAlpha=m.a*(0.7+0.3*Math.sin(ts/900+m.ph));
+      ctx.fillStyle='#8A8F92';
+      ctx.beginPath(); ctx.arc(px,py,m.r,0,6.283); ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(loop);
+  })(0);
+}
+
+go(0);
+</script>
+</body>
+</html>
