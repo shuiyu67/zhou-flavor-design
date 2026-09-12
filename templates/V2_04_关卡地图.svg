@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <pattern id="dots4" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.2" fill="#B9BBB4"/></pattern>
+  </defs>
+  <rect width="1280" height="720" fill="#ECEDE8"/>
+  <!-- contour lines (topography) -->
+  <g fill="none" stroke="#C2C4BD" stroke-width="1.4">
+    <path d="M-20,120 C200,60 380,180 620,120 C860,60 1060,170 1300,110"/>
+    <path d="M-20,150 C210,90 390,210 630,150 C870,90 1070,200 1300,140"/>
+    <path d="M-20,180 C220,120 400,240 640,180 C880,120 1080,230 1300,170"/>
+    <path d="M-20,210 C230,150 410,270 650,210 C890,150 1090,260 1300,200"/>
+    <path d="M-20,240 C240,180 420,300 660,240 C900,180 1100,290 1300,230"/>
+  </g>
+  <!-- dotted grid + misc marks -->
+  <rect x="60" y="430" width="240" height="160" fill="url(#dots4)"/>
+  <g stroke="#9B9D96" stroke-width="1.4" fill="none">
+    <circle cx="1120" cy="500" r="40"/>
+    <line x1="1120" y1="448" x2="1120" y2="552"/>
+    <line x1="1068" y1="500" x2="1172" y2="500"/>
+  </g>
+  <g fill="#9B9D96">
+    <polygon points="120,560 126,576 120,572 114,576"/>
+    <text x="150" y="576" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12">N 31.02</text>
+  </g>
+  <g stroke="#9B9D96" stroke-width="1.2">
+    <path d="M880,620 L960,620 M920,600 L920,640" stroke-dasharray="4 4"/>
+  </g>
+  <!-- route: double stroke lines -->
+  <g>
+    <polyline points="150,430 400,360 640,410 900,330 1120,380" fill="none" stroke="#1A1A1A" stroke-width="6"/>
+    <polyline points="150,430 400,360 640,410 900,330 1120,380" fill="none" stroke="#FFFFFF" stroke-width="3.5"/>
+  </g>
+  <!-- operation chips + hex nodes -->
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif">
+    <!-- node template: chip -->
+    <g transform="translate(90,395)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#2FA6DE" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">OPERATION</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">X2.5-1</text>
+    </g>
+    <g transform="translate(340,325)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#2FA6DE" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">OPERATION</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">X2.5-2</text>
+    </g>
+    <g transform="translate(580,375)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#2FA6DE" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">OPERATION</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">X2.5-3</text>
+    </g>
+    <g transform="translate(840,295)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#E14A4A" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">OPERATION</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">X2.5-EX</text>
+    </g>
+    <g transform="translate(1060,345)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#2FA6DE" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" y="0" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">OPERATION</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">X2.5-5</text>
+    </g>
+  </g>
+  <!-- corner status chips -->
+  <rect x="40" y="640" width="180" height="40" fill="#2FA6DE"/>
+  <text x="60" y="666" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">推理实战环境</text>
+  <rect x="1020" y="640" width="220" height="40" fill="#1A1A1A"/>
+  <text x="1040" y="666" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="15" fill="#FFFFFF">当前进度 <tspan fill="#2FA6DE" font-weight="700">X2.5 · EPISODE</tspan></text>
+  <!-- corner brackets -->
+  <g stroke="#1A1A1A" stroke-width="2" fill="none" opacity="0.7">
+    <path d="M24,24 L24,60 M24,24 L60,24"/>
+    <path d="M1256,24 L1256,60 M1256,24 L1220,24"/>
+    <path d="M24,696 L24,660 M24,696 L60,696"/>
+    <path d="M1256,696 L1256,660 M1256,696 L1220,696"/>
+  </g>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <filter id="blurT5" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="shT5"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity="0.35"/></filter>
+  </defs>
+  <!-- 背景彩块强模糊（噪点色域=反面清单的"高饱和"，被模糊囚禁在此） -->
+  <g filter="url(#blurT5)">
+    <rect x="20" y="20" width="180" height="180" rx="90" fill="#E0703A"/>
+    <rect x="230" y="60" width="180" height="180" rx="90" fill="#7C5CB8"/>
+    <rect x="440" y="10" width="180" height="180" rx="90" fill="#3FA8B8"/>
+    <rect x="650" y="70" width="180" height="180" rx="90" fill="#59A84E"/>
+    <rect x="860" y="20" width="180" height="180" rx="90" fill="#C84A6A"/>
+    <rect x="1070" y="60" width="180" height="180" rx="90" fill="#C8A03A"/>
+    <rect x="20" y="280" width="180" height="180" rx="90" fill="#4AB8A0"/>
+    <rect x="230" y="300" width="180" height="180" rx="90" fill="#B84A8A"/>
+    <rect x="440" y="270" width="180" height="180" rx="90" fill="#5A78C8"/>
+    <rect x="650" y="300" width="180" height="180" rx="90" fill="#8AB84A"/>
+    <rect x="860" y="270" width="180" height="180" rx="90" fill="#C8783A"/>
+    <rect x="1070" y="300" width="180" height="180" rx="90" fill="#48A8C8"/>
+    <rect x="20" y="520" width="180" height="180" rx="90" fill="#3AB89A"/>
+    <rect x="230" y="540" width="180" height="180" rx="90" fill="#B84848"/>
+    <rect x="440" y="510" width="180" height="180" rx="90" fill="#A85AB8"/>
+    <rect x="650" y="540" width="180" height="180" rx="90" fill="#C8B03A"/>
+    <rect x="860" y="510" width="180" height="180" rx="90" fill="#48A8C8"/>
+    <rect x="1070" y="540" width="180" height="180" rx="90" fill="#4A8AC8"/>
+  </g>
+  <rect width="1280" height="720" fill="#1A1A1A" opacity="0.18"/>
+  <!-- 中央白卡：聚焦"防 AI 味" -->
+  <g filter="url(#shT5)"><rect x="360" y="140" width="560" height="440" fill="#FFFFFF"/></g>
+  <rect x="392" y="176" width="150" height="40" fill="#111318"/>
+  <text x="410" y="202" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="19" font-weight="700" fill="#FFFFFF">防 AI 味</text>
+  <rect x="770" y="176" width="120" height="40" fill="#E3E5E8"/>
+  <text x="790" y="202" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="16" fill="#3A3E46">自检 EX</text>
+  <g transform="translate(400,246)">
+    <rect width="110" height="130" fill="#F4F5F6"/>
+    <g stroke="#E14A4A" stroke-width="4"><line x1="30" y1="35" x2="80" y2="85"/><line x1="80" y1="35" x2="30" y2="85"/></g>
+    <text x="55" y="118" text-anchor="middle" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6A6F78">反面清单</text>
+  </g>
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#3A3E46" font-size="15">
+    <text x="560" y="264"><tspan font-weight="700">克制测试</tspan>　遮字看色，90% 黑白灰</text>
+    <line x1="560" y1="278" x2="860" y2="278" stroke="#EDEFF1" stroke-width="1"/>
+    <text x="560" y="308"><tspan font-weight="700">信息测试</tspan>　指元素能说出其职能</text>
+    <line x1="560" y1="322" x2="860" y2="322" stroke="#EDEFF1" stroke-width="1"/>
+    <text x="560" y="352"><tspan font-weight="700">界面测试</tspan>　像界面，不像海报</text>
+    <line x1="560" y1="366" x2="860" y2="366" stroke="#EDEFF1" stroke-width="1"/>
+    <text x="560" y="396"><tspan font-weight="700">景深测试</tspan>　≥2 层，投影模糊齐备</text>
+    <line x1="560" y1="410" x2="860" y2="410" stroke="#EDEFF1" stroke-width="1"/>
+    <text x="560" y="440"><tspan font-weight="700">字体测试</tspan>　大字 900 + 负字距</text>
+  </g>
+  <text x="560" y="486" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#9A9EA6">详见</text>
+  <text x="604" y="486" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="14" fill="#3A3E46">self-check.md · 十点清单</text>
+  <rect x="560" y="494" width="168" height="3" fill="#E14A4A"/>
+  <line x1="392" y1="524" x2="888" y2="524" stroke="#E3E5E8" stroke-width="1"/>
+  <rect x="392" y="544" width="220" height="5" fill="#EDEFF1"/>
+  <rect x="392" y="544" width="220" height="5" fill="#E14A4A"/>
+  <text x="856" y="552" text-anchor="end" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#9A9EA6">AI 味残留 0%</text>
+</svg>

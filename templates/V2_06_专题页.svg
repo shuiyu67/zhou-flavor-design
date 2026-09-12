@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2C2F"/><stop offset="1" stop-color="#141517"/></linearGradient>
+    <filter id="sh6"><feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#000" flood-opacity="0.5"/></filter>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg6)"/>
+  <!-- grayscale station / bridge silhouettes -->
+  <g stroke="#4A4D52" stroke-width="2" fill="none" opacity="0.8">
+    <line x1="0" y1="470" x2="1280" y2="470"/>
+    <path d="M0,470 L160,470 L200,540 L420,540 L460,470 L1280,470" opacity="0.5"/>
+    <line x1="80" y1="540" x2="80" y2="720"/><line x1="300" y1="540" x2="300" y2="720"/>
+    <line x1="520" y1="540" x2="520" y2="720"/><line x1="900" y1="540" x2="900" y2="720"/>
+    <line x1="1120" y1="540" x2="1120" y2="720"/>
+  </g>
+  <g stroke="#3A3D42" stroke-width="1" opacity="0.7">
+    <line x1="0" y1="500" x2="1280" y2="500"/><line x1="0" y1="505" x2="1280" y2="505"/>
+  </g>
+  <!-- left episode list -->
+  <text x="110" y="120" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="14" fill="#8A8D92" letter-spacing="5">HOUR OF COGNITION</text>
+  <line x1="70" y1="140" x2="70" y2="360" stroke="#5A5D62" stroke-width="1.5"/>
+  <circle cx="70" cy="170" r="10" fill="none" stroke="#8A8D92" stroke-width="2"/>
+  <circle cx="70" cy="170" r="4" fill="#C9CCD1"/>
+  <circle cx="70" cy="240" r="7" fill="none" stroke="#5A5D62" stroke-width="1.5"/>
+  <circle cx="70" cy="310" r="7" fill="none" stroke="#5A5D62" stroke-width="1.5"/>
+  <g font-family="'Noto Serif SC','SimSun',serif">
+    <text x="100" y="150" font-size="14" fill="#8A8D92" letter-spacing="3">ACT I</text>
+    <text x="100" y="178" font-size="20" fill="#B9BCC1">启明</text>
+    <text x="100" y="228" font-size="14" fill="#6A6D72" letter-spacing="3">ACT II</text>
+    <text x="100" y="252" font-size="20" fill="#6A6D72">融合</text>
+  </g>
+  <g filter="url(#sh6)">
+    <rect x="92" y="286" width="270" height="48" fill="#FFFFFF"/>
+  </g>
+  <text x="108" y="316" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="20" font-weight="800" fill="#141517">星火 X2.5</text>
+  <text x="340" y="314" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6A6D72">EPISODE 2.5</text>
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif">
+    <path d="M96,356 L96,372 L108,364 Z" fill="#C9CCD1"/>
+    <text x="118" y="369" font-size="13" fill="#8A8D92">观看序曲</text>
+  </g>
+  <!-- album covers framed white -->
+  <g filter="url(#sh6)">
+    <rect x="470" y="200" width="250" height="250" fill="#FFFFFF"/>
+    <rect x="482" y="212" width="226" height="226" fill="#1E2023"/>
+  </g>
+  <g font-family="'Noto Serif SC','Times New Roman',serif" text-anchor="middle">
+    <text x="595" y="310" font-size="30" fill="#E4E6E9" letter-spacing="6">认知风暴</text>
+    <text x="595" y="340" font-size="13" fill="#8A8D92" letter-spacing="4">COGNITION STORM</text>
+    <line x1="535" y1="360" x2="655" y2="360" stroke="#5A5D62" stroke-width="1"/>
+    <text x="595" y="384" font-size="11" fill="#6A6D72" letter-spacing="3">COUNTYFELLOW · 2026</text>
+    <g stroke="#8A8D92" stroke-width="1.5" fill="none">
+      <polygon points="595,232 615,262 575,262"/>
+      <circle cx="595" cy="252" r="6"/>
+    </g>
+  </g>
+  <g filter="url(#sh6)">
+    <rect x="770" y="170" width="290" height="290" fill="#FFFFFF"/>
+    <rect x="784" y="184" width="262" height="262" fill="#232527"/>
+  </g>
+  <path d="M810,330 A105,105 0 0 1 1020,330" fill="none" stroke="#C9CCD1" stroke-width="3" opacity="0.9"/>
+  <circle cx="915" cy="330" r="3.5" fill="#F2C14E"/>
+  <g font-family="'Noto Serif SC','Times New Roman',serif" text-anchor="middle">
+    <text x="915" y="404" font-size="40" fill="#F4F6F8" letter-spacing="8">星火</text>
+    <text x="915" y="432" font-size="15" fill="#8A8D92" letter-spacing="6">SPARK · X2.5</text>
+  </g>
+  <!-- bottom icon nav -->
+  <g stroke="#5A5D62" stroke-width="1">
+    <line x1="360" y1="640" x2="360" y2="684"/><line x1="500" y1="640" x2="500" y2="684"/>
+    <line x1="640" y1="640" x2="640" y2="684"/><line x1="780" y1="640" x2="780" y2="684"/>
+    <line x1="920" y1="640" x2="920" y2="684"/>
+  </g>
+  <g fill="#9A9DA2">
+    <polygon points="290,662 302,652 314,662 314,676 302,670 290,676"/>
+    <rect x="420" y="652" width="18" height="22" fill="none" stroke="#9A9DA2" stroke-width="2.5"/><text x="486" y="672" font-size="18" fill="#9A9DA2" font-family="serif">§</text>
+    <path d="M560,668 L572,652 L584,668 Z" fill="none" stroke="#9A9DA2" stroke-width="2.5"/>
+    <polygon points="700,652 714,676 686,676"/>
+    <circle cx="850" cy="662" r="8" fill="none" stroke="#9A9DA2" stroke-width="2.5"/>
+    <rect x="968" y="652" width="20" height="20" fill="none" stroke="#9A9DA2" stroke-width="2.5"/>
+    <circle cx="978" cy="662" r="3" fill="#9A9DA2"/>
+  </g>
+</svg>

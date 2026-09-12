@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <pattern id="dots1" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.6" fill="#F2C14E"/></pattern>
+    <filter id="sh1"><feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.45"/></filter>
+  </defs>
+  <rect width="1280" height="720" fill="#171B26"/>
+  <!-- corner flourish thin lines -->
+  <g stroke="#39445C" stroke-width="1.5" opacity="0.9">
+    <path d="M20,70 L120,70 M20,70 L20,150" fill="none"/>
+    <path d="M1260,70 L1160,70 M1260,70 L1260,150" fill="none"/>
+    <line x1="30" y1="30" x2="90" y2="90"/>
+    <line x1="1250" y1="30" x2="1190" y2="90"/>
+  </g>
+  <!-- faint hex motives right -->
+  <g stroke="#26304A" stroke-width="1.5" fill="none" opacity="0.9">
+    <polygon points="1080,180 1140,215 1140,285 1080,320 1020,285 1020,215"/>
+    <polygon points="1180,300 1225,327 1225,381 1180,408 1135,381 1135,327"/>
+    <polygon points="1000,340 1040,364 1040,412 1000,436 960,412 960,364"/>
+  </g>
+  <!-- top small brand -->
+  <text x="150" y="80" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="18" fill="#7C8699" letter-spacing="4">iFLYTEK SPARK · NEW OPERATOR</text>
+  <!-- title with ornaments -->
+  <g fill="#35A7CF">
+    <rect x="128" y="196" width="46" height="3"/>
+    <polygon points="188,197 196,189 204,197 196,205"/>
+  </g>
+  <text x="220" y="238" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="104" font-weight="900" fill="#F4F6F8" letter-spacing="-4">星火</text>
+  <g fill="#35A7CF">
+    <polygon points="436,197 444,189 452,197 444,205"/>
+    <rect x="464" y="196" width="46" height="3"/>
+  </g>
+  <text x="222" y="292" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="28" fill="#35A7CF" letter-spacing="12">SPARK X2.5</text>
+  <!-- info rows -->
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="17" fill="#AEB6C6">
+    <rect x="150" y="330" width="58" height="28" fill="none" stroke="#54607A" stroke-width="1"/>
+    <text x="162" y="350">代号</text>
+    <text x="226" y="351" fill="#E8ECF2">星火 X2.5</text>
+    <line x1="226" y1="360" x2="420" y2="360" stroke="#3A4458" stroke-width="1"/>
+    <rect x="150" y="372" width="58" height="28" fill="none" stroke="#54607A" stroke-width="1"/>
+    <text x="162" y="392">定位</text>
+    <text x="226" y="393" fill="#E8ECF2">新一代认知大模型</text>
+    <line x1="226" y1="402" x2="420" y2="402" stroke="#3A4458" stroke-width="1"/>
+    <rect x="150" y="414" width="58" height="28" fill="none" stroke="#54607A" stroke-width="1"/>
+    <text x="162" y="434">上下文</text>
+    <text x="226" y="435" fill="#E8ECF2">128K</text>
+    <line x1="226" y1="444" x2="420" y2="444" stroke="#3A4458" stroke-width="1"/>
+    <rect x="150" y="456" width="58" height="28" fill="none" stroke="#54607A" stroke-width="1"/>
+    <text x="162" y="476">模态</text>
+    <text x="226" y="477" fill="#E8ECF2">文本 · 语音 · 图像</text>
+    <line x1="226" y1="486" x2="420" y2="486" stroke="#3A4458" stroke-width="1"/>
+  </g>
+  <!-- right: stars + class chips -->
+  <text x="920" y="150" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="26" fill="#E8ECF2" letter-spacing="8">NEW MODEL</text>
+  <g fill="#35A7CF">
+    <polygon points="924,180 930,172 936,180 930,188"/>
+    <polygon points="950,180 956,172 962,180 956,188"/>
+    <polygon points="976,180 982,172 988,180 982,188"/>
+    <polygon points="1002,180 1008,172 1014,180 1008,188"/>
+    <polygon points="1028,180 1034,172 1040,180 1034,188"/>
+  </g>
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="15" fill="#C9D2E0">
+    <rect x="920" y="212" width="150" height="30" fill="none" stroke="#54607A" stroke-width="1"/>
+    <text x="942" y="232">LLM · 认知</text>
+    <rect x="1082" y="212" width="120" height="30" fill="none" stroke="#54607A" stroke-width="1"/>
+    <text x="1104" y="232">多模态</text>
+  </g>
+  <g>
+    <rect x="920" y="258" width="44" height="44" fill="#35A7CF" filter="url(#sh1)"/>
+    <g stroke="#0F1420" stroke-width="3" fill="none">
+      <line x1="942" y1="270" x2="942" y2="290"/><line x1="932" y1="280" x2="952" y2="280"/>
+    </g>
+    <rect x="976" y="258" width="44" height="44" fill="#1F2635" stroke="#54607A" stroke-width="1"/>
+    <path d="M988,290 L1008,270 M1008,270 L996,270 M1008,270 L1008,282" stroke="#8A93A6" stroke-width="2.5" fill="none"/>
+  </g>
+  <!-- quote -->
+  <text x="150" y="536" font-family="'Noto Serif SC','SimSun',serif" font-size="19" fill="#7C8699" font-style="italic">「以认知为燃料，回答每一个问题。」</text>
+  <!-- bottom band -->
+  <rect x="0" y="560" width="1280" height="160" fill="#10131B"/>
+  <line x1="0" y1="560" x2="1280" y2="560" stroke="#2A3346" stroke-width="1"/>
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif">
+    <rect x="150" y="590" width="34" height="34" fill="none" stroke="#E14A4A" stroke-width="2"/>
+    <path d="M158,598 L176,616 M176,598 L158,616" stroke="#E14A4A" stroke-width="2"/>
+    <text x="200" y="606" font-size="17" font-weight="700" fill="#E8ECF2">多模态理解</text>
+    <text x="200" y="630" font-size="13" fill="#8A93A6">图文音跨模态联合推理，<tspan fill="#35A7CF">一体化对齐</tspan></text>
+    <rect x="510" y="590" width="34" height="34" fill="#35A7CF"/>
+    <path d="M518,616 L527,598 L536,616 Z" fill="#0F1420"/>
+    <text x="560" y="606" font-size="17" font-weight="700" fill="#E8ECF2">长文推理</text>
+    <text x="560" y="630" font-size="13" fill="#8A93A6">128K 窗口内精确检索与<tspan fill="#35A7CF">事实溯源</tspan></text>
+    <rect x="870" y="590" width="34" height="34" fill="none" stroke="#E14A4A" stroke-width="2"/>
+    <circle cx="887" cy="607" r="8" stroke="#E14A4A" stroke-width="2" fill="none"/>
+    <text x="920" y="606" font-size="17" font-weight="700" fill="#E8ECF2">极速响应</text>
+    <text x="920" y="630" font-size="13" fill="#8A93A6">端云协同，首字延迟<tspan fill="#35A7CF">百毫秒级</tspan></text>
+    <line x1="150" y1="660" x2="1130" y2="660" stroke="#232B3D" stroke-width="1"/>
+    <text x="150" y="692" font-size="13" fill="#5A6478">参数规模 X2.5 · 推理速度 +40% · 对齐 RLAIF</text>
+    <text x="1130" y="692" font-size="12" fill="#3E4759" text-anchor="end">* 图文内容仅作风格说明使用</text>
+  </g>
+  <rect x="60" y="480" width="120" height="60" fill="url(#dots1)" opacity="0.5"/>
+</svg>

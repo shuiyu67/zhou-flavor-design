@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <pattern id="dotsT4" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.2" fill="#B9BBB4"/></pattern>
+  </defs>
+  <rect width="1280" height="720" fill="#ECEDE8"/>
+  <g fill="none" stroke="#C2C4BD" stroke-width="1.4">
+    <path d="M-20,110 C200,50 380,170 620,110 C860,50 1060,160 1300,100"/>
+    <path d="M-20,140 C210,80 390,200 630,140 C870,80 1070,190 1300,130"/>
+    <path d="M-20,170 C220,110 400,230 640,170 C880,110 1080,220 1300,160"/>
+    <path d="M-20,200 C230,140 410,260 650,200 C890,140 1090,250 1300,190"/>
+    <path d="M-20,230 C240,170 420,290 660,230 C900,170 1100,280 1300,220"/>
+  </g>
+  <rect x="60" y="430" width="240" height="160" fill="url(#dotsT4)"/>
+  <g stroke="#9B9D96" stroke-width="1.4" fill="none">
+    <circle cx="1120" cy="500" r="40"/><line x1="1120" y1="448" x2="1120" y2="552"/><line x1="1068" y1="500" x2="1172" y2="500"/>
+  </g>
+  <g fill="#9B9D96"><polygon points="120,560 126,576 120,572 114,576"/>
+    <text x="150" y="576" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12">ZHOU ROUTE</text></g>
+  <!-- 学习路线 -->
+  <polyline points="150,430 400,360 640,410 900,330 1120,380" fill="none" stroke="#1A1A1A" stroke-width="6"/>
+  <polyline points="150,430 400,360 640,410 900,330 1120,380" fill="none" stroke="#FFFFFF" stroke-width="3.5"/>
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif">
+    <g transform="translate(90,395)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#2FA6DE" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">STEP 01</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">读规范</text>
+    </g>
+    <g transform="translate(340,325)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#2FA6DE" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">STEP 02</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">抄组件</text>
+    </g>
+    <g transform="translate(580,375)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#2FA6DE" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">STEP 03</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">跟教程</text>
+    </g>
+    <g transform="translate(840,295)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#E14A4A" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">STEP 04 · EX</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">过自检</text>
+    </g>
+    <g transform="translate(1060,345)">
+      <polygon points="0,20 14,10 14,30 0,40" fill="#2FA6DE" stroke="#FFFFFF" stroke-width="2"/>
+      <rect x="26" width="130" height="52" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="26" width="130" height="17" fill="#1A1A1A"/>
+      <text x="36" y="13" font-size="9" fill="#FFFFFF" letter-spacing="2">STEP 05</text>
+      <text x="38" y="42" font-size="19" font-weight="800" fill="#1A1A1A">上动效</text>
+    </g>
+  </g>
+  <rect x="40" y="640" width="180" height="40" fill="#2FA6DE"/>
+  <text x="60" y="666" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">教学路径</text>
+  <rect x="1020" y="640" width="220" height="40" fill="#1A1A1A"/>
+  <text x="1040" y="666" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="15" fill="#FFFFFF">当前进度 <tspan fill="#2FA6DE" font-weight="700">SKILL · ALL</tspan></text>
+  <g stroke="#1A1A1A" stroke-width="2" fill="none" opacity="0.7">
+    <path d="M24,24 L24,60 M24,24 L60,24"/><path d="M1256,24 L1256,60 M1256,24 L1220,24"/>
+    <path d="M24,696 L24,660 M24,696 L60,696"/><path d="M1256,696 L1256,660 M1256,696 L1220,696"/>
+  </g>
+</svg>

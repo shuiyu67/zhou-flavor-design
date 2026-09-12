@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>舟味设计 · 默认示例（带组件标注）</title>
+<style>
+  :root { color-scheme: dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #101216; font-family: 'Noto Sans SC','Microsoft YaHei',sans-serif; color: #ECEFF2; padding: 40px 4vw 80px; }
+  h1 { font-size: 26px; letter-spacing: 5px; font-weight: 900; max-width: 1280px; margin: 0 auto 8px; }
+  h1 span { color: #2FA6DE; }
+  .sub { max-width: 1280px; margin: 0 auto 28px; font-size: 13px; color: #9AA0A8; line-height: 1.9; letter-spacing: 1px; }
+  .frame { max-width: 1280px; margin: 0 auto; }
+  .frame img { width: 100%; display: block; border: 1px solid #262A32; }
+  table { max-width: 1280px; margin: 32px auto 0; width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #262A32; }
+  th { color: #9AA0A8; font-weight: 700; letter-spacing: 2px; }
+  td.code { font-family: monospace; color: #2FA6DE; white-space: nowrap; }
+  td.dim { color: #9AA0A8; }
+  footer { max-width: 1280px; margin: 32px auto 0; font-size: 12px; color: #7A8088; line-height: 2; border-top: 1px dashed #262A32; padding-top: 16px; }
+</style>
+</head>
+<body>
+<h1>舟味设计 <span>默认示例</span> · 本图介绍 skill 自身</h1>
+<div class="sub">脱离 X2.5 语境的技能自证：同一套 T1 简历卡骨架 + 皮肤机制（点缀色=品牌青，符号=六边形），主题换成介绍 skill。下面标注每个区域抄了哪个组件。</div>
+<div class="frame"><img src="default_example.svg" alt="默认示例"></div>
+<table>
+  <tr><th>画面区域</th><th>组件出处 components.md</th><th>教程步骤 tutorial.md</th></tr>
+  <tr><td>四角饰线</td><td class="code">§1 角饰线</td><td class="dim">Step 4 铺基座</td></tr>
+  <tr><td>六边形线框（右下，主题符号）</td><td class="dim">皮肤机制 §3：符号=六边形</td><td class="dim">Step 2 定皮肤</td></tr>
+  <tr><td>横线+菱形+「舟味设计」92px/900/-4 + 拉丁宽字距副标</td><td class="code">§10 标题组</td><td class="dim">Step 5 标题系统</td></tr>
+  <tr><td>来源/思维/模板/组件 四条信息行</td><td class="code">§3 信息行</td><td class="dim">Step 6 信息区</td></tr>
+  <tr><td>DEFAULT EXAMPLE + 菱形星 + 边框chip×2 + 图标方块</td><td class="code">§2 chip / §11 图标方块</td><td class="dim">Step 6 信息区右列</td></tr>
+  <tr><td>宋体斜体引言「先列信息，再想画面。」</td><td class="code">§13 宋体装饰行</td><td class="dim">Step 7 功能区</td></tr>
+  <tr><td>底部深色带 + 三条能力条目（红框/青实图标交替 + 青色tspan高亮）</td><td class="code">§11 能力条目</td><td class="dim">Step 7 功能区</td></tr>
+  <tr><td>参数行 + 右对齐免责小注</td><td class="dim">官方惯例（*注）</td><td class="dim">Step 7 功能区</td></tr>
+  <tr><td>半调点块（左中，唯一一块）</td><td class="code">§14 质感层</td><td class="dim">Step 4 铺基座</td></tr>
+</table>
+<footer>自检：self-check.md 五条测试全过 —— 色相 8 种内 / 青色 4 处 / 红色 3 处≤32px / 面板带投影 / 标题负字距。<br>
+路径：C:/Users/Administrator/.workbuddy/skills/zhou-flavor-design/example/default_example.svg</footer>
+</body>
+</html>

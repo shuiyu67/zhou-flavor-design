@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <pattern id="dotsT2" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.8" fill="#F2C14E"/></pattern>
+    <linearGradient id="texT2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#141B2B"/><stop offset="1" stop-color="#0E1420"/></linearGradient>
+  </defs>
+  <!-- 左 60% 主视觉 -->
+  <rect x="0" y="0" width="800" height="720" fill="url(#texT2)"/>
+  <!-- 巨型白色几何裁切（克制=大面积留白里的唯一重音） -->
+  <g fill="#F4F6F8">
+    <polygon points="140,-60 320,-60 660,430 580,510"/>
+    <polygon points="660,-60 480,-60 140,430 220,510"/>
+  </g>
+  <rect x="0" y="500" width="800" height="52" fill="#2FA6DE" opacity="0.30"/>
+  <rect x="0" y="546" width="800" height="20" fill="#2FA6DE" opacity="0.16"/>
+  <rect x="60" y="170" width="130" height="90" fill="url(#dotsT2)" opacity="0.85"/>
+  <!-- 粗黑标语 -->
+  <text x="80" y="452" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="56" font-weight="900" fill="#F4F6F8" letter-spacing="-2">克制，才有亮色。</text>
+  <!-- 三连 line icon：五判据 -->
+  <g stroke="#F4F6F8" stroke-width="3" fill="none">
+    <path d="M96,650 L96,686 M78,668 L114,668 M84,656 L108,680 M108,656 L84,680"/>
+    <polygon points="170,652 186,662 186,678 170,688 154,678 154,662"/>
+    <rect x="230" y="654" width="30" height="30"/>
+  </g>
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#8A93A6">
+    <text x="78" y="710">克制</text><text x="146" y="710">结构</text><text x="226" y="710">留白</text>
+  </g>
+  <!-- 右 40% 白 panel 解说 -->
+  <rect x="800" y="0" width="480" height="720" fill="#F4F5F6"/>
+  <g font-family="'Times New Roman','Noto Serif SC',serif" fill="#111318">
+    <text x="840" y="116" font-size="50" font-weight="700" letter-spacing="4">ZHOU FLAVOR</text>
+    <line x1="840" y1="136" x2="1120" y2="136" stroke="#111318" stroke-width="2"/>
+    <text x="840" y="164" font-size="14" letter-spacing="6">DESIGN SYSTEM</text>
+  </g>
+  <rect x="840" y="200" width="128" height="36" fill="#111318"/>
+  <text x="856" y="224" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="18" font-weight="700" fill="#F4F6F8">舟味设计</text>
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="15" fill="#3A3E46">
+    <text x="840" y="288">明日方舟实证设计系统。</text>
+    <text x="840" y="314">从官方界面截图逐张还原，</text>
+    <text x="840" y="336">把"舟味"拆成可抄的常量、</text>
+    <text x="840" y="358">组件与检查清单。</text>
+  </g>
+  <line x1="840" y1="396" x2="1240" y2="396" stroke="#C9CCD1" stroke-width="1"/>
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#6A6F78">
+    <text x="840" y="428">判据</text><text x="1240" y="428" text-anchor="end">五条</text>
+    <line x1="840" y1="444" x2="1240" y2="444" stroke="#DDDFE2" stroke-width="1"/>
+    <text x="840" y="474">模板</text><text x="1240" y="474" text-anchor="end">六种布局</text>
+    <line x1="840" y1="490" x2="1240" y2="490" stroke="#DDDFE2" stroke-width="1"/>
+    <text x="840" y="520">反面清单</text><text x="1240" y="520" text-anchor="end">六条禁令</text>
+    <line x1="840" y1="536" x2="1240" y2="536" stroke="#DDDFE2" stroke-width="1"/>
+    <text x="840" y="566">版本</text><text x="1240" y="566" text-anchor="end">DEFAULT</text>
+  </g>
+  <g transform="translate(840,614)">
+    <polygon points="18,0 36,10 36,30 18,40 0,30 0,10" fill="none" stroke="#111318" stroke-width="2.5"/>
+    <polygon points="18,10 27,15 27,25 18,30 9,25 9,15" fill="#111318"/>
+    <text x="56" y="30" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="18" font-weight="700" fill="#111318" letter-spacing="2">舟味设计 skill</text>
+  </g>
+</svg>

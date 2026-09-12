@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <filter id="blur5" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="sh5"><feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#000" flood-opacity="0.35"/></filter>
+  </defs>
+  <!-- blurred colorful material grid background -->
+  <g filter="url(#blur5)">
+    <rect x="20"   y="20"  width="180" height="180" rx="90" fill="#3FA8B8"/>
+    <rect x="230"  y="60"  width="180" height="180" rx="90" fill="#E0703A"/>
+    <rect x="440"  y="10"  width="180" height="180" rx="90" fill="#7C5CB8"/>
+    <rect x="650"  y="70"  width="180" height="180" rx="90" fill="#3F7AB8"/>
+    <rect x="860"  y="20"  width="180" height="180" rx="90" fill="#59A84E"/>
+    <rect x="1070" y="60"  width="180" height="180" rx="90" fill="#C84A6A"/>
+    <rect x="20"   y="280" width="180" height="180" rx="90" fill="#C8A03A"/>
+    <rect x="230"  y="300" width="180" height="180" rx="90" fill="#4AB8A0"/>
+    <rect x="440"  y="270" width="180" height="180" rx="90" fill="#B84A8A"/>
+    <rect x="650"  y="300" width="180" height="180" rx="90" fill="#5A78C8"/>
+    <rect x="860"  y="270" width="180" height="180" rx="90" fill="#8AB84A"/>
+    <rect x="1070" y="300" width="180" height="180" rx="90" fill="#C8783A"/>
+    <rect x="20"   y="520" width="180" height="180" rx="90" fill="#4A8AC8"/>
+    <rect x="230"  y="540" width="180" height="180" rx="90" fill="#B84848"/>
+    <rect x="440"  y="510" width="180" height="180" rx="90" fill="#3AB89A"/>
+    <rect x="650"  y="540" width="180" height="180" rx="90" fill="#A85AB8"/>
+    <rect x="860"  y="510" width="180" height="180" rx="90" fill="#C8B03A"/>
+    <rect x="1070" y="540" width="180" height="180" rx="90" fill="#48A8C8"/>
+  </g>
+  <rect width="1280" height="720" fill="#1A1A1A" opacity="0.18"/>
+  <!-- center popup card -->
+  <g filter="url(#sh5)">
+    <rect x="360" y="160" width="560" height="400" fill="#FFFFFF"/>
+  </g>
+  <rect x="392" y="196" width="150" height="40" fill="#111318"/>
+  <text x="410" y="222" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="19" font-weight="700" fill="#FFFFFF">星火 X2.5</text>
+  <rect x="770" y="196" width="120" height="40" fill="#E3E5E8"/>
+  <text x="790" y="222" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="16" fill="#3A3E46">规格 01</text>
+  <!-- item visual -->
+  <g transform="translate(400,270)">
+    <rect x="0" y="0" width="120" height="150" fill="#F4F5F6"/>
+    <rect x="18" y="24" width="84" height="70" rx="8" fill="#111318"/>
+    <rect x="26" y="34" width="68" height="36" rx="4" fill="#2FA6DE"/>
+    <path d="M40,52 L56,44 L56,60 Z" fill="#FFFFFF"/>
+    <rect x="26" y="80" width="68" height="6" fill="#2FA6DE" opacity="0.7"/>
+    <text x="60" y="128" text-anchor="middle" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#6A6F78">认知引擎</text>
+  </g>
+  <!-- description -->
+  <g font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#3A3E46">
+    <text x="560" y="286" font-size="15">经端云协同架构加速的大模型服务。</text>
+    <text x="560" y="312" font-size="15">用于高级认知场景。</text>
+    <text x="560" y="352" font-size="14" fill="#6A6F78">由多模态引擎支撑。除基础生成能力外，</text>
+    <text x="560" y="374" font-size="14" fill="#6A6F78">还兼具某些特性。长文推理只是其中之一。</text>
+  </g>
+  <text x="560" y="416" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="13" fill="#9A9EA6">获取方式</text>
+  <text x="560" y="444" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="14" fill="#3A3E46">能力白皮书</text>
+  <rect x="560" y="452" width="76" height="3" fill="#E14A4A"/>
+  <line x1="392" y1="500" x2="888" y2="500" stroke="#E3E5E8" stroke-width="1"/>
+  <rect x="392" y="522" width="220" height="5" fill="#EDEFF1"/>
+  <rect x="392" y="522" width="150" height="5" fill="#E14A4A"/>
+  <text x="856" y="530" text-anchor="end" font-family="'Noto Sans SC','Microsoft YaHei',sans-serif" font-size="12" fill="#9A9EA6">API 就绪度 68%</text>
+</svg>
