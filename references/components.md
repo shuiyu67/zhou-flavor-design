@@ -212,3 +212,72 @@
 <!-- 参考实现：example/demo_animated.html 的 motes 循环：26 颗、r 0.8~2.6、
      上飘 v 0.0001~0.0004、鼠标 95px 半径内拂开、透明度 0.1~0.26 呼吸闪烁 -->
 ```
+
+## 16. 基线裁切巨型标题（官网首页标准式，§1.6 实证）
+
+官网 10+ 处复用：7rem Oswald + -.05em + .95em 基线裁切。HTML 原式：
+
+```html
+<div style="display:flex;align-items:flex-end;height:.95em;overflow:hidden;
+     font-family:'Oswald',sans-serif;font-weight:500;font-size:7rem;
+     letter-spacing:-.05em;color:#242424;line-height:1">
+  RHODES ISLAND
+</div>
+```
+
+SVG 等效（clipPath 裁掉下缘 5%）：
+
+```xml
+<clipPath id="crop"><rect x="0" y="0" width="700" height="95"/></clipPath>
+<text x="0" y="88" font-family="Oswald,sans-serif" font-weight="500" font-size="96"
+      letter-spacing="-4" fill="#242424" clip-path="url(#crop)">RHODES ISLAND</text>
+```
+
+## 17. 记号文本行（`//` 日期 / 进度 / 归属声明，§1.6 实证）
+
+```xml
+<g font-family="'Oswald','Noto Sans SC',sans-serif">
+  <!-- 日期：年 // 月 / 日 -->
+  <text x="0" y="0" font-size="15" fill="#585858" letter-spacing="2">2026 // 09 / 15</text>
+  <!-- 进度：页码 // 序号 / 总数 -->
+  <text x="0" y="0" font-size="13" fill="#ABABAB" letter-spacing="3">00 // 03 / 05</text>
+  <!-- 归属声明（页脚/旁注） -->
+  <text x="0" y="0" font-size="12" fill="#ABABAB" letter-spacing="1">RHODES ISLAND :// PROFILE</text>
+</g>
+```
+
+## 18. 斜切细线分隔符（官网唯一合法的 skew 用法，§1.6）
+
+```xml
+<!-- 2px 竖线 skewX(45deg)：官网实证 transform:skewX(45deg) -->
+<rect x="640" y="0" width="2" height="72" fill="#242424" transform="skewX(-30)"/>
+<!-- HTML 原式：width:2px;height:75%;background:currentColor;transform:skewX(45deg) -->
+```
+
+**纪律**：只许细笔画（≤3px）斜切。整块面板斜切 = 返工。
+
+## 19. 青色状态组（`#18D1FF` 五种官方用法，§1.6）
+
+```xml
+<!-- ① 选中态：青底黑字（官方 color:#000; background:#18d1ff） -->
+<rect x="0" y="0" width="120" height="34" fill="#18D1FF"/>
+<text x="14" y="23" font-size="16" font-weight="700" fill="#000"
+      font-family="'Noto Sans SC',sans-serif">当前项</text>
+
+<!-- ② 强调左边框：4px 青线 + 左内边距（引用/重点块） -->
+<g>
+  <rect x="0" y="0" width="4" height="52" fill="#18D1FF"/>
+  <text x="14" y="21" font-size="15" fill="#242424">重点条目正文……</text>
+  <text x="14" y="42" font-size="13" fill="#585858">注释小字……</text>
+</g>
+
+<!-- ③ 进度/滚动条 drag 块：直角（官方 border-radius:0） -->
+<rect x="0" y="0" width="64" height="4" fill="#18D1FF"/>
+
+<!-- ④ 边框三角角标：贴角 1px 青三角 -->
+<path d="M300,0 L312,0 L300,12 Z" fill="none" stroke="#18D1FF" stroke-width="1"/>
+
+<!-- ⑤ 分类标签底色（绿/蓝，仅小 chip） -->
+<rect x="0" y="0" width="70" height="24" fill="#8FC31F"/>
+<text x="10" y="17" font-size="14" font-weight="700" fill="#000">活动</text>
+```
