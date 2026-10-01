@@ -144,10 +144,7 @@
     transition:transform .5s cubic-bezier(.25,.1,.25,1),opacity .5s cubic-bezier(.25,.1,.25,1);
   }
   .slide.up{transform:translateY(-7%);}
-  /* 内容超高的小节：内部滚动兜底（滚到边缘再翻页） */
-  .slide.scrollable{overflow-y:auto;}
-  .slide::-webkit-scrollbar{width:6px;background:transparent;}
-  .slide::-webkit-scrollbar-thumb{background:var(--stroke);}
+  /* 任何屏都不出滚动条：内容超高由 JS 等比缩放压进一屏 */
 
   /* 小节内元素错峰入场（切换时触发，官方 .3/.5 档） */
   .slide .st{
@@ -168,7 +165,7 @@
     font-size:clamp(160px,24vw,300px);letter-spacing:-.05em;line-height:1;
     color:var(--panel-2);
   }
-  .hero-flex{display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;}
+  .hero-flex{display:flex;flex-direction:column;justify-content:center;min-height:100%;position:relative;}
   .hero-top{
     display:flex;justify-content:space-between;align-items:center;
     margin-bottom:30px;
@@ -211,7 +208,7 @@
   .stat-line .dot{width:5px;height:5px;background:var(--cyan);transform:rotate(45deg);}
 
   /* ===== 通用 section ===== */
-  .sec{display:flex;flex-direction:column;justify-content:center;height:100%;position:relative;padding:40px 0 24px;}
+  .sec{display:flex;flex-direction:column;justify-content:center;min-height:100%;position:relative;padding:28px 0 20px;}
   .sec-head{margin-bottom:34px;position:relative;}
   .sec-head .mark{display:block;margin-bottom:12px;}
   h2{
@@ -386,9 +383,9 @@
   .end-cta p{margin-top:8px;font-size:14px;}
   .end-cta .cta-row{display:flex;justify-content:center;gap:16px;margin-top:24px;}
   .foot-line{
-    position:absolute;left:0;right:0;bottom:0;
+    margin-top:auto;                /* flex 流内推底，不叠内容 */
     border-top:1px solid var(--stroke-soft);
-    padding:12px 0;font-size:12px;color:var(--dim);
+    padding:10px 0 2px;font-size:12px;color:var(--dim);
     display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   }
 
@@ -764,11 +761,18 @@
   });
   var dots = dotsNav.querySelectorAll('button');
 
-  /* 内容超高检测：小节可内部滚动（滚到边缘才翻页） */
-  function refreshScrollable(){
+  /* 内容超高时 JS 对 .sec 等比缩放（transform-origin 顶部居中），永不出滚动条 */
+  function fitSlides(){
     slides.forEach(function(s){
-      var inner = s.querySelector('.wrap');
-      s.classList.toggle('scrollable', inner ? inner.scrollHeight > s.clientHeight + 4 : false);
+      var inner = s.querySelector('.sec') || s.querySelector('.hero-flex') || s.querySelector('.wrap');
+      if(!inner) return;
+      inner.style.transform = 'none';
+      var sh = inner.scrollHeight, ch = s.clientHeight;
+      if(sh > ch + 2){
+        var k = ch / sh;
+        inner.style.transform = 'scale(' + k + ')';
+        inner.style.transformOrigin = '50% 0';
+      }
     });
   }
 
@@ -808,14 +812,9 @@
   }
   window.__eteamGo = go;
 
-  /* 滚轮翻页：小节内部可滚动时先滚内部，到边缘再翻页 */
+  /* 滚轮翻页（每屏都已缩放适配，无内部滚动） */
   window.addEventListener('wheel', function(e){
     if(animating) return;
-    var s = slides[cur];
-    if(s.classList.contains('scrollable')){
-      var atTop = s.scrollTop <= 1, atEnd = s.scrollTop + s.clientHeight >= s.scrollHeight - 1;
-      if((e.deltaY > 0 && !atEnd) || (e.deltaY < 0 && !atTop)) return;  /* 交给内部滚动 */
-    }
     e.preventDefault();
     if(e.deltaY > 30) go(cur+1, 1);
     else if(e.deltaY < -30) go(cur-1, -1);
@@ -836,11 +835,6 @@
     if(ty===null) return;
     var dy = ty - e.changedTouches[0].clientY; ty=null;
     if(Math.abs(dy) < 48) return;
-    var s = slides[cur];
-    if(s.classList.contains('scrollable')){
-      var atTop = s.scrollTop <= 1, atEnd = s.scrollTop + s.clientHeight >= s.scrollHeight - 1;
-      if((dy>0 && !atEnd) || (dy<0 && !atTop)) return;
-    }
     dy>0 ? go(cur+1,1) : go(cur-1,-1);
   }, {passive:true});
 
@@ -859,8 +853,13 @@
   }
   window.addEventListener('hashchange', fromHash);
 
-  /* 窗口尺寸变化后重判内部滚动 */
-  window.addEventListener('resize', refreshScrollable);
+  /* 窗口尺寸变化 / FAQ 展开收起后重新适配缩放 */
+  window.addEventListener('resize', fitSlides);
+  document.querySelectorAll('.faq-list summary').forEach(function(sm){
+    sm.addEventListener('click', function(){ setTimeout(fitSlides, 380); });
+  });
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitSlides); }
+  window.addEventListener('load', fitSlides);
 
   /* —— BREAKING NEWS 播报轮换 —— */
   (function(){
@@ -904,7 +903,7 @@
   /* —— 初始定位 —— */
   fromHash();
   render();
-  refreshScrollable();
+  fitSlides();
 })();
 </script>
 
