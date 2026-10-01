@@ -264,6 +264,21 @@
   .mcard:hover h3{color:#000;}
   .mcard:hover p{color:#1d1f20;}
   .mcard:hover .vm{color:#000;}
+
+  /* ===== 站群导航（NETWORK // SITES & PAGES） ===== */
+  .net{margin-top:20px;}
+  .net-title{display:block;margin-bottom:10px;}
+  .net-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+  .nlk{
+    display:inline-flex;flex-direction:column;gap:1px;
+    background:var(--panel-2);padding:9px 14px;
+    transition:background-color .3s;
+  }
+  .nlk .nm{font-family:var(--bender);font-weight:700;font-size:13px;letter-spacing:.06em;color:var(--ink);transition:color .3s;}
+  .nlk .np{font-family:var(--display);font-size:11px;letter-spacing:.1em;color:var(--dim);transition:color .3s;}
+  .nlk:hover{background:var(--cyan);}
+  .nlk:hover .nm{color:#000;}
+  .nlk:hover .np{color:#1d1f20;}
   .foot-line{
     margin-top:auto;border-top:1px solid var(--stroke-soft);
     padding:12px 0 2px;font-size:12px;color:var(--dim);
@@ -330,6 +345,11 @@
     .hero h1{margin-top:14px;}
     .hero-news{margin-top:24px;padding-top:12px;}
     .giant{font-size:clamp(60px,9vw,104px);}
+    .net{margin-top:12px;}
+    .net-row{gap:6px;margin-bottom:6px;}
+    .nlk{padding:6px 10px;}
+    .nlk .nm{font-size:12px;}
+    .nlk .np{font-size:10px;}
   }
   /* ===== 响应式 ===== */
   @media(max-width:980px){
@@ -546,6 +566,23 @@
         <a class="mcard st" style="--i:4" href="#profile" data-goto="2">
           <span class="k">CONTACT</span><h3>商务合作</h3><p>大模型定制 · 私有化部署 · 工具链集成。</p><span class="vm">VIEW MORE &gt;</span>
         </a>
+      </div>
+      <div class="net st" style="--i:5">
+        <span class="net-title mark">NETWORK <b>//</b> SITES &amp; PAGES</span>
+        <div class="net-row">
+          <a class="nlk" href="https://yhdet.top/" target="_blank" rel="noopener"><span class="nm">易聊社区</span><span class="np">YHDET.TOP</span></a>
+          <a class="nlk" href="https://api.yhdet.top/" target="_blank" rel="noopener"><span class="nm">AI API 网关</span><span class="np">API.YHDET.TOP</span></a>
+          <a class="nlk" href="https://bench.yhdet.top/" target="_blank" rel="noopener"><span class="nm">Bench 面板</span><span class="np">BENCH.YHDET.TOP</span></a>
+        </div>
+        <div class="net-row">
+          <a class="nlk" href="https://yhdet.top/visual/" target="_blank" rel="noopener"><span class="nm">蔚蓝档案·舟味设计站</span><span class="np">/VISUAL/</span></a>
+          <a class="nlk" href="https://yhdet.top/live2d/" target="_blank" rel="noopener"><span class="nm">Live2D 看板娘</span><span class="np">/LIVE2D/</span></a>
+          <a class="nlk" href="https://yhdet.top/zhuzhiliao/" target="_blank" rel="noopener"><span class="nm">竹知了 PWA</span><span class="np">/ZHUZHILIAO/</span></a>
+          <a class="nlk" href="https://yhdet.top/namemc/" target="_blank" rel="noopener"><span class="nm">NameMC 皮肤</span><span class="np">/NAMEMC/</span></a>
+          <a class="nlk" href="https://yhdet.top/music/" target="_blank" rel="noopener"><span class="nm">音乐播放</span><span class="np">/MUSIC/</span></a>
+          <a class="nlk" href="https://yhdet.top/ai/" target="_blank" rel="noopener"><span class="nm">免费 AI</span><span class="np">/AI/</span></a>
+          <a class="nlk" href="https://yhdet.top/trainlive/" target="_blank" rel="noopener"><span class="nm">TrainLive</span><span class="np">/TRAINLIVE/</span></a>
+        </div>
       </div>
       <div class="foot-line st" style="--i:5">
         <span>ETEAM <b style="color:var(--gray-3)">//</b> LIX MODEL &amp; CLI · 易腾科技 · 以开源铸造人机协作未来</span>
