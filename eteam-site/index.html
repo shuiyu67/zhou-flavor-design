@@ -438,6 +438,28 @@
   #boot .load-dots{font-family:var(--display);letter-spacing:.4em;color:var(--dim);font-size:13px;}
   #boot.done{clip-path:inset(0 0 100% 0);pointer-events:none;}
 
+  /* ===== 矮视口紧凑档（≤760px 高：收紧间距，内容原始大小不缩放） ===== */
+  @media(max-height:760px){
+    .sec{padding:18px 0 12px;}
+    .sec-head{margin-bottom:20px;}
+    h2{font-size:24px;}
+    .sec-head p{margin-top:6px;font-size:13px;}
+    .spec-panel .spec-title{padding:9px 20px;}
+    .spec-row{padding:7px 20px;font-size:12.5px;}
+    .cta-row{margin-top:16px;}
+    .btn{padding:10px 22px;font-size:14px;}
+    .chips{margin-top:14px;}
+    .lede,.lede + .lede{font-size:14px;}
+    details{margin-bottom:7px;}
+    summary{padding:11px 20px;font-size:13.5px;}
+    .cli-feats .prin{padding:11px 0;}
+    .prin p,.cap p{font-size:13px;}
+    .cap{padding:16px;}
+    .stat{padding:18px 20px 16px;}
+    .stat .num{font-size:44px;}
+    .end-cta{margin-top:20px;}
+  }
+
   /* ===== 响应式 ===== */
   @media(max-width:980px){
     .model-grid,.cli-grid{grid-template-columns:1fr;gap:28px;}
@@ -475,11 +497,11 @@
     <nav class="main" id="mainNav">
       <a href="#top" data-goto="0">首页</a>
       <a href="#lix-model" data-goto="1">Lix 模型</a>
-      <a href="#lix-cli" data-goto="2">Lix CLI</a>
-      <a href="#capabilities" data-goto="3">技术能力</a>
-      <a href="#impact" data-goto="4">数据一览</a>
-      <a href="#about" data-goto="5">关于易腾</a>
-      <a href="#faq" data-goto="6">支持</a>
+      <a href="#lix-cli" data-goto="3">Lix CLI</a>
+      <a href="#capabilities" data-goto="4">技术能力</a>
+      <a href="#impact" data-goto="5">数据一览</a>
+      <a href="#about" data-goto="6">关于易腾</a>
+      <a href="#faq" data-goto="7">支持</a>
     </nav>
     <a class="nav-gitee" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">GITEE ↗</a>
   </div>
@@ -526,7 +548,7 @@
       <p class="sub st" style="--i:3">易腾科技（ETeam）全面聚焦 Lix 产品线：自研中文大语言模型 <b style="color:var(--ink);font-weight:500;">Lix</b>，以及把它装进终端的命令行 AI 助手 <b style="color:var(--ink);font-weight:500;">Lix CLI</b>。</p>
       <div class="cta-row st" style="--i:4">
         <a class="btn btn-cyan" href="#lix-model" data-goto="1">了解 Lix 模型</a>
-        <a class="btn btn-line" href="#lix-cli" data-goto="2">探索 Lix CLI</a>
+        <a class="btn btn-line" href="#lix-cli" data-goto="3">探索 Lix CLI</a>
       </div>
       <div class="stat-line st" style="--i:5">
         <span class="mark">STAT <b>//</b> 1.465B 参数 · 4096 上下文 · MIT 开源 · 国产算力训练</span>
@@ -539,49 +561,62 @@
   <!-- 01 THE MODEL -->
   <section class="slide" id="lix-model" data-name="THE MODEL">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">01</div>
+      <div class="sec-num st" style="--i:4">01</div>
       <div class="sec-head st" style="--i:0">
         <span class="mark">SECTION 01 <b>//</b> THE MODEL</span>
         <h2>Lix 模型</h2>
         <p>易腾自研中文大语言模型：从预训练到 SFT，全程国产算力，权重完整开源。</p>
       </div>
-      <div class="model-grid">
-        <div class="st" style="--i:1">
-          <p class="lede">Lix（代号 <b>小狸 / xiaoli-v2</b>）是一个 <b>1.465B 参数</b>的 Llama 架构中文大语言模型。它不追求参数规模的军备竞赛，而是把每一分算力都花在<b>中文推理能力</b>上。</p>
-          <p class="lede">预训练 <b>45 万步</b>、SFT <b>3 亿 token</b>，全部在中科曙光 SCNet DCU 集群上完成；SFT 语料包含 DeepSeek-R1 中文蒸馏与 GSM8K_zh 数学推理数据，共 <b>112,580 条</b>。</p>
-          <div class="chips">
-            <span class="chip">1.465B PARAMS</span>
-            <span class="chip">LLAMA ARCH</span>
-            <span class="chip">MIT LICENSE</span>
-            <span class="chip">SCNET TRAINED</span>
-          </div>
-          <div class="cta-row">
-            <a class="btn btn-cyan" href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">ModelScope 下载权重 ↗</a>
-            <a class="btn btn-line" href="#lix-cli" data-goto="2">搭配 Lix CLI 使用</a>
-          </div>
-        </div>
-        <div class="spec-panel st" style="--i:2">
-          <div class="spec-title">
-            <span class="mark">LIX-V2-BASE <b>//</b> SPEC SHEET</span>
-            <span class="hero-date">V2</span>
-          </div>
-          <div class="spec-row"><span class="k">Parameters</span><span class="v">1,465,174,016 <small>（1.465B）</small></span></div>
-          <div class="spec-row"><span class="k">Architecture</span><span class="v">LlamaForCausalLM</span></div>
-          <div class="spec-row"><span class="k">Layers / Hidden / Heads</span><span class="v">20 层 / 2048 / 16 头</span></div>
-          <div class="spec-row"><span class="k">Context</span><span class="v">4,096 tokens</span></div>
-          <div class="spec-row"><span class="k">Vocab</span><span class="v">30,008</span></div>
-          <div class="spec-row"><span class="k">License</span><span class="v">MIT</span></div>
-          <div class="spec-row"><span class="k">Compute</span><span class="v">SCNet 国产 DCU 集群</span></div>
-          <div class="spec-row"><span class="k">Weights</span><span class="v"><a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">modelscope.cn/shuiyu1123/xiaoli-v2-base</a></span></div>
-        </div>
+      <div class="lede st" style="--i:1">Lix（代号 <b>小狸 / xiaoli-v2</b>）是一个 <b>1.465B 参数</b>的 Llama 架构中文大语言模型。它不追求参数规模的军备竞赛，而是把每一分算力都花在<b>中文推理能力</b>上。</div>
+      <div class="lede st" style="--i:2">预训练 <b>45 万步</b>、SFT <b>3 亿 token</b>，全部在中科曙光 SCNet DCU 集群上完成；SFT 语料包含 DeepSeek-R1 中文蒸馏与 GSM8K_zh 数学推理数据，共 <b>112,580 条</b>。</div>
+      <div class="chips st" style="--i:3">
+        <span class="chip">1.465B PARAMS</span>
+        <span class="chip">LLAMA ARCH</span>
+        <span class="chip">MIT LICENSE</span>
+        <span class="chip">SCNET TRAINED</span>
+      </div>
+      <div class="cta-row st" style="--i:4">
+        <a class="btn btn-cyan" href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">ModelScope 下载权重 ↗</a>
+        <a class="btn btn-line" href="#lix-spec" data-goto="2">查看规格表</a>
+        <a class="btn btn-line" href="#lix-cli" data-goto="3">搭配 Lix CLI 使用</a>
       </div>
     </div>
   </section>
 
-  <!-- 02 THE CLI -->
+  <!-- 02 SPEC SHEET -->
+  <section class="slide" id="lix-spec" data-name="SPEC SHEET">
+    <div class="wrap sec">
+      <div class="sec-num st" style="--i:2">02</div>
+      <div class="sec-head st" style="--i:0">
+        <span class="mark">SECTION 02 <b>//</b> SPEC SHEET</span>
+        <h2>Lix-V2-Base 规格</h2>
+        <p>权重与训练代码完整开放，可直接 from_pretrained 加载。</p>
+      </div>
+      <div class="spec-panel st" style="--i:1">
+        <div class="spec-title">
+          <span class="mark">LIX-V2-BASE <b>//</b> SPEC SHEET</span>
+          <span class="hero-date">V2</span>
+        </div>
+        <div class="spec-row"><span class="k">Parameters</span><span class="v">1,465,174,016 <small>（1.465B）</small></span></div>
+        <div class="spec-row"><span class="k">Architecture</span><span class="v">LlamaForCausalLM</span></div>
+        <div class="spec-row"><span class="k">Layers / Hidden / Heads</span><span class="v">20 层 / 2048 / 16 头</span></div>
+        <div class="spec-row"><span class="k">Context</span><span class="v">4,096 tokens</span></div>
+        <div class="spec-row"><span class="k">Vocab</span><span class="v">30,008</span></div>
+        <div class="spec-row"><span class="k">License</span><span class="v">MIT</span></div>
+        <div class="spec-row"><span class="k">Compute</span><span class="v">SCNet 国产 DCU 集群</span></div>
+        <div class="spec-row"><span class="k">Weights</span><span class="v"><a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">modelscope.cn/shuiyu1123/xiaoli-v2-base</a></span></div>
+      </div>
+      <div class="cta-row st" style="--i:2">
+        <a class="btn btn-line" href="#lix-model" data-goto="1">← 返回模型介绍</a>
+        <a class="btn btn-cyan" href="#lix-cli" data-goto="3">下一步：Lix CLI</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 THE CLI -->
   <section class="slide" id="lix-cli" data-name="THE CLI">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">02</div>
+      <div class="sec-num st" style="--i:5">03</div>
       <div class="sec-head st" style="--i:0">
         <span class="mark">SECTION 02 <b>//</b> THE CLI</span>
         <h2>Lix CLI</h2>
@@ -612,12 +647,12 @@
     </div>
   </section>
 
-  <!-- 03 CAPABILITIES -->
+  <!-- 04 CAPABILITIES -->
   <section class="slide" id="capabilities" data-name="CAPABILITIES">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">03</div>
+      <div class="sec-num st" style="--i:5">04</div>
       <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 03 <b>//</b> CAPABILITIES</span>
+        <span class="mark">SECTION 04 <b>//</b> CAPABILITIES</span>
         <h2>技术能力</h2>
         <p>围绕 Lix 产品线的六项核心能力——一条模型线，一个 CLI，做到极致。</p>
       </div>
@@ -632,12 +667,12 @@
     </div>
   </section>
 
-  <!-- 04 IMPACT -->
+  <!-- 05 IMPACT -->
   <section class="slide" id="impact" data-name="IMPACT">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">04</div>
+      <div class="sec-num st" style="--i:5">05</div>
       <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 04 <b>//</b> IMPACT</span>
+        <span class="mark">SECTION 05 <b>//</b> IMPACT</span>
         <h2>数据一览</h2>
         <p>Lix 产品线的几个关键数字，全部来自公开仓库与官方口径。</p>
       </div>
@@ -650,12 +685,12 @@
     </div>
   </section>
 
-  <!-- 05 ABOUT -->
+  <!-- 06 ABOUT -->
   <section class="slide" id="about" data-name="ABOUT">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">05</div>
+      <div class="sec-num st" style="--i:5">06</div>
       <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 05 <b>//</b> ABOUT</span>
+        <span class="mark">SECTION 06 <b>//</b> ABOUT</span>
         <h2>关于易腾</h2>
         <p>一支以开源为信仰的技术团队，探索人机协作的边界。</p>
       </div>
@@ -674,17 +709,17 @@
     </div>
   </section>
 
-  <!-- 06 FAQ + CTA -->
-  <section class="slide" id="faq" data-name="FAQ / GET LIX">
+  <!-- 07 FAQ -->
+  <section class="slide" id="faq" data-name="FAQ">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">06</div>
+      <div class="sec-num st" style="--i:4">07</div>
       <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 06 <b>//</b> FAQ</span>
+        <span class="mark">SECTION 07 <b>//</b> FAQ</span>
         <h2>常见问题</h2>
         <p>关于 Lix 模型、Lix CLI 与开源协作，你可能想知道的。</p>
       </div>
       <div class="faq-list st" style="--i:1">
-        <details open>
+        <details>
           <summary><span class="q">Q</span>Lix 模型在哪里可以下载？</summary>
           <div class="a">ModelScope 仓库 <a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener" style="color:var(--cyan);">shuiyu1123/xiaoli-v2-base</a>，MIT 协议，权重与训练代码完整开放，可直接 from_pretrained 加载。</div>
         </details>
@@ -705,7 +740,18 @@
           <div class="a">欢迎通过官方渠道联系我们，可提供大模型定制、私有化部署与开发者工具链集成等合作。</div>
         </details>
       </div>
-      <div class="end-cta st" style="--i:2">
+      <div class="cta-row st" style="--i:2">
+        <a class="btn btn-cyan" href="#get-lix" data-goto="8">获取 Lix →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 GET LIX（尾屏） -->
+  <section class="slide" id="get-lix" data-name="GET LIX">
+    <div class="wrap sec">
+      <div class="sec-num st" style="--i:3">08</div>
+      <div class="end-cta st" style="--i:0">
+        <span class="mark">NEXT <b>//</b> GET LIX</span>
         <h3>把 Lix 带进你的下一台机器</h3>
         <p>下载模型权重，或从命令行开始。</p>
         <div class="cta-row">
@@ -713,7 +759,7 @@
           <a class="btn btn-line" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">Gitee ↗</a>
         </div>
       </div>
-      <div class="foot-line st" style="--i:3">
+      <div class="foot-line st" style="--i:1">
         <span>ETEAM <b style="color:var(--gray-3)">//</b> LIX MODEL &amp; CLI · 易腾科技 · 以开源铸造人机协作未来</span>
         <span class="hero-date">HTTPS://ETEAM.YHDET.TOP/</span>
       </div>
@@ -761,20 +807,7 @@
   });
   var dots = dotsNav.querySelectorAll('button');
 
-  /* 内容超高时 JS 对 .sec 等比缩放（transform-origin 顶部居中），永不出滚动条 */
-  function fitSlides(){
-    slides.forEach(function(s){
-      var inner = s.querySelector('.sec') || s.querySelector('.hero-flex') || s.querySelector('.wrap');
-      if(!inner) return;
-      inner.style.transform = 'none';
-      var sh = inner.scrollHeight, ch = s.clientHeight;
-      if(sh > ch + 2){
-        var k = ch / sh;
-        inner.style.transform = 'scale(' + k + ')';
-        inner.style.transformOrigin = '50% 0';
-      }
-    });
-  }
+  /* 每屏内容已按一屏拆分，不做缩放不做内滚（overflow hidden 兜底） */
 
   function render(){
     slides.forEach(function(s,i){
@@ -854,12 +887,7 @@
   window.addEventListener('hashchange', fromHash);
 
   /* 窗口尺寸变化 / FAQ 展开收起后重新适配缩放 */
-  window.addEventListener('resize', fitSlides);
-  document.querySelectorAll('.faq-list summary').forEach(function(sm){
-    sm.addEventListener('click', function(){ setTimeout(fitSlides, 380); });
-  });
-  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitSlides); }
-  window.addEventListener('load', fitSlides);
+  /* 无缩放无内滚：无需 resize 重算 */
 
   /* —— BREAKING NEWS 播报轮换 —— */
   (function(){
@@ -903,7 +931,6 @@
   /* —— 初始定位 —— */
   fromHash();
   render();
-  fitSlides();
 })();
 </script>
 
