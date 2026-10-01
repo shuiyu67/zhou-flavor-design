@@ -114,6 +114,7 @@
   }
 
   /* ===== 00 HOME ===== */
+  #motes{position:absolute;inset:0;pointer-events:none;}   /* 尘埃粒子层：仅 HOME 屏 */
   .hero-flex{display:flex;flex-direction:column;justify-content:center;min-height:100%;position:relative;}
   .hero-bg{
     position:absolute;right:-.06em;bottom:4%;pointer-events:none;user-select:none;
@@ -378,6 +379,7 @@
 
   <!-- ============ 00 HOME ============ -->
   <section class="slide" id="top" data-name="HOME">
+    <canvas id="motes" aria-hidden="true"></canvas>
     <div class="hero-bg st" style="--i:4">LIX</div>
     <div class="wrap hero-flex">
       <div class="st" style="--i:0"><span class="mark">ETEAM OFFICIAL SITE <b>://</b> 易腾科技 · RHODES OF OPEN SOURCE</span></div>
@@ -723,6 +725,59 @@
       }, 180);
     }
   }, 60);
+
+  /* —— HOME 尘埃粒子层：少量光斑缓慢上飘 + 闪烁，鼠标拂开；仅在 HOME 屏运行 —— */
+  (function(){
+    if(reduced) return;
+    var cv = document.getElementById('motes');
+    if(!cv) return;
+    var ctx = cv.getContext('2d'), hero = cv.parentElement, W, H;
+    var motes = [], N = 24, mouse = {x:-999, y:-999}, running = false;
+    function size(){
+      W = cv.width = hero.clientWidth; H = cv.height = hero.clientHeight;
+    }
+    size();
+    window.addEventListener('resize', size);
+    hero.addEventListener('mousemove', function(e){
+      var r = hero.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+    });
+    hero.addEventListener('mouseleave', function(){ mouse.x = -999; mouse.y = -999; });
+    for(var i=0;i<N;i++){
+      motes.push({
+        x: Math.random(), y: Math.random(),          /* 归一化坐标，size 变化自适应 */
+        r: .8 + Math.random()*1.8,
+        v: .00008 + Math.random()*.00022,            /* 缓慢上飘 */
+        ph: Math.random()*6.28,                      /* 闪烁相位 */
+        cyan: Math.random() < .3                     /* 30% 官网青微光点 */
+      });
+    }
+    function tick(t){
+      if(cur === 0 && slides[0].classList.contains('act')){
+        if(W && H){
+          ctx.clearRect(0,0,W,H);
+          for(var i=0;i<N;i++){
+            var m = motes[i];
+            m.y -= m.v * 16;
+            if(m.y < -0.02){ m.y = 1.02; m.x = Math.random(); }
+            var px = m.x*W, py = m.y*H;
+            var dx = px-mouse.x, dy = py-mouse.y, d = Math.hypot(dx,dy);
+            if(d < 90 && d > 0){ px += dx/d*(90-d)*.06; py += dy/d*(90-d)*.06; m.x = px/W; m.y = py/H; }
+            var base = m.cyan ? .12 : .10, amp = m.cyan ? .10 : .14;
+            var col = m.cyan ? '24,209,255' : '232,234,237';
+            var a = base + amp*(.5+.5*Math.sin(t*.001+m.ph));
+            ctx.beginPath(); ctx.arc(px,py,m.r,0,6.28);
+            ctx.fillStyle = 'rgba('+col+','+a.toFixed(3)+')';
+            ctx.fill();
+          }
+        }
+      }else{
+        ctx.clearRect(0,0,W,H);   /* 滑离 HOME 即停画，省 CPU */
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
 
   fromHash();
   render();
