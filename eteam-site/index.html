@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ETeam · 易腾科技 — Lix 模型与 Lix CLI</title>
+<meta name="description" content="易腾科技（ETeam）全面聚焦 Lix 产品线：自研中文大语言模型 Lix（xiaoli-v2）与命令行 AI 助手 Lix CLI，MIT 开源，国产算力训练。" />
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Oswald:wght@400;500;600;700&family=Rajdhani:wght@600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* ===== AK 官网实证基座（ak.hypergryph.com 全部 CSS 逐 token 提取） ===== */
+    --bg:#181a1b;            /* 页面基色：官网 body 实证 background:#181a1b */
+    --bg-deep:#000;          /* 页头/页脚黑带：官网 #000 bg 18 次 */
+    --panel:#1d1f20;         /* 主 panel：官网实证 */
+    --panel-2:#242424;       /* 次级 panel：官网实证 */
+    --panel-3:#272727;       /* 三级 panel：官网实证 */
+    --stroke:#3a3e46;        /* 描边灰 */
+    --stroke-soft:#2a2a2a;   /* 弱分隔线 */
+    --ink:#fff;              /* 主文字：官网 #fff 62 次 */
+    --gray-1:#d2d2d2;        /* 官网实证 */
+    --gray-2:#ababab;        /* 官网实证 */
+    --gray-3:#8d8d8d;        /* 官网实证 */
+    --dim:#585858;           /* 官网实证（chip 底/弱字） */
+    --faint:#a4a4a4;         /* 免责小注：官网实证 */
+    --cyan:#18d1ff;          /* 品牌青：官网实证 34 次，唯一操作色 */
+    --green:#8fc31f;         /* 分类标签：官网实证（仅 chip 级） */
+    --blue:#3387fb;          /* 分类标签：官网实证（仅 chip 级） */
+    --display:"Oswald","Noto Sans SC",sans-serif;      /* 官网 Oswald-Medium 巨型字 */
+    --bender:"Rajdhani","Noto Sans SC",sans-serif;     /* 官网 Bender-Bold 的 Google 替代 */
+    --wide:"Space Grotesk","Noto Sans SC",sans-serif;  /* 官网 Novecentosanswide 的替代 */
+    --sans:"Noto Sans SC","Microsoft YaHei",sans-serif;
+    --container:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scrollbar-color:var(--cyan) var(--panel);} /* 官网滚动条 drag=青色直角 */
+  body{
+    font-family:var(--sans);
+    background:var(--bg);
+    color:var(--gray-2);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--cyan);color:#000;}   /* 官网选中态：青底黑字 */
+  ::-webkit-scrollbar{width:10px;background:var(--panel);}
+  ::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:0;}  /* 官网：直角青 drag 块 */
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 32px;}
+
+  /* ===== 记号行（官网签名记号 // :// —— skill §1.6 与官网一致，保留） ===== */
+  .mark{
+    font-family:var(--bender);
+    font-size:13px;letter-spacing:.14em;
+    color:var(--gray-3);text-transform:uppercase;
+  }
+  .mark b{color:var(--gray-1);font-weight:600;}
+
+  /* ===== 页头（官网：纯黑带 + 白字 + 青色 hover） ===== */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:rgba(0,0,0,.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--stroke-soft);
+  }
+  .nav{
+    max-width:var(--container);margin:0 auto;padding:0 32px;
+    height:64px;display:flex;align-items:center;gap:36px;
+  }
+  .logo{
+    font-family:var(--display);font-weight:600;font-size:20px;
+    letter-spacing:.08em;color:var(--ink);
+  }
+  .logo span{color:var(--cyan);}
+  nav.main{display:flex;gap:28px;margin-left:auto;}
+  nav.main a{
+    font-size:14px;color:var(--gray-2);padding:6px 2px;
+    border-bottom:2px solid transparent;
+    transition:color .3s;                     /* 官网 90% 过渡=.3s */
+  }
+  nav.main a:hover{color:var(--cyan);}        /* 官网用法①：hover 变青 */
+  .nav-gitee{
+    font-family:var(--bender);font-size:13px;letter-spacing:.1em;
+    color:var(--ink);border:1px solid var(--stroke);
+    padding:7px 16px;transition:background-color .3s,color .3s;
+  }
+  .nav-gitee:hover{background:var(--cyan);color:#000;border-color:var(--cyan);}  /* 官网用法②：青底黑字 */
+
+  /* ===== BREAKING NEWS 播报条（官网首页同款结构：青块标 + 日期 // + READ MORE） ===== */
+  .breaking{
+    background:var(--bg-deep);
+    border-bottom:1px solid var(--stroke-soft);
+    position:sticky;top:64px;z-index:49;
+  }
+  .breaking-in{
+    max-width:var(--container);margin:0 auto;padding:0 32px;
+    height:44px;display:flex;align-items:center;gap:0;
+  }
+  .breaking .tag{
+    flex:none;font-family:var(--bender);font-weight:700;font-size:12px;letter-spacing:.12em;
+    background:var(--cyan);color:#000;padding:0 12px;line-height:26px;
+  }
+  .breaking .news-zone{position:relative;flex:1;overflow:hidden;height:26px;}
+  .breaking .news-item{
+    position:absolute;inset:0;display:flex;align-items:center;gap:18px;
+    padding-left:18px;white-space:nowrap;
+    opacity:0;transform:translateY(100%);
+    transition:opacity .3s,transform .3s;
+  }
+  .breaking .news-item.cur{opacity:1;transform:none;}
+  .breaking .news-item.out{opacity:0;transform:translateY(-100%);}
+  .breaking .news-item .cat{
+    flex:none;font-size:12px;font-weight:700;color:#000;padding:0 8px;line-height:18px;
+  }
+  .breaking .news-item .cat.g{background:var(--green);}   /* 官网分类 chip：绿 */
+  .breaking .news-item .cat.b{background:var(--blue);}    /* 官网分类 chip：蓝 */
+  .breaking .news-item a{font-size:13px;color:var(--gray-1);transition:color .3s;}
+  .breaking .news-item a:hover{color:var(--cyan);}
+  .breaking .news-item .dt{font-family:var(--display);font-size:12px;letter-spacing:.12em;color:var(--dim);}
+  .breaking .more{
+    flex:none;font-family:var(--bender);font-size:12px;letter-spacing:.1em;
+    color:var(--gray-2);border-left:1px solid var(--stroke);padding-left:18px;margin-left:18px;
+    transition:color .3s;
+  }
+  .breaking .more:hover{color:var(--cyan);}
+
+  /* ===== Hero（官网：纯平色块，无光晕无粒子） ===== */
+  .hero{
+    position:relative;
+    padding:96px 0 88px;
+    background:var(--bg);
+    border-bottom:1px solid var(--stroke-soft);
+    overflow:hidden;
+  }
+  /* 巨型背景水印字（官网 10+ 处：Oswald 7rem 基线裁切，此处做低对比水印） */
+  .hero .wm{
+    position:absolute;right:-.06em;bottom:0;pointer-events:none;
+    display:flex;align-items:flex-end;height:.95em;overflow:hidden;
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(160px,26vw,320px);letter-spacing:-.05em;line-height:1;
+    color:var(--panel-2);
+  }
+  .hero-top{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:44px;
+  }
+  .hero-date{font-family:var(--display);font-size:13px;letter-spacing:.14em;color:var(--dim);}
+
+  /* 基线裁切巨型拉丁标题（官网标准式：height .95em + flex-end + overflow hidden） */
+  .giant{
+    display:flex;align-items:flex-end;
+    height:.95em;overflow:hidden;
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(88px,14vw,168px);
+    letter-spacing:-.05em;line-height:1;
+    color:var(--ink);
+  }
+  .giant em{font-style:normal;color:var(--cyan);}
+  .hero h1{
+    margin-top:28px;
+    font-size:clamp(30px,4.4vw,46px);font-weight:900;
+    letter-spacing:-.04em;line-height:1.22;color:var(--ink);
+  }
+  .hero .sub{
+    margin-top:18px;max-width:620px;
+    font-size:16px;color:var(--gray-2);
+  }
+  .hero .cta-row{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--bender);font-size:15px;font-weight:700;letter-spacing:.06em;
+    padding:14px 30px;transition:background-color .3s,color .3s,border-color .3s;
+  }
+  .btn-cyan{background:var(--cyan);color:#000;}          /* 官网用法② */
+  .btn-cyan:hover{background:var(--ink);color:#000;}
+  .btn-line{border:1px solid var(--stroke);color:var(--ink);}
+  .btn-line:hover{background:var(--cyan);border-color:var(--cyan);color:#000;}
+  .hero .stat-line{
+    margin-top:52px;padding-top:20px;
+    border-top:1px solid var(--stroke-soft);
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  }
+  .stat-line .dot{width:5px;height:5px;background:var(--cyan);transform:rotate(45deg);}
+
+  /* ===== 通用 section ===== */
+  section{padding:96px 0;position:relative;}
+  .sec-head{margin-bottom:52px;position:relative;}
+  .sec-head .mark{display:block;margin-bottom:14px;}
+  h2{
+    font-size:clamp(26px,3.4vw,36px);font-weight:900;
+    letter-spacing:-.03em;color:var(--ink);
+  }
+  .sec-head p{margin-top:12px;max-width:640px;font-size:15px;}
+  /* section 巨型编号水印：官网 Oswald 巨型字同式，#242424 沉底 */
+  .sec-num{
+    position:absolute;right:0;top:36px;pointer-events:none;user-select:none;
+    display:flex;align-items:flex-end;height:.95em;overflow:hidden;
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(96px,12vw,150px);letter-spacing:-.05em;line-height:1;
+    color:var(--panel-2);
+  }
+
+  /* 细线斜切分隔符（官网：skew 仅限 2px 细笔画，skewX 45deg） */
+  .skew-div{
+    width:2px;height:34px;background:var(--stroke);
+    transform:skewX(45deg);display:inline-block;margin:0 22px;
+    vertical-align:middle;
+  }
+
+  /* ===== 产品聚焦双栏（Lix 模型 / Lix CLI） ===== */
+  .model-grid,.cli-grid{
+    display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:start;
+  }
+  .lede{font-size:16px;max-width:560px;}
+  .lede b{color:var(--ink);font-weight:500;}
+  .lede + .lede{margin-top:14px;font-size:15px;}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px;}
+  .chip{
+    font-family:var(--bender);font-size:12px;letter-spacing:.12em;
+    color:var(--gray-1);background:var(--dim);
+    padding:6px 12px;text-transform:uppercase;
+    transition:background-color .3s,color .3s;
+  }
+  .chip:hover{background:var(--cyan);color:#000;}       /* 官网用法② */
+  .cta-row{display:flex;gap:16px;margin-top:32px;flex-wrap:wrap;}
+
+  /* 规格表：白面板（官网 #fff bg 24 次——白卡黑字是官网主信息载体） */
+  .spec-panel{
+    background:var(--ink);color:#242424;
+    box-shadow:none;
+  }
+  .spec-panel .spec-title{
+    padding:16px 22px;border-bottom:1px solid #e0e0e0;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .spec-panel .spec-title .mark{color:#8d8d8d;}
+  .spec-panel .spec-title .mark b{color:#242424;}
+  .spec-panel .spec-title .hero-date{color:#8d8d8d;}
+  .spec-row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+    padding:13px 22px;border-bottom:1px solid #e0e0e0;
+    font-size:14px;
+  }
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row .k{
+    flex:none;font-family:var(--bender);font-size:11px;letter-spacing:.14em;
+    color:#8d8d8d;text-transform:uppercase;
+  }
+  .spec-row .v{color:#000;font-weight:500;text-align:right;}
+  .spec-row .v small{color:#8d8d8d;font-weight:400;}
+  .spec-row .v a{color:var(--cyan);transition:color .3s;}
+  .spec-row .v a:hover{color:#000;}                     /* 官网用法①反向：白卡上青→黑 */
+
+  /* 终端块：CLI 命题主视觉（唯一等宽，命题理由：产品即终端；官网灰阶化） */
+  .term{
+    background:var(--bg-deep);border:1px solid var(--stroke-soft);
+    padding:22px 24px;
+    font-family:"Cascadia Mono",Consolas,"Courier New",monospace;
+    font-size:13.5px;line-height:1.9;
+    color:var(--gray-2);
+  }
+  .term .p{color:var(--cyan);}
+  .term .dim{color:var(--dim);}
+  .term .in{color:var(--ink);}
+
+  /* 动效层专属符号（扫过即逝，不常驻静帧）：官网无黄，扫描线改青 */
+  .sec-head .scan{
+    position:absolute;left:0;bottom:-16px;width:100%;height:1px;
+    background:var(--cyan);opacity:0;transform:scaleX(0);transform-origin:left center;
+    pointer-events:none;
+  }
+  .term .caret{
+    display:inline-block;width:8px;height:15px;margin-left:6px;
+    background:var(--cyan);vertical-align:-2px;
+    animation:blink .8s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  /* CLI 特性行 */
+  .cli-feats{display:flex;flex-direction:column;}
+  .cli-feats .prin{padding:20px 0;}
+  .cli-feats .prin .no{
+    font-family:var(--display);font-weight:600;font-size:26px;
+    letter-spacing:-.05em;color:var(--dim);line-height:1;flex:none;width:44px;
+  }
+  .cli-feats .prin:first-child{padding-top:0;}
+
+  /* ===== 能力矩阵（官网块面板：#242424 实色块 + hover 青底黑字选中态） ===== */
+  .grid-cap{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .cap{
+    background:var(--panel-2);
+    padding:26px;transition:background-color .3s;
+  }
+  .cap .ico{
+    width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;
+    border:1px solid var(--dim);color:var(--ink);
+    font-family:var(--bender);font-weight:700;font-size:13px;
+  }
+  .cap h3{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.01em;transition:color .3s;}
+  .cap .k{font-family:var(--bender);font-size:11px;letter-spacing:.14em;color:var(--gray-3);display:block;margin-bottom:6px;text-transform:uppercase;}
+  .cap p{font-size:14px;margin-top:10px;transition:color .3s;}
+  .cap p b{color:var(--ink);font-weight:500;}
+  .cap:hover{background:var(--cyan);}                   /* 官网用法②整块选中态 */
+  .cap:hover h3,.cap:hover p b{color:#000;}
+  .cap:hover p{color:#1d1f20;}
+  .cap:hover .k{color:#1d1f20;}
+  .cap:hover .ico{border-color:#000;color:#000;}
+
+  /* ===== 数据一览：大数字 panel（官网用法④：青色 4px 强调左边框） ===== */
+  .impact{background:var(--panel);border-top:1px solid var(--stroke-soft);border-bottom:1px solid var(--stroke-soft);}
+  .grid-stat{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .stat{
+    background:var(--panel-2);
+    padding:30px 26px 24px;position:relative;
+  }
+  .stat::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cyan);
+  }
+  .stat .num{
+    display:flex;align-items:flex-end;height:.95em;overflow:hidden;
+    font-family:var(--display);font-weight:600;
+    font-size:64px;letter-spacing:-.05em;line-height:1;color:var(--ink);
+  }
+  .stat .label{margin-top:14px;font-size:15px;font-weight:700;color:var(--ink);}
+  .stat .en{font-family:var(--bender);font-size:11px;letter-spacing:.14em;color:var(--gray-3);margin-top:4px;text-transform:uppercase;}
+
+  /* ===== 关于（官网无衬线：引言改青色左边框引用块） ===== */
+  .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start;}
+  .about-quote{
+    font-size:19px;line-height:1.9;color:var(--gray-1);
+    border-left:4px solid var(--cyan);padding-left:20px;margin-top:28px;  /* 官网用法④ */
+  }
+  .about-sign{margin-top:18px;font-size:14px;color:var(--gray-3);}
+  .about-body{margin-top:26px;font-size:15px;}
+  .principles{display:flex;flex-direction:column;}
+  .prin{
+    display:flex;gap:22px;padding:24px 0;
+    border-bottom:1px solid var(--stroke-soft);
+  }
+  .prin:first-child{padding-top:4px;}
+  .prin .no{
+    font-family:var(--display);font-weight:600;font-size:30px;
+    letter-spacing:-.05em;color:var(--dim);line-height:1;
+  }
+  .prin h3{font-size:16px;font-weight:700;color:var(--ink);}
+  .prin p{font-size:14px;margin-top:6px;}
+
+  /* ===== FAQ ===== */
+  .faq-list{max-width:820px;}
+  details{
+    background:var(--panel-2);
+    margin-bottom:12px;
+  }
+  summary{
+    list-style:none;cursor:pointer;
+    display:flex;align-items:center;gap:16px;
+    padding:18px 22px;font-size:15px;font-weight:700;color:var(--ink);
+    transition:color .3s;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary:hover{color:var(--cyan);}                     /* 官网用法① */
+  summary .q{
+    flex:none;font-family:var(--bender);font-weight:700;font-size:13px;
+    width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+    background:var(--dim);color:var(--ink);
+    transition:background-color .3s,color .3s;
+  }
+  details .a{padding:0 22px 20px 64px;font-size:14px;}
+  details[open] summary .q{background:var(--cyan);color:#000;}   /* 官网用法② */
+
+  /* ===== CTA / 页脚 ===== */
+  .cta{
+    background:var(--panel);border-top:1px solid var(--stroke-soft);
+    text-align:center;padding:104px 0;
+  }
+  .cta h2{font-size:clamp(26px,3.6vw,40px);}
+  .cta p{margin-top:14px;}
+  .cta .cta-row{display:flex;justify-content:center;gap:16px;margin-top:36px;flex-wrap:wrap;}
+  footer.site{
+    background:var(--bg-deep);
+    padding:40px 0 32px;
+  }
+  .foot-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .foot-note{margin-top:22px;font-size:12px;color:var(--dim);}
+  .foot-url{font-family:var(--display);font-size:12px;letter-spacing:.14em;color:var(--dim);}
+
+  /* ===== 动效（官网实证：.3s 统一档 + .5s 大位移；clip-path .2s linear） =====
+     缓动：颜色/位移 .3s；大位移 .5s；clip-path .2s linear。 */
+  :root{--ease:cubic-bezier(.25,.1,.25,1);--t:.3s;--ts:.5s;}
+  .rv{
+    opacity:0;transform:translateX(32px);
+    transition:opacity var(--ts) var(--ease),transform var(--ts) var(--ease);
+    transition-delay:calc(var(--i,0)*70ms);
+    will-change:opacity,transform;
+  }
+  .rv.on{opacity:1;transform:none;}
+  /* 数值展开（clip-path .2s linear，官网实证档位） */
+  .stat .num{
+    clip-path:inset(0 100% 0 0);
+    transition:clip-path .5s var(--ease) .15s;
+  }
+  .stat.on .num{clip-path:inset(0 0 0 0);}
+  details .a{opacity:0;transform:translateX(16px);transition:opacity var(--t) var(--ease),transform var(--t) var(--ease);}
+  details[open] .a{opacity:1;transform:none;transition-delay:.08s;}
+  @media (prefers-reduced-motion:reduce){
+    .rv,.stat .num{opacity:1;transform:none;clip-path:none;transition:none;}
+    details .a{opacity:1;transform:none;transition:none;}
+  }
+
+  /* ===== 响应式 ===== */
+  @media(max-width:980px){
+    .model-grid,.cli-grid{grid-template-columns:1fr;gap:36px;}
+    .grid-cap{grid-template-columns:repeat(2,1fr);}
+    .grid-stat{grid-template-columns:repeat(2,1fr);}
+    .about-grid{grid-template-columns:1fr;gap:40px;}
+    nav.main{display:none;}
+    .sec-num{display:none;}
+  }
+  @media(max-width:620px){
+    .grid-cap,.grid-stat{grid-template-columns:1fr;}
+    section{padding:72px 0;}
+    .skew-div{display:none;}
+    .breaking .more{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <a class="logo" href="#top">ETEAM<span>_</span></a>
+    <nav class="main">
+      <a href="#lix-model">Lix 模型</a>
+      <a href="#lix-cli">Lix CLI</a>
+      <a href="#capabilities">技术能力</a>
+      <a href="#about">关于易腾</a>
+      <a href="#faq">支持</a>
+    </nav>
+    <a class="nav-gitee" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">GITEE ↗</a>
+  </div>
+</header>
+
+<!-- ============ BREAKING NEWS（官网首页同款播报条） ============ -->
+<div class="breaking">
+  <div class="breaking-in">
+    <span class="tag">BREAKING NEWS</span>
+    <div class="news-zone" id="newsZone">
+      <div class="news-item">
+        <span class="cat g">模型</span>
+        <a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">Lix（xiaoli-v2-base）权重正式发布，MIT 开源</a>
+        <span class="dt">2026 // 09 / 19</span>
+      </div>
+      <div class="news-item">
+        <span class="cat b">CLI</span>
+        <a href="https://gitee.com/shuiyu1123/xiaoli-cli" target="_blank" rel="noopener">Lix CLI 合入 pylsp 代码智能，终端直读工程结构</a>
+        <span class="dt">2026 // 09 / 28</span>
+      </div>
+      <div class="news-item">
+        <span class="cat g">训练</span>
+        <a href="#lix-model">Lix 预训练 45 万步全部于 SCNet 国产 DCU 集群完成</a>
+        <span class="dt">2026 // 09 / 25</span>
+      </div>
+    </div>
+    <a class="more" href="#lix-model">READ MORE</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wm">LIX</div>
+  <div class="wrap" id="hero-flow">
+    <div class="hero-top rv" style="--i:0">
+      <span class="mark">ETEAM OFFICIAL SITE <b>://</b> 易腾科技 · LIX 产品线</span>
+      <span class="hero-date">2026 // 10 / 01</span>
+    </div>
+    <div class="giant">LIX<em>_</em></div>
+    <h1 class="rv" style="--i:2">一个模型，一把命令行<br/>把 AI 装进每一台机器</h1>
+    <p class="sub rv" style="--i:3">易腾科技（ETeam）全面聚焦 Lix 产品线：自研中文大语言模型 <b style="color:var(--ink);font-weight:500;">Lix</b>，以及把它装进终端的命令行 AI 助手 <b style="color:var(--ink);font-weight:500;">Lix CLI</b>。</p>
+    <div class="cta-row rv" style="--i:4">
+      <a class="btn btn-cyan" href="#lix-model">了解 Lix 模型</a>
+      <a class="btn btn-line" href="#lix-cli">探索 Lix CLI</a>
+    </div>
+    <div class="stat-line rv" style="--i:5">
+      <span class="mark">STAT <b>//</b> 1.465B 参数 · 4096 上下文 · MIT 开源 · 国产算力训练</span>
+      <span class="dot"></span>
+      <span class="hero-date">HTTPS://ETEAM.YHDET.TOP/</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 THE MODEL ============ -->
+<section id="lix-model">
+  <div class="sec-num">01</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mark">SECTION 01 <b>//</b> THE MODEL</span>
+      <h2>Lix 模型</h2>
+      <p>易腾自研中文大语言模型：从预训练到 SFT，全程国产算力，权重完整开源。</p>
+    </div>
+    <div class="model-grid">
+      <div>
+        <p class="lede">Lix（代号 <b>小狸 / xiaoli-v2</b>）是一个 <b>1.465B 参数</b>的 Llama 架构中文大语言模型。它不追求参数规模的军备竞赛，而是把每一分算力都花在<b>中文推理能力</b>上。</p>
+        <p class="lede">预训练 <b>45 万步</b>、SFT <b>3 亿 token</b>，全部在中科曙光 SCNet DCU 集群上完成；SFT 语料包含 DeepSeek-R1 中文蒸馏与 GSM8K_zh 数学推理数据，共 <b>112,580 条</b>。</p>
+        <div class="chips">
+          <span class="chip">1.465B PARAMS</span>
+          <span class="chip">LLAMA ARCH</span>
+          <span class="chip">MIT LICENSE</span>
+          <span class="chip">SCNET TRAINED</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-cyan" href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">ModelScope 下载权重 ↗</a>
+          <a class="btn btn-line" href="#lix-cli">搭配 Lix CLI 使用</a>
+        </div>
+      </div>
+      <div class="spec-panel">
+        <div class="spec-title">
+          <span class="mark">LIX-V2-BASE <b>//</b> SPEC SHEET</span>
+          <span class="hero-date">V2</span>
+        </div>
+        <div class="spec-row"><span class="k">Parameters</span><span class="v">1,465,174,016 <small>（1.465B）</small></span></div>
+        <div class="spec-row"><span class="k">Architecture</span><span class="v">LlamaForCausalLM</span></div>
+        <div class="spec-row"><span class="k">Layers / Hidden / Heads</span><span class="v">20 层 / 2048 / 16 头</span></div>
+        <div class="spec-row"><span class="k">Context</span><span class="v">4,096 tokens</span></div>
+        <div class="spec-row"><span class="k">Vocab</span><span class="v">30,008</span></div>
+        <div class="spec-row"><span class="k">License</span><span class="v">MIT</span></div>
+        <div class="spec-row"><span class="k">Compute</span><span class="v">SCNet 国产 DCU 集群</span></div>
+        <div class="spec-row"><span class="k">Weights</span><span class="v"><a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">modelscope.cn/shuiyu1123/xiaoli-v2-base</a></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 THE CLI ============ -->
+<section id="lix-cli" style="padding-top:0;">
+  <div class="sec-num">02</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mark">SECTION 02 <b>//</b> THE CLI</span>
+      <h2>Lix CLI</h2>
+      <p>命令行下的高级 AI 助手：真·全屏 TUI、会话压缩、代码智能，把 Lix 的能力直接装进终端。</p>
+    </div>
+    <div class="cli-grid">
+      <div>
+        <div class="term">
+          <div><span class="p">$</span> <span class="in">xiaoli</span></div>
+          <div class="dim">LIX CLI · textual TUI · 会话已就绪</div>
+          <div><span class="p">&gt;</span> <span class="in">帮我看看这段代码为什么报错</span></div>
+          <div class="dim">… token 感知压缩已启用 · pylsp 代码智能已挂载</div>
+          <div><span class="p">&gt;</span> <span class="in">/snapshot</span></div>
+          <div class="dim">rich 面板快照已导出 ✓</div>
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-line" href="https://gitee.com/shuiyu1123/xiaoli-cli" target="_blank" rel="noopener">Gitee 仓库 ↗</a>
+          <a class="btn btn-line" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">Gitee @shuiyu1123 ↗</a>
+        </div>
+      </div>
+      <div class="cli-feats">
+        <div class="prin">
+          <span class="no">01</span>
+          <div><h3>真·全屏 TUI</h3><p>基于 textual 的全屏终端界面，opencode 风格交互，不是简单的 REPL 套壳。</p></div>
+        </div>
+        <div class="prin">
+          <span class="no">02</span>
+          <div><h3>会话自动压缩</h3><p>token 感知的自动压缩机制，长对话、大代码库下依然稳态运行。</p></div>
+        </div>
+        <div class="prin">
+          <span class="no">03</span>
+          <div><h3>代码智能</h3><p>内置 pylsp 集成，在命令行里直接理解、分析、重构你的 Python 代码。</p></div>
+        </div>
+        <div class="prin">
+          <span class="no">04</span>
+          <div><h3>面板快照</h3><p>rich 面板快照系统，AI 输出可截图、可存档、可复现。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 CAPABILITIES ============ -->
+<section id="capabilities" style="padding-top:0;">
+  <div class="sec-num">03</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mark">SECTION 03 <b>//</b> CAPABILITIES</span>
+      <h2>技术能力</h2>
+      <p>围绕 Lix 产品线的六项核心能力——一条模型线，一个 CLI，做到极致。</p>
+    </div>
+    <div class="grid-cap">
+      <div class="cap">
+        <div class="ico">A</div>
+        <span class="k">AI / LLM</span>
+        <h3>中文原生推理</h3>
+        <p>从预训练语料到 SFT 数据全程中文深耕，<b>中文推理专精</b>是 Lix 的第一设计目标。</p>
+      </div>
+      <div class="cap">
+        <div class="ico">D</div>
+        <span class="k">DOMESTIC</span>
+        <h3>国产算力训练</h3>
+        <p>预训练与 SFT 全部跑在 <b>SCNet 曙光 DCU 集群</b>上，全程国产算力。</p>
+      </div>
+      <div class="cap">
+        <div class="ico">O</div>
+        <span class="k">OPEN SOURCE</span>
+        <h3>权重完整开放</h3>
+        <p><b>MIT 协议</b>，权重与训练代码在 ModelScope 公开，欢迎商用与二次开发。</p>
+      </div>
+      <div class="cap">
+        <div class="ico">T</div>
+        <span class="k">TERMINAL</span>
+        <h3>全屏终端交互</h3>
+        <p>textual 真·全屏 TUI，<b>opencode 风格</b>交互体验，终端即工作台。</p>
+      </div>
+      <div class="cap">
+        <div class="ico">C</div>
+        <span class="k">COMPRESS</span>
+        <h3>会话压缩</h3>
+        <p>token 感知自动压缩，<b>长对话不爆上下文</b>，稳态可靠。</p>
+      </div>
+      <div class="cap">
+        <div class="ico">L</div>
+        <span class="k">LSP</span>
+        <h3>代码智能</h3>
+        <p>内置 pylsp 集成，命令行内<b>直接读懂代码结构</b>，AI 与工程无缝衔接。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 IMPACT ============ -->
+<section class="impact" id="impact">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mark">SECTION 04 <b>//</b> IMPACT</span>
+      <h2>数据一览</h2>
+      <p>Lix 产品线的几个关键数字，全部来自公开仓库与官方口径。</p>
+    </div>
+    <div class="grid-stat">
+      <div class="stat">
+        <div class="num">1465</div>
+        <div class="label">参数规模（M）</div>
+        <div class="en">MODEL PARAMETERS</div>
+      </div>
+      <div class="stat">
+        <div class="num">4096</div>
+        <div class="label">上下文长度</div>
+        <div class="en">CONTEXT TOKENS</div>
+      </div>
+      <div class="stat">
+        <div class="num">30006</div>
+        <div class="label">词典规模</div>
+        <div class="en">VOCAB SIZE</div>
+      </div>
+      <div class="stat">
+        <div class="num">100</div>
+        <div class="label">国产算力训练（%）</div>
+        <div class="en">TRAINED ON SCNET</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 ABOUT ============ -->
+<section id="about">
+  <div class="sec-num">05</div>
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="sec-head" style="margin-bottom:0;">
+          <span class="mark">SECTION 05 <b>//</b> ABOUT</span>
+          <h2>关于易腾</h2>
+          <p>一支以开源为信仰的技术团队，探索人机协作的边界。</p>
+        </div>
+        <blockquote class="about-quote">「我们相信，AI 不是替代人类的工具，而是与之共生的伙伴。」</blockquote>
+        <p class="about-sign">—— 易腾科技 · ETEAM</p>
+        <p class="about-body">
+          易腾科技（ETeam）是一支以开源为信仰的技术团队。我们把全部精力收敛到 Lix 产品线——一个为中文而生的大模型，和一把把模型送进终端的命令行工具。
+        </p>
+      </div>
+      <div class="principles">
+        <div class="prin">
+          <span class="no">01</span>
+          <div><h3>收敛聚焦</h3><p>少即是多：一条模型线，一个 CLI，把两件事做到极致。</p></div>
+        </div>
+        <div class="prin">
+          <span class="no">02</span>
+          <div><h3>人机共生</h3><p>让 AI 成为人类的协作者，而非替代者。</p></div>
+        </div>
+        <div class="prin">
+          <span class="no">03</span>
+          <div><h3>全栈自研</h3><p>模型与工具链全部自研，掌握完整技术主权。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 FAQ ============ -->
+<section id="faq" style="padding-top:0;">
+  <div class="sec-num">06</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="mark">SECTION 06 <b>//</b> FAQ</span>
+      <h2>常见问题</h2>
+      <p>关于 Lix 模型、Lix CLI 与开源协作，你可能想知道的。</p>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary><span class="q">Q</span>Lix 模型在哪里可以下载？</summary>
+        <div class="a">ModelScope 仓库 <a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener" style="color:var(--cyan);">shuiyu1123/xiaoli-v2-base</a>，MIT 协议，权重与训练代码完整开放，可直接 from_pretrained 加载。</div>
+      </details>
+      <details>
+        <summary><span class="q">Q</span>Lix CLI 怎么获取？</summary>
+        <div class="a">前往 Gitee <a href="https://gitee.com/shuiyu1123/xiaoli-cli" target="_blank" rel="noopener" style="color:var(--cyan);">shuiyu1123/xiaoli-cli</a> 仓库，按 README 安装依赖即可运行，支持终端 TUI 与代码智能等完整能力。</div>
+      </details>
+      <details>
+        <summary><span class="q">Q</span>Lix 是用什么算力训练的？</summary>
+        <div class="a">预训练（45 万步）与 SFT 全部在 SCNet（中科曙光 DCU 集群）上完成，全程国产算力。</div>
+      </details>
+      <details>
+        <summary><span class="q">Q</span>如何参与贡献？</summary>
+        <div class="a">前往 Gitee @shuiyu1123，Fork 仓库并提交 Pull Request，也可以在 Issue 中反馈问题或建议。</div>
+      </details>
+      <details>
+        <summary><span class="q">Q</span>是否提供商务合作或技术咨询？</summary>
+        <div class="a">欢迎通过官方渠道联系我们，可提供大模型定制、私有化部署与开发者工具链集成等合作。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta">
+  <div class="wrap">
+    <span class="mark">NEXT <b>//</b> GET LIX</span>
+    <h2 style="margin-top:14px;">把 Lix 带进你的下一台机器</h2>
+    <p>下载模型权重，或从命令行开始。</p>
+    <div class="cta-row">
+      <a class="btn btn-cyan" href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">ModelScope ↗</a>
+      <a class="btn btn-line" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">Gitee ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-row">
+      <a class="logo" href="#top">ETEAM<span>_</span></a>
+      <span class="mark">ETEAM <b>//</b> LIX MODEL &amp; CLI</span>
+      <span class="foot-url">HTTPS://ETEAM.YHDET.TOP/</span>
+    </div>
+    <p class="foot-note">* Lix 模型权重发布于 ModelScope（MIT），Lix CLI 托管于 Gitee。易腾科技 ETeam · 以开源铸造人机协作未来。</p>
+  </div>
+</footer>
+
+<script src="lenis.min.js"></script>
+<script src="gsap.min.js"></script>
+<script src="gsap-scrolltrigger.min.js"></script>
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGSAP = !!window.gsap;
+
+  /* —— Lenis 机械导轨滚动（文件同源伺服） —— */
+  var lenis = null;
+  if(window.Lenis && !reduced){
+    lenis = new Lenis({
+      duration:1.05,
+      easing:function(t){ return Math.min(1, 1.001 - Math.pow(2, -10*t)); }
+    });
+    (function raf(t){ lenis.raf(t); requestAnimationFrame(raf); })(0);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var sel = this.getAttribute('href');
+      if(sel.length < 2 || !document.querySelector(sel)) return;
+      if(lenis){ e.preventDefault(); lenis.scrollTo(sel, {offset:-63}); }
+    });
+  });
+
+  /* —— 滚动入场：横移淡入，stagger 由 --i 控制 —— */
+  var groups = ['.grid-cap','.grid-stat','.principles','.faq-list','.spec-panel','.cli-feats'];
+  groups.forEach(function(sel){
+    document.querySelectorAll(sel + ' > *').forEach(function(el,i){ el.classList.add('rv'); el.style.setProperty('--i', i % 4); });
+  });
+  document.querySelectorAll('.sec-head, .model-grid > div:first-child, .cli-grid > div:first-child, .about-grid > div, .cta .wrap > *').forEach(function(el){ el.classList.add('rv'); });
+
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('on');
+      io.unobserve(e.target);
+    });
+  },{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){
+    if(el.closest('#hero-flow')) return;   /* hero 走加载时序 */
+    io.observe(el);
+  });
+
+  /* —— hero 加载时序 —— */
+  function heroIn(){
+    document.querySelectorAll('#hero-flow .rv').forEach(function(el){ el.classList.add('on'); });
+  }
+  reduced ? heroIn() : requestAnimationFrame(heroIn);
+
+  /* —— 数据一览：数值展开 + 数字滚动 —— */
+  function countUp(el){
+    var target = parseInt(el.textContent,10), t0 = null, DUR = 600;
+    if(reduced || isNaN(target)){ return; }
+    function step(t){
+      if(!t0) t0 = t;
+      var p = Math.min((t - t0)/DUR, 1), e = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.round(target * e);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var statIO = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('on');
+      countUp(e.target.querySelector('.num'));
+      statIO.unobserve(e.target);
+    });
+  },{threshold:.4});
+  document.querySelectorAll('.stat').forEach(function(el){ statIO.observe(el); });
+
+  /* —— GSAP 动效层（.2/.3/.5 三档，clip-path .2s linear） —— */
+  if(hasGSAP && !reduced){
+    if(window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+    /* hero：LIX_ 机械咬合落位 */
+    var giant = document.querySelector('.giant');
+    if(giant){
+      gsap.set(giant, {opacity:0});
+      gsap.timeline({delay:.15})
+        .to(giant, {opacity:1, x:-10, skewX:-8, duration:.2, ease:'none'})
+        .to(giant, {x:3, skewX:2, duration:.2, ease:'none'})
+        .to(giant, {x:0, skewX:0, duration:.3, ease:'power2.out'});
+    }
+
+    /* sec-head 青色细线扫描（动效层专属：扫过即逝） */
+    document.querySelectorAll('.sec-head').forEach(function(head){
+      var scan = document.createElement('span');
+      scan.className = 'scan';
+      head.appendChild(scan);
+      if(window.ScrollTrigger){
+        ScrollTrigger.create({
+          trigger:head, start:'top 75%', once:true,
+          onEnter:function(){
+            gsap.timeline()
+              .to(scan, {opacity:.85, scaleX:1, duration:.2, ease:'none'})
+              .to(scan, {opacity:0, duration:.3, ease:'none'}, '+=.12');
+          }
+        });
+      }
+    });
+
+    /* spec-panel：自屏幕外滑入 + 2px 机械咬合 */
+    var spec = document.querySelector('.spec-panel');
+    if(spec && window.ScrollTrigger){
+      gsap.timeline({scrollTrigger:{trigger:'#lix-model', start:'top 55%', once:true}})
+        .from(spec, {x:140, opacity:0, duration:.5, ease:'power2.inOut'})
+        .to(spec, {x:-2, duration:.08, ease:'none'})
+        .to(spec, {x:0, duration:.14, ease:'power2.out'});
+    }
+
+    /* term：行级数值展开（clip-path .2s linear）+ 落位常驻光标 */
+    var term = document.querySelector('.term');
+    if(term && window.ScrollTrigger){
+      gsap.set(term.children, {clipPath:'inset(0 100% 0 0)'});
+      ScrollTrigger.create({
+        trigger:term, start:'top 70%', once:true,
+        onEnter:function(){
+          gsap.to(term.children, {
+            clipPath:'inset(0 0% 0 0)', duration:.2, ease:'none', stagger:.14,
+            onComplete:function(){
+              var last = term.children[term.children.length-1];
+              var caret = document.createElement('span');
+              caret.className = 'caret';
+              last.appendChild(caret);
+            }
+          });
+        }
+      });
+    }
+
+    /* chips 二级 stagger 横移 */
+    var chips = document.querySelectorAll('.chips .chip');
+    if(chips.length && window.ScrollTrigger){
+      gsap.from(chips, {x:24, opacity:0, duration:.3, ease:'power2.out', stagger:.06,
+        scrollTrigger:{trigger:'.chips', start:'top 88%', once:true}});
+    }
+  }
+
+  /* —— BREAKING NEWS 播报轮换（.3s 官网档位） —— */
+  (function(){
+    var zone = document.getElementById('newsZone');
+    if(!zone) return;
+    var items = zone.querySelectorAll('.news-item');
+    if(items.length < 2) return;
+    var cur = 0;
+    items[0].classList.add('cur');
+    setInterval(function(){
+      var prev = items[cur];
+      cur = (cur + 1) % items.length;
+      var next = items[cur];
+      prev.classList.remove('cur'); prev.classList.add('out');
+      setTimeout(function(){ prev.classList.remove('out'); }, 320);
+      next.classList.add('cur');
+    }, 4200);
+  })();
+})();
+</script>
+
+</body>
+</html>
