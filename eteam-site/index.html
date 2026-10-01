@@ -9,33 +9,30 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Oswald:wght@400;500;600;700&family=Rajdhani:wght@600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Oswald:wght@400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
     /* ===== AK 官网实证基座（ak.hypergryph.com 全部 CSS 逐 token 提取） ===== */
-    --bg:#181a1b;            /* 页面基色：官网 body 实证 background:#181a1b */
-    --bg-deep:#000;          /* 页头/页脚黑带：官网 #000 bg 18 次 */
+    --bg:#181a1b;            /* 页面基色：官网 body 实证 */
+    --bg-deep:#000;          /* 页头/页脚黑带 */
     --panel:#1d1f20;         /* 主 panel：官网实证 */
     --panel-2:#242424;       /* 次级 panel：官网实证 */
     --panel-3:#272727;       /* 三级 panel：官网实证 */
     --stroke:#3a3e46;        /* 描边灰 */
     --stroke-soft:#2a2a2a;   /* 弱分隔线 */
-    --ink:#fff;              /* 主文字：官网 #fff 62 次 */
-    --gray-1:#d2d2d2;        /* 官网实证 */
-    --gray-2:#ababab;        /* 官网实证 */
-    --gray-3:#8d8d8d;        /* 官网实证 */
-    --dim:#585858;           /* 官网实证（chip 底/弱字） */
-    --faint:#a4a4a4;         /* 免责小注：官网实证 */
-    --cyan:#18d1ff;          /* 品牌青：官网实证 34 次，唯一操作色 */
-    --green:#8fc31f;         /* 分类标签：官网实证（仅 chip 级） */
-    --blue:#3387fb;          /* 分类标签：官网实证（仅 chip 级） */
-    --display:"Oswald","Noto Sans SC",sans-serif;      /* 官网 Oswald-Medium 巨型字 */
-    --bender:"Rajdhani","Noto Sans SC",sans-serif;     /* 官网 Bender-Bold 的 Google 替代 */
-    --wide:"Space Grotesk","Noto Sans SC",sans-serif;  /* 官网 Novecentosanswide 的替代 */
+    --ink:#fff;
+    --gray-1:#d2d2d2;
+    --gray-2:#ababab;
+    --gray-3:#8d8d8d;
+    --dim:#585858;
+    --cyan:#18d1ff;          /* 官网实证：唯一操作色 */
+    --green:#8fc31f;         /* 分类 chip */
+    --blue:#3387fb;          /* 分类 chip */
+    --display:"Oswald","Noto Sans SC",sans-serif;
+    --bender:"Rajdhani","Noto Sans SC",sans-serif;   /* 官网 Bender-Bold 替代 */
     --sans:"Noto Sans SC","Microsoft YaHei",sans-serif;
-    --hdr-h:64px;            /* 页头高 */
-    --brk-h:44px;            /* 播报条高 */
-    --bot-h:40px;            /* 底部状态条高 */
+    --hdr-h:64px;
+    --bot-h:40px;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
@@ -44,11 +41,11 @@
     color:var(--gray-2);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    overflow:hidden;               /* 全屏翻页：页面本身不滚动 */
+    overflow:hidden;
   }
-  ::selection{background:var(--cyan);color:#000;}   /* 官网选中态：青底黑字 */
+  ::selection{background:var(--cyan);color:#000;}
   a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;height:100%;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
 
   /* ===== 记号行（官网签名记号 // ://） ===== */
   .mark{
@@ -57,8 +54,9 @@
     color:var(--gray-3);text-transform:uppercase;
   }
   .mark b{color:var(--gray-1);font-weight:600;}
+  .dt{font-family:var(--display);font-size:12px;letter-spacing:.12em;color:var(--dim);}
 
-  /* ===== 页头（官网：纯黑带 + 白字 + 青色 hover） ===== */
+  /* ===== 页头 ===== */
   header.site{
     position:fixed;top:0;left:0;right:0;z-index:60;
     background:rgba(0,0,0,.94);
@@ -68,73 +66,25 @@
     max-width:1200px;margin:0 auto;padding:0 32px;
     height:var(--hdr-h);display:flex;align-items:center;gap:36px;
   }
-  .logo{
-    font-family:var(--display);font-weight:600;font-size:20px;
-    letter-spacing:.08em;color:var(--ink);
-  }
+  .logo{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:.08em;color:var(--ink);}
   .logo span{color:var(--cyan);}
-  nav.main{display:flex;gap:26px;margin-left:auto;}
-  nav.main a{
-    font-size:14px;color:var(--gray-2);padding:6px 2px;
-    border-bottom:2px solid transparent;
-    transition:color .3s;                     /* 官网 90% 过渡=.3s */
-  }
-  nav.main a:hover,nav.main a.cur{color:var(--cyan);}   /* 官网用法①：hover 变青 */
+  nav.main{display:flex;gap:28px;margin-left:auto;}
+  nav.main a{font-size:14px;color:var(--gray-2);padding:6px 2px;transition:color .3s;}
+  nav.main a:hover,nav.main a.cur{color:var(--cyan);}
   .nav-gitee{
     font-family:var(--bender);font-size:13px;letter-spacing:.1em;
     color:var(--ink);border:1px solid var(--stroke);
     padding:7px 16px;transition:background-color .3s,color .3s;
   }
-  .nav-gitee:hover{background:var(--cyan);color:#000;border-color:var(--cyan);}  /* 官网用法②：青底黑字 */
+  .nav-gitee:hover{background:var(--cyan);color:#000;border-color:var(--cyan);}
 
-  /* ===== BREAKING NEWS 播报条（官网首页同款结构） ===== */
-  .breaking{
-    position:fixed;top:var(--hdr-h);left:0;right:0;z-index:59;
-    background:var(--bg-deep);
-    border-bottom:1px solid var(--stroke-soft);
-  }
-  .breaking-in{
-    max-width:1200px;margin:0 auto;padding:0 32px;
-    height:var(--brk-h);display:flex;align-items:center;
-  }
-  .breaking .tag{
-    flex:none;font-family:var(--bender);font-weight:700;font-size:12px;letter-spacing:.12em;
-    background:var(--cyan);color:#000;padding:0 12px;line-height:26px;
-  }
-  .breaking .news-zone{position:relative;flex:1;overflow:hidden;height:26px;}
-  .breaking .news-item{
-    position:absolute;inset:0;display:flex;align-items:center;gap:18px;
-    padding-left:18px;white-space:nowrap;
-    opacity:0;transform:translateY(100%);
-    transition:opacity .3s,transform .3s;
-  }
-  .breaking .news-item.cur{opacity:1;transform:none;}
-  .breaking .news-item.out{opacity:0;transform:translateY(-100%);}
-  .breaking .news-item .cat{
-    flex:none;font-size:12px;font-weight:700;color:#000;padding:0 8px;line-height:18px;
-  }
-  .breaking .news-item .cat.g{background:var(--green);}   /* 官网分类 chip：绿 */
-  .breaking .news-item .cat.b{background:var(--blue);}    /* 官网分类 chip：蓝 */
-  .breaking .news-item a{font-size:13px;color:var(--gray-1);transition:color .3s;}
-  .breaking .news-item a:hover{color:var(--cyan);}
-  .breaking .news-item .dt{font-family:var(--display);font-size:12px;letter-spacing:.12em;color:var(--dim);}
-  .breaking .more{
-    flex:none;font-family:var(--bender);font-size:12px;letter-spacing:.1em;
-    color:var(--gray-2);border-left:1px solid var(--stroke);padding-left:18px;margin-left:18px;
-    transition:color .3s;
-  }
-  .breaking .more:hover{color:var(--cyan);}
-
-  /* ===== 全屏翻页 deck（AK 官网 swiper 全屏切换模式） ===== */
+  /* ===== 全屏翻页 deck ===== */
   #deck{
-    position:fixed;
-    top:calc(var(--hdr-h) + var(--brk-h));
-    bottom:var(--bot-h);left:0;right:0;
+    position:fixed;top:var(--hdr-h);bottom:var(--bot-h);left:0;right:0;
     overflow:hidden;
   }
   .slide{
-    position:absolute;inset:0;
-    visibility:hidden;opacity:0;
+    position:absolute;inset:0;visibility:hidden;opacity:0;
     transform:translateY(7%);
     transition:transform .5s cubic-bezier(.25,.1,.25,1),opacity .5s cubic-bezier(.25,.1,.25,1),visibility 0s linear .5s;
     overflow:hidden;
@@ -144,252 +94,182 @@
     transition:transform .5s cubic-bezier(.25,.1,.25,1),opacity .5s cubic-bezier(.25,.1,.25,1);
   }
   .slide.up{transform:translateY(-7%);}
-  /* 任何屏都不出滚动条：内容超高由 JS 等比缩放压进一屏 */
-
-  /* 小节内元素错峰入场（切换时触发，官方 .3/.5 档） */
   .slide .st{
     opacity:0;transform:translateX(26px);
     transition:opacity .4s cubic-bezier(.25,.1,.25,1),transform .4s cubic-bezier(.25,.1,.25,1);
-    transition-delay:0ms;
   }
-  .slide.act .st{
-    opacity:1;transform:none;
-    transition-delay:calc(120ms + var(--i,0)*70ms);
-  }
+  .slide.act .st{opacity:1;transform:none;transition-delay:calc(120ms + var(--i,0)*70ms);}
 
-  /* ===== Hero 内容 ===== */
-  .hero-bg{
-    position:absolute;right:-.06em;bottom:2%;pointer-events:none;user-select:none;
-    display:flex;align-items:flex-end;height:.95em;overflow:hidden;
-    font-family:var(--display);font-weight:600;
-    font-size:clamp(160px,24vw,300px);letter-spacing:-.05em;line-height:1;
-    color:var(--panel-2);
-  }
-  .hero-flex{display:flex;flex-direction:column;justify-content:center;min-height:100%;position:relative;}
-  .hero-top{
-    display:flex;justify-content:space-between;align-items:center;
-    margin-bottom:30px;
-  }
-  .hero-date{font-family:var(--display);font-size:13px;letter-spacing:.14em;color:var(--dim);}
-  /* 基线裁切巨型拉丁标题（官网标准式：height .95em + flex-end + overflow hidden） */
-  .giant{
-    display:flex;align-items:flex-end;
-    height:.95em;overflow:hidden;
-    font-family:var(--display);font-weight:600;
-    font-size:clamp(72px,11vw,140px);
-    letter-spacing:-.05em;line-height:1;
-    color:var(--ink);
-  }
-  .giant em{font-style:normal;color:var(--cyan);}
-  .hero h1{
-    margin-top:22px;
-    font-size:clamp(26px,3.6vw,40px);font-weight:900;
-    letter-spacing:-.04em;line-height:1.22;color:var(--ink);
-  }
-  .hero .sub{
-    margin-top:14px;max-width:620px;
-    font-size:15px;color:var(--gray-2);
-  }
-  .cta-row{display:flex;gap:16px;margin-top:28px;flex-wrap:wrap;}
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    font-family:var(--bender);font-size:15px;font-weight:700;letter-spacing:.06em;
-    padding:12px 28px;transition:background-color .3s,color .3s,border-color .3s;
-  }
-  .btn-cyan{background:var(--cyan);color:#000;}          /* 官网用法② */
-  .btn-cyan:hover{background:var(--ink);color:#000;}
-  .btn-line{border:1px solid var(--stroke);color:var(--ink);}
-  .btn-line:hover{background:var(--cyan);border-color:var(--cyan);color:#000;}
-  .hero .stat-line{
-    margin-top:36px;padding-top:18px;
-    border-top:1px solid var(--stroke-soft);
-    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-  }
-  .stat-line .dot{width:5px;height:5px;background:var(--cyan);transform:rotate(45deg);}
-
-  /* ===== 通用 section ===== */
-  .sec{display:flex;flex-direction:column;justify-content:center;min-height:100%;position:relative;padding:28px 0 20px;}
-  .sec-head{margin-bottom:34px;position:relative;}
-  .sec-head .mark{display:block;margin-bottom:12px;}
-  h2{
-    font-size:clamp(24px,3vw,32px);font-weight:900;
-    letter-spacing:-.03em;color:var(--ink);
-  }
-  .sec-head p{margin-top:10px;max-width:640px;font-size:14px;}
-  /* 小节巨型编号水印：官网 Oswald 巨型字同式，#242424 沉底 */
+  .sec{display:flex;flex-direction:column;justify-content:center;min-height:100%;position:relative;padding:32px 0 20px;}
+  .sec-head{margin-bottom:30px;}
+  .sec-head .mark{display:block;margin-bottom:10px;}
+  h2{font-size:clamp(24px,3vw,32px);font-weight:900;letter-spacing:-.03em;color:var(--ink);}
+  .sec-head p{margin-top:8px;max-width:640px;font-size:14px;}
   .sec-num{
-    position:absolute;right:0;top:10px;pointer-events:none;user-select:none;
+    position:absolute;right:0;top:6px;pointer-events:none;user-select:none;
     display:flex;align-items:flex-end;height:.95em;overflow:hidden;
     font-family:var(--display);font-weight:600;
     font-size:clamp(90px,11vw,140px);letter-spacing:-.05em;line-height:1;
     color:var(--panel-2);
   }
 
-  /* ===== 产品聚焦双栏（Lix 模型 / Lix CLI） ===== */
-  .model-grid,.cli-grid{
-    display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:start;
-  }
-  .lede{font-size:15px;max-width:560px;}
-  .lede b{color:var(--ink);font-weight:500;}
-  .lede + .lede{margin-top:12px;font-size:14px;}
-  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
-  .chip{
-    font-family:var(--bender);font-size:12px;letter-spacing:.12em;
-    color:var(--gray-1);background:var(--dim);
-    padding:5px 12px;text-transform:uppercase;
-    transition:background-color .3s,color .3s;
-  }
-  .chip:hover{background:var(--cyan);color:#000;}       /* 官网用法② */
-
-  /* 规格表：白面板（官网 #fff bg 24 次——白卡黑字是官网主信息载体） */
-  .spec-panel{
-    background:var(--ink);color:#242424;
-  }
-  .spec-panel .spec-title{
-    padding:13px 22px;border-bottom:1px solid #e0e0e0;
-    display:flex;justify-content:space-between;align-items:center;
-  }
-  .spec-panel .spec-title .mark{color:#8d8d8d;}
-  .spec-panel .spec-title .mark b{color:#242424;}
-  .spec-panel .spec-title .hero-date{color:#8d8d8d;}
-  .spec-row{
-    display:flex;justify-content:space-between;align-items:baseline;gap:18px;
-    padding:11px 22px;border-bottom:1px solid #e0e0e0;
-    font-size:13.5px;
-  }
-  .spec-row:last-child{border-bottom:none;}
-  .spec-row .k{
-    flex:none;font-family:var(--bender);font-size:11px;letter-spacing:.14em;
-    color:#8d8d8d;text-transform:uppercase;
-  }
-  .spec-row .v{color:#000;font-weight:500;text-align:right;}
-  .spec-row .v small{color:#8d8d8d;font-weight:400;}
-  .spec-row .v a{color:var(--cyan);transition:color .3s;}
-  .spec-row .v a:hover{color:#000;}
-
-  /* 终端块：CLI 命题主视觉（唯一等宽，命题理由：产品即终端；官网灰阶化） */
-  .term{
-    background:var(--bg-deep);border:1px solid var(--stroke-soft);
-    padding:20px 24px;
-    font-family:"Cascadia Mono",Consolas,"Courier New",monospace;
-    font-size:13px;line-height:1.9;
-    color:var(--gray-2);
-  }
-  .term .p{color:var(--cyan);}
-  .term .dim{color:var(--dim);}
-  .term .in{color:var(--ink);}
-  .term .caret{
-    display:inline-block;width:8px;height:14px;margin-left:6px;
-    background:var(--cyan);vertical-align:-2px;
-    animation:blink .8s steps(1) infinite;
-  }
-  @keyframes blink{50%{opacity:0;}}
-
-  /* CLI 特性行 */
-  .cli-feats{display:flex;flex-direction:column;}
-  .cli-feats .prin{padding:16px 0;}
-  .cli-feats .prin .no{
-    font-family:var(--display);font-weight:600;font-size:24px;
-    letter-spacing:-.05em;color:var(--dim);line-height:1;flex:none;width:42px;
-  }
-  .cli-feats .prin:first-child{padding-top:0;}
-  .prin h3{font-size:15px;font-weight:700;color:var(--ink);}
-  .prin p{font-size:13.5px;margin-top:4px;}
-
-  /* ===== 能力矩阵（官网块面板：#242424 实色块 + hover 青底黑字选中态） ===== */
-  .grid-cap{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  .cap{
-    background:var(--panel-2);
-    padding:22px;transition:background-color .3s;
-  }
-  .cap .ico{
-    width:30px;height:30px;display:flex;align-items:center;justify-content:center;
-    margin-bottom:14px;
-    border:1px solid var(--dim);color:var(--ink);
-    font-family:var(--bender);font-weight:700;font-size:13px;
-  }
-  .cap h3{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.01em;transition:color .3s;}
-  .cap .k{font-family:var(--bender);font-size:11px;letter-spacing:.14em;color:var(--gray-3);display:block;margin-bottom:5px;text-transform:uppercase;}
-  .cap p{font-size:13.5px;margin-top:8px;transition:color .3s;}
-  .cap p b{color:var(--ink);font-weight:500;}
-  .cap:hover{background:var(--cyan);}                   /* 官网用法②整块选中态 */
-  .cap:hover h3,.cap:hover p b{color:#000;}
-  .cap:hover p{color:#1d1f20;}
-  .cap:hover .k{color:#1d1f20;}
-  .cap:hover .ico{border-color:#000;color:#000;}
-
-  /* ===== 数据一览：大数字 panel（官网用法④：青色 4px 强调左边框） ===== */
-  .grid-stat{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
-  .stat{
-    background:var(--panel-2);
-    padding:26px 24px 22px;position:relative;
-  }
-  .stat::before{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cyan);
-  }
-  .stat .num{
+  /* ===== 00 HOME ===== */
+  .hero-flex{display:flex;flex-direction:column;justify-content:center;min-height:100%;position:relative;}
+  .hero-bg{
+    position:absolute;right:-.06em;bottom:4%;pointer-events:none;user-select:none;
     display:flex;align-items:flex-end;height:.95em;overflow:hidden;
     font-family:var(--display);font-weight:600;
-    font-size:56px;letter-spacing:-.05em;line-height:1;color:var(--ink);
+    font-size:clamp(150px,22vw,280px);letter-spacing:-.05em;line-height:1;
+    color:var(--panel-2);
   }
-  .stat .label{margin-top:12px;font-size:14px;font-weight:700;color:var(--ink);}
-  .stat .en{font-family:var(--bender);font-size:11px;letter-spacing:.14em;color:var(--gray-3);margin-top:4px;text-transform:uppercase;}
+  .giant{
+    display:flex;align-items:flex-end;height:.95em;overflow:hidden;
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(72px,10.5vw,132px);letter-spacing:-.05em;line-height:1;
+    color:var(--ink);
+  }
+  .giant em{font-style:normal;color:var(--cyan);}
+  .hero h1{margin-top:20px;font-size:clamp(24px,3.4vw,38px);font-weight:900;letter-spacing:-.04em;line-height:1.22;color:var(--ink);}
+  .hero .sub{margin-top:12px;max-width:600px;font-size:15px;}
+  .cta-row{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--bender);font-size:15px;font-weight:700;letter-spacing:.06em;
+    padding:12px 28px;transition:background-color .3s,color .3s,border-color .3s;
+  }
+  .btn-cyan{background:var(--cyan);color:#000;}
+  .btn-cyan:hover{background:var(--ink);color:#000;}
+  .btn-line{border:1px solid var(--stroke);color:var(--ink);}
+  .btn-line:hover{background:var(--cyan);border-color:var(--cyan);color:#000;}
+  /* BREAKING NEWS 行（官网：hero 底部新闻条） */
+  .hero-news{
+    margin-top:40px;padding-top:16px;border-top:1px solid var(--stroke-soft);
+    display:flex;align-items:center;gap:0;flex-wrap:wrap;
+  }
+  .hero-news .tag{
+    flex:none;font-family:var(--bender);font-weight:700;font-size:12px;letter-spacing:.12em;
+    background:var(--cyan);color:#000;padding:0 12px;line-height:26px;
+  }
+  .hero-news .cat{flex:none;font-size:12px;font-weight:700;color:#000;padding:0 8px;line-height:18px;margin-left:14px;}
+  .hero-news .cat.g{background:var(--green);}
+  .hero-news .cat.b{background:var(--blue);}
+  .hero-news a{font-size:13.5px;color:var(--gray-1);margin-left:14px;transition:color .3s;}
+  .hero-news a:hover{color:var(--cyan);}
+  .hero-news .dt{margin-left:14px;}
+  .hero-news .more{flex:none;font-family:var(--bender);font-size:12px;letter-spacing:.1em;color:var(--gray-2);border-left:1px solid var(--stroke);padding-left:16px;margin-left:16px;transition:color .3s;}
+  .hero-news .more:hover{color:var(--cyan);}
 
-  /* ===== 关于（官网无衬线：引言改青色左边框引用块） ===== */
-  .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start;}
-  .about-quote{
-    font-size:18px;line-height:1.8;color:var(--gray-1);
-    border-left:4px solid var(--cyan);padding-left:20px;margin-top:22px;  /* 官网用法④ */
+  /* ===== 01 INFORMATION 情报列表（官网同款：tabs + 列表行） ===== */
+  .tabs{display:flex;gap:8px;margin-bottom:18px;}
+  .tab{
+    font-family:var(--bender);font-size:13px;font-weight:700;letter-spacing:.08em;
+    color:var(--gray-2);background:var(--panel-2);
+    padding:7px 20px;cursor:pointer;border:none;transition:background-color .3s,color .3s;
   }
-  .about-sign{margin-top:14px;font-size:13px;color:var(--gray-3);}
-  .about-body{margin-top:20px;font-size:14px;}
-  .principles{display:flex;flex-direction:column;}
-  .prin{
-    display:flex;gap:20px;padding:18px 0;
-    border-bottom:1px solid var(--stroke-soft);
+  .tab:hover{color:var(--ink);}
+  .tab.cur{background:var(--cyan);color:#000;}
+  .news-rows{display:flex;flex-direction:column;}
+  .news-row{
+    display:flex;align-items:center;gap:18px;
+    padding:13px 14px;border-bottom:1px solid var(--stroke-soft);
+    transition:background-color .3s;cursor:pointer;
   }
-  .prin:first-child{padding-top:4px;}
-  .prin .no{
-    font-family:var(--display);font-weight:600;font-size:26px;
-    letter-spacing:-.05em;color:var(--dim);line-height:1;
-  }
+  .news-row:first-child{border-top:1px solid var(--stroke-soft);}
+  .news-row:hover{background:var(--panel-2);}
+  .news-row:hover .ttl{color:var(--cyan);}
+  .news-row .cat{flex:none;font-size:12px;font-weight:700;color:#000;padding:0 8px;line-height:18px;}
+  .news-row .cat.g{background:var(--green);}
+  .news-row .cat.b{background:var(--blue);}
+  .news-row .cat.k{background:var(--dim);color:var(--ink);}
+  .news-row .ttl{flex:1;font-size:14.5px;color:var(--gray-1);transition:color .3s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .news-row .dt{flex:none;}
+  .news-row .arr{flex:none;font-family:var(--display);color:var(--dim);transition:color .3s,transform .3s;}
+  .news-row:hover .arr{color:var(--cyan);transform:translateX(4px);}
 
-  /* ===== FAQ ===== */
-  .faq-list{max-width:820px;}
-  details{
-    background:var(--panel-2);
-    margin-bottom:10px;
+  /* ===== 02 PROFILE 档案卡（官网「干员档案」同款：tab 切换 + 左代号右信息行） ===== */
+  .prof-tabs{display:flex;gap:8px;margin-bottom:20px;}
+  .prof-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:44px;align-items:stretch;}
+  .prof-name{
+    display:flex;flex-direction:column;justify-content:flex-end;
+    border-right:1px solid var(--stroke-soft);padding-right:36px;
   }
-  summary{
-    list-style:none;cursor:pointer;
-    display:flex;align-items:center;gap:16px;
-    padding:14px 22px;font-size:14px;font-weight:700;color:var(--ink);
-    transition:color .3s;
+  .prof-code{
+    display:flex;align-items:flex-end;height:.95em;overflow:hidden;
+    font-family:var(--display);font-weight:600;
+    font-size:clamp(64px,8vw,110px);letter-spacing:-.05em;line-height:1;
+    color:var(--ink);
   }
-  summary::-webkit-details-marker{display:none;}
-  summary:hover{color:var(--cyan);}                     /* 官网用法① */
-  summary .q{
-    flex:none;font-family:var(--bender);font-weight:700;font-size:13px;
-    width:24px;height:24px;display:flex;align-items:center;justify-content:center;
-    background:var(--dim);color:var(--ink);
-    transition:background-color .3s,color .3s;
+  .prof-code em{font-style:normal;color:var(--cyan);}
+  .prof-cn{margin-top:10px;font-size:15px;color:var(--gray-2);}
+  .prof-cv{margin-top:4px;font-size:12px;color:var(--dim);}
+  .prof-body{display:flex;flex-direction:column;justify-content:center;}
+  .prof-tag{
+    align-self:flex-start;font-family:var(--bender);font-weight:700;font-size:13px;letter-spacing:.1em;
+    background:var(--cyan);color:#000;padding:0 12px;line-height:24px;margin-bottom:14px;
   }
-  details .a{padding:0 22px 16px 62px;font-size:13.5px;}
-  details[open] summary .q{background:var(--cyan);color:#000;}   /* 官网用法② */
+  .prof-desc{font-size:14px;color:var(--gray-2);}
+  .prof-desc b{color:var(--ink);font-weight:500;}
+  .spec-rows{margin-top:16px;border-top:1px solid var(--stroke-soft);}
+  .spec-row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+    padding:9px 2px;border-bottom:1px solid var(--stroke-soft);font-size:13.5px;
+  }
+  .spec-row .k{flex:none;font-family:var(--bender);font-size:11px;letter-spacing:.14em;color:var(--gray-3);text-transform:uppercase;}
+  .spec-row .v{color:var(--ink);font-weight:500;text-align:right;}
+  .spec-row .v a{color:var(--cyan);transition:color .3s;}
+  .spec-row .v a:hover{color:var(--ink);}
+  .prof-panel{background:var(--panel);padding:26px 28px;border-left:4px solid var(--cyan);}
+  /* 档案切换 */
+  .prof-view{display:none;}
+  .prof-view.cur{display:block;}
 
-  /* ===== CTA 尾屏 ===== */
-  .end-cta{text-align:center;margin-top:36px;padding-bottom:44px;}
-  .end-cta h3{font-size:clamp(20px,2.6vw,28px);font-weight:900;letter-spacing:-.03em;color:var(--ink);}
-  .end-cta p{margin-top:8px;font-size:14px;}
-  .end-cta .cta-row{display:flex;justify-content:center;gap:16px;margin-top:24px;}
+  /* ===== 03 WORLD 词条格（官网「泰拉万象」同款：巨英文词 + 中文标） ===== */
+  .world-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .wcell{
+    background:var(--panel-2);padding:22px 22px 18px;min-height:150px;
+    display:flex;flex-direction:column;justify-content:flex-end;position:relative;
+    transition:background-color .3s,transform .3s;cursor:pointer;
+  }
+  .wcell .en{
+    font-family:var(--display);font-weight:600;font-size:clamp(20px,2.2vw,27px);
+    letter-spacing:-.02em;color:var(--ink);line-height:1.1;
+    display:flex;align-items:flex-end;height:.95em;overflow:hidden;
+  }
+  .wcell .cn{margin-top:8px;font-size:13px;color:var(--gray-2);transition:color .3s;}
+  .wcell .no{
+    position:absolute;top:12px;right:14px;
+    font-family:var(--display);font-size:12px;letter-spacing:.14em;color:var(--dim);
+  }
+  .wcell:hover{background:var(--cyan);transform:translateY(-4px);}
+  .wcell:hover .en{color:#000;}
+  .wcell:hover .cn{color:#1d1f20;}
+  .wcell:hover .no{color:#1d1f20;}
+
+  /* ===== 04 MORE 入口卡 + 页脚（官网 MORE CONTENT 同款） ===== */
+  .more-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .mcard{
+    background:var(--panel-2);padding:22px;min-height:170px;
+    display:flex;flex-direction:column;transition:background-color .3s;
+  }
+  .mcard .k{font-family:var(--bender);font-size:11px;letter-spacing:.14em;color:var(--gray-3);text-transform:uppercase;}
+  .mcard h3{margin-top:8px;font-size:17px;font-weight:700;color:var(--ink);transition:color .3s;}
+  .mcard p{margin-top:8px;font-size:13px;color:var(--gray-2);flex:1;}
+  .mcard .vm{
+    margin-top:14px;font-family:var(--bender);font-weight:700;font-size:12px;letter-spacing:.12em;
+    color:var(--gray-2);transition:color .3s;
+  }
+  .mcard:hover{background:var(--cyan);}
+  .mcard:hover .k{color:#1d1f20;}
+  .mcard:hover h3{color:#000;}
+  .mcard:hover p{color:#1d1f20;}
+  .mcard:hover .vm{color:#000;}
   .foot-line{
-    margin-top:auto;                /* flex 流内推底，不叠内容 */
-    border-top:1px solid var(--stroke-soft);
-    padding:10px 0 2px;font-size:12px;color:var(--dim);
+    margin-top:auto;border-top:1px solid var(--stroke-soft);
+    padding:12px 0 2px;font-size:12px;color:var(--dim);
     display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   }
 
-  /* ===== 底部状态条（官网：ARKNIGHTS // url + SCROLL 00 // 00 / 05） ===== */
+  /* ===== 底部状态条（官网 SCROLL 00 // 00 / 0X） ===== */
   .bot-bar{
     position:fixed;left:0;right:0;bottom:0;z-index:58;
     height:var(--bot-h);background:var(--bg-deep);
@@ -403,12 +283,8 @@
   .bot-bar .site-mark b{color:var(--gray-3);font-weight:500;}
   .scroll-ind{display:flex;align-items:center;gap:14px;}
   .scroll-ind .label{font-family:var(--bender);font-size:11px;letter-spacing:.16em;color:var(--gray-3);}
-  .scroll-ind .pager{
-    font-family:var(--display);font-size:13px;letter-spacing:.14em;color:var(--gray-1);
-  }
+  .scroll-ind .pager{font-family:var(--display);font-size:13px;letter-spacing:.14em;color:var(--gray-1);}
   .scroll-ind .pager em{font-style:normal;color:var(--cyan);}
-
-  /* 左侧小节导航点（官网左缘索引风格：直角小方块） */
   .dots-nav{
     position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:58;
     display:flex;flex-direction:column;gap:10px;
@@ -420,15 +296,13 @@
   .dots-nav button:hover{background:var(--gray-1);}
   .dots-nav button.cur{background:var(--cyan);transform:scale(1.25);}
 
-  /* ===== LOADING 过场（官网 LOADING - 0 % ......） ===== */
+  /* ===== LOADING 过场 ===== */
   #boot{
     position:fixed;inset:0;z-index:99;background:var(--bg-deep);
     display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;
     transition:clip-path .5s cubic-bezier(.25,.1,.25,1);
   }
-  #boot .load-mark{
-    font-family:var(--display);font-size:14px;letter-spacing:.2em;color:var(--gray-3);
-  }
+  #boot .load-mark{font-family:var(--display);font-size:14px;letter-spacing:.2em;color:var(--gray-3);}
   #boot .load-num{
     display:flex;align-items:flex-end;height:.95em;overflow:hidden;
     font-family:var(--display);font-weight:600;
@@ -438,44 +312,39 @@
   #boot .load-dots{font-family:var(--display);letter-spacing:.4em;color:var(--dim);font-size:13px;}
   #boot.done{clip-path:inset(0 0 100% 0);pointer-events:none;}
 
-  /* ===== 矮视口紧凑档（≤760px 高：收紧间距，内容原始大小不缩放） ===== */
+  /* ===== 矮视口紧凑档 ===== */
   @media(max-height:760px){
-    .sec{padding:18px 0 12px;}
-    .sec-head{margin-bottom:20px;}
+    .sec{padding:16px 0 10px;}
+    .sec-head{margin-bottom:18px;}
     h2{font-size:24px;}
-    .sec-head p{margin-top:6px;font-size:13px;}
-    .spec-panel .spec-title{padding:9px 20px;}
-    .spec-row{padding:7px 20px;font-size:12.5px;}
+    .sec-head p{margin-top:5px;font-size:13px;}
+    .news-row{padding:10px 12px;}
+    .prof-panel{padding:18px 22px;}
+    .spec-row{padding:7px 2px;font-size:12.5px;}
+    .prof-desc{font-size:13px;}
+    .wcell{min-height:120px;padding:16px;}
+    .mcard{min-height:140px;padding:18px;}
     .cta-row{margin-top:16px;}
     .btn{padding:10px 22px;font-size:14px;}
-    .chips{margin-top:14px;}
-    .lede,.lede + .lede{font-size:14px;}
-    details{margin-bottom:7px;}
-    summary{padding:11px 20px;font-size:13.5px;}
-    .cli-feats .prin{padding:11px 0;}
-    .prin p,.cap p{font-size:13px;}
-    .cap{padding:16px;}
-    .stat{padding:18px 20px 16px;}
-    .stat .num{font-size:44px;}
-    .end-cta{margin-top:20px;}
+    .hero h1{margin-top:14px;}
+    .hero-news{margin-top:24px;padding-top:12px;}
+    .giant{font-size:clamp(60px,9vw,104px);}
   }
-
   /* ===== 响应式 ===== */
   @media(max-width:980px){
-    .model-grid,.cli-grid{grid-template-columns:1fr;gap:28px;}
-    .grid-cap{grid-template-columns:repeat(2,1fr);}
-    .grid-stat{grid-template-columns:repeat(2,1fr);}
-    .about-grid{grid-template-columns:1fr;gap:28px;}
     nav.main{display:none;}
     .sec-num{display:none;}
     .hero-bg{opacity:.5;}
-    .breaking .more{display:none;}
+    .prof-grid{grid-template-columns:1fr;gap:20px;}
+    .prof-name{border-right:none;border-bottom:1px solid var(--stroke-soft);padding:0 0 14px;}
+    .world-grid{grid-template-columns:repeat(2,1fr);}
+    .more-grid{grid-template-columns:repeat(2,1fr);}
   }
   @media(max-width:620px){
-    .grid-cap,.grid-stat{grid-template-columns:1fr;}
-    .skew-div{display:none;}
+    .world-grid,.more-grid{grid-template-columns:1fr;}
     .dots-nav{display:none;}
     .wrap{padding:0 20px;}
+    .news-row .dt{display:none;}
   }
   @media (prefers-reduced-motion:reduce){
     .slide,.slide .st,#boot{transition:none;}
@@ -484,7 +353,7 @@
 </head>
 <body>
 
-<!-- ===== LOADING 过场（官网同款） ===== -->
+<!-- LOADING 过场 -->
 <div id="boot">
   <span class="load-mark">ETEAM OFFICIAL SITE</span>
   <div class="load-num"><span id="loadPct">0</span><em>%</em></div>
@@ -496,288 +365,203 @@
     <a class="logo" href="#top" data-goto="0">ETEAM<span>_</span></a>
     <nav class="main" id="mainNav">
       <a href="#top" data-goto="0">首页</a>
-      <a href="#lix-model" data-goto="1">Lix 模型</a>
-      <a href="#lix-cli" data-goto="3">Lix CLI</a>
-      <a href="#capabilities" data-goto="4">技术能力</a>
-      <a href="#impact" data-goto="5">数据一览</a>
-      <a href="#about" data-goto="6">关于易腾</a>
-      <a href="#faq" data-goto="7">支持</a>
+      <a href="#information" data-goto="1">情报</a>
+      <a href="#profile" data-goto="2">档案</a>
+      <a href="#world" data-goto="3">技术版图</a>
+      <a href="#more" data-goto="4">更多</a>
     </nav>
     <a class="nav-gitee" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">GITEE ↗</a>
   </div>
 </header>
 
-<!-- ============ BREAKING NEWS ============ -->
-<div class="breaking">
-  <div class="breaking-in">
-    <span class="tag">BREAKING NEWS</span>
-    <div class="news-zone" id="newsZone">
-      <div class="news-item">
-        <span class="cat g">模型</span>
-        <a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">Lix（xiaoli-v2-base）权重正式发布，MIT 开源</a>
-        <span class="dt">2026 // 09 / 19</span>
-      </div>
-      <div class="news-item">
-        <span class="cat b">CLI</span>
-        <a href="https://gitee.com/shuiyu1123/xiaoli-cli" target="_blank" rel="noopener">Lix CLI 合入 pylsp 代码智能，终端直读工程结构</a>
-        <span class="dt">2026 // 09 / 28</span>
-      </div>
-      <div class="news-item">
-        <span class="cat g">训练</span>
-        <a href="#lix-model" data-goto="1">Lix 预训练 45 万步全部于 SCNet 国产 DCU 集群完成</a>
-        <span class="dt">2026 // 09 / 25</span>
-      </div>
-    </div>
-    <a class="more" href="#lix-model" data-goto="1">READ MORE</a>
-  </div>
-</div>
-
-<!-- ============ 全屏 deck ============ -->
 <main id="deck">
 
-  <!-- 00 HOME -->
+  <!-- ============ 00 HOME ============ -->
   <section class="slide" id="top" data-name="HOME">
-    <div class="hero-bg st" style="--i:5">LIX</div>
+    <div class="hero-bg st" style="--i:4">LIX</div>
     <div class="wrap hero-flex">
-      <div class="hero-top st" style="--i:0">
-        <span class="mark">ETEAM OFFICIAL SITE <b>://</b> 易腾科技 · LIX 产品线</span>
-        <span class="hero-date">2026 // 10 / 01</span>
-      </div>
-      <div class="giant st" style="--i:1">LIX<em>_</em></div>
+      <div class="st" style="--i:0"><span class="mark">ETEAM OFFICIAL SITE <b>://</b> 易腾科技 · RHODES OF OPEN SOURCE</span></div>
+      <div class="giant st" style="--i:1" style2="">LIX<em>_</em></div>
       <h1 class="st" style="--i:2">一个模型，一把命令行<br/>把 AI 装进每一台机器</h1>
       <p class="sub st" style="--i:3">易腾科技（ETeam）全面聚焦 Lix 产品线：自研中文大语言模型 <b style="color:var(--ink);font-weight:500;">Lix</b>，以及把它装进终端的命令行 AI 助手 <b style="color:var(--ink);font-weight:500;">Lix CLI</b>。</p>
-      <div class="cta-row st" style="--i:4">
-        <a class="btn btn-cyan" href="#lix-model" data-goto="1">了解 Lix 模型</a>
-        <a class="btn btn-line" href="#lix-cli" data-goto="3">探索 Lix CLI</a>
+      <div class="cta-row st" style="--i:3">
+        <a class="btn btn-cyan" href="#profile" data-goto="2">查看档案</a>
+        <a class="btn btn-line" href="#information" data-goto="1">最新情报</a>
       </div>
-      <div class="stat-line st" style="--i:5">
-        <span class="mark">STAT <b>//</b> 1.465B 参数 · 4096 上下文 · MIT 开源 · 国产算力训练</span>
-        <span class="dot"></span>
-        <span class="hero-date">HTTPS://ETEAM.YHDET.TOP/</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- 01 THE MODEL -->
-  <section class="slide" id="lix-model" data-name="THE MODEL">
-    <div class="wrap sec">
-      <div class="sec-num st" style="--i:4">01</div>
-      <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 01 <b>//</b> THE MODEL</span>
-        <h2>Lix 模型</h2>
-        <p>易腾自研中文大语言模型：从预训练到 SFT，全程国产算力，权重完整开源。</p>
-      </div>
-      <div class="lede st" style="--i:1">Lix（代号 <b>小狸 / xiaoli-v2</b>）是一个 <b>1.465B 参数</b>的 Llama 架构中文大语言模型。它不追求参数规模的军备竞赛，而是把每一分算力都花在<b>中文推理能力</b>上。</div>
-      <div class="lede st" style="--i:2">预训练 <b>45 万步</b>、SFT <b>3 亿 token</b>，全部在中科曙光 SCNet DCU 集群上完成；SFT 语料包含 DeepSeek-R1 中文蒸馏与 GSM8K_zh 数学推理数据，共 <b>112,580 条</b>。</div>
-      <div class="chips st" style="--i:3">
-        <span class="chip">1.465B PARAMS</span>
-        <span class="chip">LLAMA ARCH</span>
-        <span class="chip">MIT LICENSE</span>
-        <span class="chip">SCNET TRAINED</span>
-      </div>
-      <div class="cta-row st" style="--i:4">
-        <a class="btn btn-cyan" href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">ModelScope 下载权重 ↗</a>
-        <a class="btn btn-line" href="#lix-spec" data-goto="2">查看规格表</a>
-        <a class="btn btn-line" href="#lix-cli" data-goto="3">搭配 Lix CLI 使用</a>
+      <div class="hero-news st" style="--i:4">
+        <span class="tag">BREAKING NEWS</span>
+        <span class="cat g">模型</span>
+        <a href="#profile" data-goto="2">Lix（xiaoli-v2-base）权重正式发布，MIT 开源</a>
+        <span class="dt">2026 // 09 / 19</span>
+        <a class="more" href="#information" data-goto="1">READ MORE</a>
       </div>
     </div>
   </section>
 
-  <!-- 02 SPEC SHEET -->
-  <section class="slide" id="lix-spec" data-name="SPEC SHEET">
+  <!-- ============ 01 INFORMATION ============ -->
+  <section class="slide" id="information" data-name="INFORMATION">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:2">02</div>
+      <div class="sec-num st" style="--i:3">01</div>
       <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 02 <b>//</b> SPEC SHEET</span>
-        <h2>Lix-V2-Base 规格</h2>
-        <p>权重与训练代码完整开放，可直接 from_pretrained 加载。</p>
+        <span class="mark">SECTION 01 <b>//</b> INFORMATION</span>
+        <h2>情报</h2>
       </div>
-      <div class="spec-panel st" style="--i:1">
-        <div class="spec-title">
-          <span class="mark">LIX-V2-BASE <b>//</b> SPEC SHEET</span>
-          <span class="hero-date">V2</span>
+      <div class="tabs st" style="--i:1">
+        <button class="tab cur" data-cat="all">最新</button>
+        <button class="tab" data-cat="model">模型</button>
+        <button class="tab" data-cat="cli">CLI</button>
+        <button class="tab" data-cat="misc">动态</button>
+      </div>
+      <div class="news-rows st" style="--i:2" id="newsRows">
+        <div class="news-row" data-cat="cli" data-href="https://gitee.com/shuiyu1123/xiaoli-cli">
+          <span class="cat b">CLI</span><span class="ttl">Lix CLI 合入 pylsp 代码智能，终端直读工程结构</span><span class="dt">2026 // 09 / 28</span><span class="arr">&gt;</span>
         </div>
-        <div class="spec-row"><span class="k">Parameters</span><span class="v">1,465,174,016 <small>（1.465B）</small></span></div>
-        <div class="spec-row"><span class="k">Architecture</span><span class="v">LlamaForCausalLM</span></div>
-        <div class="spec-row"><span class="k">Layers / Hidden / Heads</span><span class="v">20 层 / 2048 / 16 头</span></div>
-        <div class="spec-row"><span class="k">Context</span><span class="v">4,096 tokens</span></div>
-        <div class="spec-row"><span class="k">Vocab</span><span class="v">30,008</span></div>
-        <div class="spec-row"><span class="k">License</span><span class="v">MIT</span></div>
-        <div class="spec-row"><span class="k">Compute</span><span class="v">SCNet 国产 DCU 集群</span></div>
-        <div class="spec-row"><span class="k">Weights</span><span class="v"><a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">modelscope.cn/shuiyu1123/xiaoli-v2-base</a></span></div>
-      </div>
-      <div class="cta-row st" style="--i:2">
-        <a class="btn btn-line" href="#lix-model" data-goto="1">← 返回模型介绍</a>
-        <a class="btn btn-cyan" href="#lix-cli" data-goto="3">下一步：Lix CLI</a>
+        <div class="news-row" data-cat="model" data-href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base">
+          <span class="cat g">模型</span><span class="ttl">Lix（xiaoli-v2-base）权重正式发布，MIT 开源</span><span class="dt">2026 // 09 / 19</span><span class="arr">&gt;</span>
+        </div>
+        <div class="news-row" data-cat="model" data-href="#profile" data-goto="2">
+          <span class="cat g">模型</span><span class="ttl">Lix 预训练 45 万步全部于 SCNet 国产 DCU 集群完成</span><span class="dt">2026 // 09 / 25</span><span class="arr">&gt;</span>
+        </div>
+        <div class="news-row" data-cat="misc" data-href="https://gitee.com/shuiyu1123">
+          <span class="cat k">动态</span><span class="ttl">Gitee @shuiyu1123 开源矩阵：11 个仓库 · 173 次年度贡献</span><span class="dt">2026 // 09 / 01</span><span class="arr">&gt;</span>
+        </div>
+        <div class="news-row" data-cat="cli" data-href="https://gitee.com/shuiyu1123/xiaoli-cli">
+          <span class="cat b">CLI</span><span class="ttl">token 感知会话自动压缩上线，长对话稳态运行</span><span class="dt">2026 // 08 / 20</span><span class="arr">&gt;</span>
+        </div>
+        <div class="news-row" data-cat="misc" data-href="https://gitee.com/shuiyu1123">
+          <span class="cat k">动态</span><span class="ttl">ETeam 官网改版：对齐明日方舟官网实证设计语言</span><span class="dt">2026 // 10 / 01</span><span class="arr">&gt;</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 03 THE CLI -->
-  <section class="slide" id="lix-cli" data-name="THE CLI">
+  <!-- ============ 02 PROFILE ============ -->
+  <section class="slide" id="profile" data-name="PROFILE">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">03</div>
+      <div class="sec-num st" style="--i:3">02</div>
       <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 02 <b>//</b> THE CLI</span>
-        <h2>Lix CLI</h2>
-        <p>命令行下的高级 AI 助手：真·全屏 TUI、会话压缩、代码智能，把 Lix 的能力直接装进终端。</p>
+        <span class="mark">SECTION 02 <b>//</b> PROFILE</span>
+        <h2>产品档案</h2>
       </div>
-      <div class="cli-grid">
-        <div class="st" style="--i:1">
-          <div class="term">
-            <div><span class="p">$</span> <span class="in">xiaoli</span></div>
-            <div class="dim">LIX CLI · textual TUI · 会话已就绪</div>
-            <div><span class="p">&gt;</span> <span class="in">帮我看看这段代码为什么报错</span></div>
-            <div class="dim">… token 感知压缩已启用 · pylsp 代码智能已挂载</div>
-            <div><span class="p">&gt;</span> <span class="in">/snapshot</span></div>
-            <div class="dim">rich 面板快照已导出 ✓<span class="caret"></span></div>
+      <div class="prof-tabs st" style="--i:1">
+        <button class="tab cur" data-prof="lix">LIX 模型</button>
+        <button class="tab" data-prof="cli">LIX CLI</button>
+      </div>
+
+      <div class="prof-view cur" id="prof-lix">
+        <div class="prof-grid">
+          <div class="prof-name st" style="--i:1">
+            <div class="prof-code">LIX<em>_</em></div>
+            <div class="prof-cn">小狸 · xiaoli-v2-base</div>
+            <div class="prof-cv">TRAINED ON SCNET // 国产 DCU 集群</div>
           </div>
-          <div class="cta-row">
-            <a class="btn btn-line" href="https://gitee.com/shuiyu1123/xiaoli-cli" target="_blank" rel="noopener">Gitee 仓库 ↗</a>
-            <a class="btn btn-line" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">Gitee @shuiyu1123 ↗</a>
+          <div class="prof-panel st" style="--i:2">
+            <span class="prof-tag">RHODES :// LIX MODEL</span>
+            <p class="prof-desc">为中文而生的 <b>1.465B 参数</b> Llama 架构大语言模型。不追参数军备竞赛，把每一分算力花在<b>中文推理</b>上；SFT 语料含 DeepSeek-R1 中文蒸馏与 GSM8K_zh 数学推理，共 <b>112,580 条</b>。</p>
+            <div class="spec-rows">
+              <div class="spec-row"><span class="k">Parameters</span><span class="v">1,465,174,016（1.465B）</span></div>
+              <div class="spec-row"><span class="k">Architecture</span><span class="v">LlamaForCausalLM · 20L / 2048H / 16H</span></div>
+              <div class="spec-row"><span class="k">Context / Vocab</span><span class="v">4,096 tokens / 30,008</span></div>
+              <div class="spec-row"><span class="k">Training</span><span class="v">预训练 45 万步 + SFT 3 亿 token</span></div>
+              <div class="spec-row"><span class="k">License</span><span class="v">MIT · <a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">ModelScope 下载 ↗</a></span></div>
+            </div>
           </div>
         </div>
-        <div class="cli-feats st" style="--i:2">
-          <div class="prin"><span class="no">01</span><div><h3>真·全屏 TUI</h3><p>基于 textual 的全屏终端界面，opencode 风格交互，不是简单的 REPL 套壳。</p></div></div>
-          <div class="prin"><span class="no">02</span><div><h3>会话自动压缩</h3><p>token 感知的自动压缩机制，长对话、大代码库下依然稳态运行。</p></div></div>
-          <div class="prin"><span class="no">03</span><div><h3>代码智能</h3><p>内置 pylsp 集成，在命令行里直接理解、分析、重构你的 Python 代码。</p></div></div>
-          <div class="prin"><span class="no">04</span><div><h3>面板快照</h3><p>rich 面板快照系统，AI 输出可截图、可存档、可复现。</p></div></div>
+      </div>
+
+      <div class="prof-view" id="prof-cli">
+        <div class="prof-grid">
+          <div class="prof-name st" style="--i:1">
+            <div class="prof-code">CLI<em>_</em></div>
+            <div class="prof-cn">Lix CLI · xiaoli-cli</div>
+            <div class="prof-cv">TERMINAL-NATIVE AI ASSISTANT</div>
+          </div>
+          <div class="prof-panel st" style="--i:2">
+            <span class="prof-tag">RHODES :// LIX CLI</span>
+            <p class="prof-desc">命令行下的高级 AI 助手：把 Lix 的能力直接装进终端，<b>opencode 风格</b>全屏交互，不是简单的 REPL 套壳。</p>
+            <div class="spec-rows">
+              <div class="spec-row"><span class="k">Interface</span><span class="v">textual 真·全屏 TUI</span></div>
+              <div class="spec-row"><span class="k">Session</span><span class="v">token 感知自动压缩，长对话稳态</span></div>
+              <div class="spec-row"><span class="k">Code Intel</span><span class="v">内置 pylsp，直读 Python 工程结构</span></div>
+              <div class="spec-row"><span class="k">Snapshot</span><span class="v">rich 面板快照，可截图可复现</span></div>
+              <div class="spec-row"><span class="k">Source</span><span class="v"><a href="https://gitee.com/shuiyu1123/xiaoli-cli" target="_blank" rel="noopener">gitee.com/shuiyu1123/xiaoli-cli ↗</a></span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 04 CAPABILITIES -->
-  <section class="slide" id="capabilities" data-name="CAPABILITIES">
+  <!-- ============ 03 WORLD ============ -->
+  <section class="slide" id="world" data-name="WORLD">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">04</div>
+      <div class="sec-num st" style="--i:3">03</div>
       <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 04 <b>//</b> CAPABILITIES</span>
-        <h2>技术能力</h2>
-        <p>围绕 Lix 产品线的六项核心能力——一条模型线，一个 CLI，做到极致。</p>
+        <span class="mark">SECTION 03 <b>//</b> WORLD</span>
+        <h2>技术版图</h2>
       </div>
-      <div class="grid-cap">
-        <div class="cap st" style="--i:1"><div class="ico">A</div><span class="k">AI / LLM</span><h3>中文原生推理</h3><p>从预训练语料到 SFT 数据全程中文深耕，<b>中文推理专精</b>是 Lix 的第一设计目标。</p></div>
-        <div class="cap st" style="--i:2"><div class="ico">D</div><span class="k">DOMESTIC</span><h3>国产算力训练</h3><p>预训练与 SFT 全部跑在 <b>SCNet 曙光 DCU 集群</b>上，全程国产算力。</p></div>
-        <div class="cap st" style="--i:3"><div class="ico">O</div><span class="k">OPEN SOURCE</span><h3>权重完整开放</h3><p><b>MIT 协议</b>，权重与训练代码在 ModelScope 公开，欢迎商用与二次开发。</p></div>
-        <div class="cap st" style="--i:4"><div class="ico">T</div><span class="k">TERMINAL</span><h3>全屏终端交互</h3><p>textual 真·全屏 TUI，<b>opencode 风格</b>交互体验，终端即工作台。</p></div>
-        <div class="cap st" style="--i:5"><div class="ico">C</div><span class="k">COMPRESS</span><h3>会话压缩</h3><p>token 感知自动压缩，<b>长对话不爆上下文</b>，稳态可靠。</p></div>
-        <div class="cap st" style="--i:6"><div class="ico">L</div><span class="k">LSP</span><h3>代码智能</h3><p>内置 pylsp 集成，命令行内<b>直接读懂代码结构</b>，AI 与工程无缝衔接。</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 IMPACT -->
-  <section class="slide" id="impact" data-name="IMPACT">
-    <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">05</div>
-      <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 05 <b>//</b> IMPACT</span>
-        <h2>数据一览</h2>
-        <p>Lix 产品线的几个关键数字，全部来自公开仓库与官方口径。</p>
-      </div>
-      <div class="grid-stat">
-        <div class="stat st" style="--i:1"><div class="num">1465</div><div class="label">参数规模（M）</div><div class="en">MODEL PARAMETERS</div></div>
-        <div class="stat st" style="--i:2"><div class="num">4096</div><div class="label">上下文长度</div><div class="en">CONTEXT TOKENS</div></div>
-        <div class="stat st" style="--i:3"><div class="num">30006</div><div class="label">词典规模</div><div class="en">VOCAB SIZE</div></div>
-        <div class="stat st" style="--i:4"><div class="num">100</div><div class="label">国产算力训练（%）</div><div class="en">TRAINED ON SCNET</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 06 ABOUT -->
-  <section class="slide" id="about" data-name="ABOUT">
-    <div class="wrap sec">
-      <div class="sec-num st" style="--i:5">06</div>
-      <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 06 <b>//</b> ABOUT</span>
-        <h2>关于易腾</h2>
-        <p>一支以开源为信仰的技术团队，探索人机协作的边界。</p>
-      </div>
-      <div class="about-grid">
-        <div class="st" style="--i:1">
-          <blockquote class="about-quote">「我们相信，AI 不是替代人类的工具，而是与之共生的伙伴。」</blockquote>
-          <p class="about-sign">—— 易腾科技 · ETEAM</p>
-          <p class="about-body">易腾科技（ETeam）是一支以开源为信仰的技术团队。我们把全部精力收敛到 Lix 产品线——一个为中文而生的大模型，和一把把模型送进终端的命令行工具。</p>
+      <div class="world-grid">
+        <div class="wcell st" style="--i:1" data-href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base">
+          <span class="no">W / 01</span><div class="en">LIX MODEL</div><div class="cn">中文原生推理大模型</div>
         </div>
-        <div class="principles st" style="--i:2">
-          <div class="prin"><span class="no">01</span><div><h3>收敛聚焦</h3><p>少即是多：一条模型线，一个 CLI，把两件事做到极致。</p></div></div>
-          <div class="prin"><span class="no">02</span><div><h3>人机共生</h3><p>让 AI 成为人类的协作者，而非替代者。</p></div></div>
-          <div class="prin"><span class="no">03</span><div><h3>全栈自研</h3><p>模型与工具链全部自研，掌握完整技术主权。</p></div></div>
+        <div class="wcell st" style="--i:2" data-href="https://gitee.com/shuiyu1123/xiaoli-cli">
+          <span class="no">W / 02</span><div class="en">LIX CLI</div><div class="cn">终端原生 AI 助手</div>
+        </div>
+        <div class="wcell st" style="--i:3" data-href="#profile" data-goto="2">
+          <span class="no">W / 03</span><div class="en">SCNET</div><div class="cn">国产 DCU 算力训练</div>
+        </div>
+        <div class="wcell st" style="--i:4" data-href="https://gitee.com/shuiyu1123">
+          <span class="no">W / 04</span><div class="en">OPEN SOURCE</div><div class="cn">11 仓库 · MIT 开源矩阵</div>
+        </div>
+        <div class="wcell st" style="--i:5">
+          <span class="no">W / 05</span><div class="en">LITY3D</div><div class="cn">自研 3D 引擎与编辑器</div>
+        </div>
+        <div class="wcell st" style="--i:6">
+          <span class="no">W / 06</span><div class="en">WEARABLE</div><div class="cn">小米手环轻量浏览器</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 07 FAQ -->
-  <section class="slide" id="faq" data-name="FAQ">
+  <!-- ============ 04 MORE + FOOTER ============ -->
+  <section class="slide" id="more" data-name="MORE / GET LIX">
     <div class="wrap sec">
-      <div class="sec-num st" style="--i:4">07</div>
+      <div class="sec-num st" style="--i:3">04</div>
       <div class="sec-head st" style="--i:0">
-        <span class="mark">SECTION 07 <b>//</b> FAQ</span>
-        <h2>常见问题</h2>
-        <p>关于 Lix 模型、Lix CLI 与开源协作，你可能想知道的。</p>
+        <span class="mark">SECTION 04 <b>//</b> MORE CONTENT</span>
+        <h2>更多内容</h2>
       </div>
-      <div class="faq-list st" style="--i:1">
-        <details>
-          <summary><span class="q">Q</span>Lix 模型在哪里可以下载？</summary>
-          <div class="a">ModelScope 仓库 <a href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener" style="color:var(--cyan);">shuiyu1123/xiaoli-v2-base</a>，MIT 协议，权重与训练代码完整开放，可直接 from_pretrained 加载。</div>
-        </details>
-        <details>
-          <summary><span class="q">Q</span>Lix CLI 怎么获取？</summary>
-          <div class="a">前往 Gitee <a href="https://gitee.com/shuiyu1123/xiaoli-cli" target="_blank" rel="noopener" style="color:var(--cyan);">shuiyu1123/xiaoli-cli</a> 仓库，按 README 安装依赖即可运行，支持终端 TUI 与代码智能等完整能力。</div>
-        </details>
-        <details>
-          <summary><span class="q">Q</span>Lix 是用什么算力训练的？</summary>
-          <div class="a">预训练（45 万步）与 SFT 全部在 SCNet（中科曙光 DCU 集群）上完成，全程国产算力。</div>
-        </details>
-        <details>
-          <summary><span class="q">Q</span>如何参与贡献？</summary>
-          <div class="a">前往 Gitee @shuiyu1123，Fork 仓库并提交 Pull Request，也可以在 Issue 中反馈问题或建议。</div>
-        </details>
-        <details>
-          <summary><span class="q">Q</span>是否提供商务合作或技术咨询？</summary>
-          <div class="a">欢迎通过官方渠道联系我们，可提供大模型定制、私有化部署与开发者工具链集成等合作。</div>
-        </details>
+      <div class="more-grid">
+        <a class="mcard st" style="--i:1" href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">
+          <span class="k">WEIGHTS</span><h3>ModelScope 权重</h3><p>xiaoli-v2-base 完整权重与训练代码，MIT 协议。</p><span class="vm">VIEW MORE &gt;</span>
+        </a>
+        <a class="mcard st" style="--i:2" href="https://gitee.com/shuiyu1123/xiaoli-cli" target="_blank" rel="noopener">
+          <span class="k">TERMINAL</span><h3>Lix CLI 仓库</h3><p>命令行 AI 助手，全屏 TUI + 代码智能。</p><span class="vm">VIEW MORE &gt;</span>
+        </a>
+        <a class="mcard st" style="--i:3" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">
+          <span class="k">COMMUNITY</span><h3>Gitee 开源矩阵</h3><p>@shuiyu1123 全部 11 个开源仓库。</p><span class="vm">VIEW MORE &gt;</span>
+        </a>
+        <a class="mcard st" style="--i:4" href="#profile" data-goto="2">
+          <span class="k">CONTACT</span><h3>商务合作</h3><p>大模型定制 · 私有化部署 · 工具链集成。</p><span class="vm">VIEW MORE &gt;</span>
+        </a>
       </div>
-      <div class="cta-row st" style="--i:2">
-        <a class="btn btn-cyan" href="#get-lix" data-goto="8">获取 Lix →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 08 GET LIX（尾屏） -->
-  <section class="slide" id="get-lix" data-name="GET LIX">
-    <div class="wrap sec">
-      <div class="sec-num st" style="--i:3">08</div>
-      <div class="end-cta st" style="--i:0">
-        <span class="mark">NEXT <b>//</b> GET LIX</span>
-        <h3>把 Lix 带进你的下一台机器</h3>
-        <p>下载模型权重，或从命令行开始。</p>
-        <div class="cta-row">
-          <a class="btn btn-cyan" href="https://modelscope.cn/models/shuiyu1123/xiaoli-v2-base" target="_blank" rel="noopener">ModelScope ↗</a>
-          <a class="btn btn-line" href="https://gitee.com/shuiyu1123" target="_blank" rel="noopener">Gitee ↗</a>
-        </div>
-      </div>
-      <div class="foot-line st" style="--i:1">
+      <div class="foot-line st" style="--i:5">
         <span>ETEAM <b style="color:var(--gray-3)">//</b> LIX MODEL &amp; CLI · 易腾科技 · 以开源铸造人机协作未来</span>
-        <span class="hero-date">HTTPS://ETEAM.YHDET.TOP/</span>
+        <span class="dt">HTTPS://ETEAM.YHDET.TOP/ · 2026 // 10 / 01</span>
       </div>
     </div>
   </section>
 
 </main>
 
-<!-- 左侧小节导航点 -->
 <div class="dots-nav" id="dotsNav"></div>
 
-<!-- 底部状态条（官网 SCROLL 00 // 00 / 05 同款） -->
 <div class="bot-bar">
   <div class="bot-in">
     <span class="site-mark">ETEAM <b>//</b> HTTPS://ETEAM.YHDET.TOP/</span>
     <div class="scroll-ind">
       <span class="label" id="slideName">HOME</span>
-      <span class="pager">SCROLL 00 <b style="color:var(--gray-3)">//</b> <em id="pagerCur">00</em> / <span id="pagerTotal">06</span></span>
+      <span class="pager">SCROLL 00 <b style="color:var(--gray-3)">//</b> <em id="pagerCur">00</em> / <span id="pagerTotal">04</span></span>
     </div>
   </div>
 </div>
@@ -794,11 +578,9 @@
   var navLinks = document.querySelectorAll('#mainNav a[data-goto]');
   var dotsNav = document.getElementById('dotsNav');
 
-  /* 两位数补零（官网 SCROLL 00 // 00 / 05 格式） */
   function pad(n){ return (n<10?'0':'')+n; }
   document.getElementById('pagerTotal').textContent = pad(N-1);
 
-  /* 左侧导航点 */
   slides.forEach(function(s,i){
     var b=document.createElement('button');
     b.setAttribute('aria-label',s.dataset.name||('slide '+i));
@@ -806,8 +588,6 @@
     dotsNav.appendChild(b);
   });
   var dots = dotsNav.querySelectorAll('button');
-
-  /* 每屏内容已按一屏拆分，不做缩放不做内滚（overflow hidden 兜底） */
 
   function render(){
     slides.forEach(function(s,i){
@@ -826,26 +606,22 @@
     if(i===cur || animating) return;
     dir = dir || (i>cur ? 1 : -1);
     animating = true;
-    var prev = cur; cur = i;
-    /* 出场方向：向下翻页→旧屏往上走，反之往下 */
-    var old = slides[prev];
+    var old = slides[cur];
+    cur = i;
     old.classList.remove('act');
     old.classList.toggle('up', dir===1);
-    /* 入场方向：向下翻页→新屏从下方进入 */
     var inc = slides[cur];
     inc.classList.toggle('up', dir===-1);
-    /* 强制 reflow 让新屏从带位移的初始态开始过渡 */
     void inc.offsetHeight;
     inc.classList.add('act');
     inc.classList.remove('up');
-    /* 旧屏过渡结束后复位 */
-    setTimeout(function(){ old.classList.remove('up'); old.style.visibility=''; }, 560);
+    setTimeout(function(){ old.classList.remove('up'); }, 560);
     render();
     setTimeout(function(){ animating=false; }, LOCK);
   }
   window.__eteamGo = go;
 
-  /* 滚轮翻页（每屏都已缩放适配，无内部滚动） */
+  /* 滚轮翻页 */
   window.addEventListener('wheel', function(e){
     if(animating) return;
     e.preventDefault();
@@ -871,13 +647,55 @@
     dy>0 ? go(cur+1,1) : go(cur-1,-1);
   }, {passive:true});
 
-  /* data-goto 链接（导航/CTA/播报条） */
+  /* data-goto / data-href 跳转 */
   document.querySelectorAll('[data-goto]').forEach(function(a){
     a.addEventListener('click', function(e){
       e.preventDefault();
       go(+this.dataset.goto);
     });
   });
+  document.querySelectorAll('[data-href]').forEach(function(el){
+    el.addEventListener('click', function(){
+      var h = this.dataset.href;
+      if(!h) return;
+      if(h.charAt(0)==='#'){
+        var t = document.querySelector(h);
+        if(t) go(slides.indexOf(t));
+      }else{
+        window.open(h,'_blank','noopener');
+      }
+    });
+  });
+
+  /* 情报列表 tabs 过滤 */
+  (function(){
+    var tabs = document.querySelectorAll('.tabs .tab');
+    var rows = document.querySelectorAll('#newsRows .news-row');
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){
+        tabs.forEach(function(x){ x.classList.remove('cur'); });
+        t.classList.add('cur');
+        var cat = t.dataset.cat;
+        rows.forEach(function(r){
+          r.style.display = (cat==='all' || r.dataset.cat===cat) ? '' : 'none';
+        });
+      });
+    });
+  })();
+
+  /* 档案 tab 切换 */
+  (function(){
+    var tabs = document.querySelectorAll('.prof-tabs .tab');
+    tabs.forEach(function(t){
+      t.addEventListener('click', function(){
+        tabs.forEach(function(x){ x.classList.remove('cur'); });
+        t.classList.add('cur');
+        document.querySelectorAll('.prof-view').forEach(function(v){
+          v.classList.toggle('cur', v.id === 'prof-'+t.dataset.prof);
+        });
+      });
+    });
+  })();
 
   /* hash 直达 */
   function fromHash(){
@@ -886,28 +704,7 @@
   }
   window.addEventListener('hashchange', fromHash);
 
-  /* 窗口尺寸变化 / FAQ 展开收起后重新适配缩放 */
-  /* 无缩放无内滚：无需 resize 重算 */
-
-  /* —— BREAKING NEWS 播报轮换 —— */
-  (function(){
-    var zone = document.getElementById('newsZone');
-    if(!zone) return;
-    var items = zone.querySelectorAll('.news-item');
-    if(items.length < 2) return;
-    var curN = 0;
-    items[0].classList.add('cur');
-    setInterval(function(){
-      var prev = items[curN];
-      curN = (curN + 1) % items.length;
-      var next = items[curN];
-      prev.classList.remove('cur'); prev.classList.add('out');
-      setTimeout(function(){ prev.classList.remove('out'); }, 320);
-      next.classList.add('cur');
-    }, 4200);
-  })();
-
-  /* —— LOADING 过场：0 → 100%（官网 LOADING - 0 % ......） —— */
+  /* LOADING 过场 */
   var boot = document.getElementById('boot');
   var pct = document.getElementById('loadPct');
   var p = 0;
@@ -919,7 +716,6 @@
       setTimeout(function(){
         boot.classList.add('done');
         setTimeout(function(){ if(boot.parentNode) boot.parentNode.removeChild(boot); }, 600);
-        /* 过场结束后重播 hero 错峰入场 */
         var s0 = slides[0];
         s0.classList.remove('act');
         void s0.offsetHeight;
@@ -928,7 +724,6 @@
     }
   }, 60);
 
-  /* —— 初始定位 —— */
   fromHash();
   render();
 })();
